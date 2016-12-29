@@ -1,0 +1,19 @@
+{
+  "name": "notable-frontend",
+  "version": "1.0.0",
+  "description": "Nuxt.js project",
+  "author": "wushan <chiangloveslynn@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "node-sass": "^4.1.1",
+    "nuxt": "latest",
+    "pug": "^2.0.0-beta6",
+    "sass-loader": "^4.1.1"
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  }
+}
