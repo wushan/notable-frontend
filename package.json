@@ -12,7 +12,7 @@
     "nuxt": "latest",
     "pug": "^2.0.0-beta6",
     "sass-loader": "^4.1.1",
-    "vue-typewriter": "^2.0.0"
+    "vue-typer": "^1.0.2"
   },
   "scripts": {
     "dev": "nuxt",

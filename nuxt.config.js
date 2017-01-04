@@ -25,5 +25,6 @@ module.exports = {
     vendor: [
       'axios'
     ]
-  }
+  },
+  plugins: ['plugins/vue-typer.js']
 }

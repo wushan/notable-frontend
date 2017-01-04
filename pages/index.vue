@@ -2,8 +2,8 @@
   main
     section.hero-container.search-wrapper
       .restrict.container
-        h1.title 你好，不管你要訂哪一天_都沒位子
-        vue-typer(:text='["Arya Stark","Jon Snow","Daenerys Targaryen","Melisandre","Tyrion Lannister"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='70', :type-delay='70', :pre-erase-delay='2000', :erase-delay='250', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
+        h1.title 你好，不管你要訂哪一天，
+          vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
         .controlgroup
           input(type="search")
           button SEARCH
@@ -16,14 +16,12 @@
 // import VueNotifications from 'vue-notifications'
 // var VueTyper = window.VueTyper.VueTyper
 
-if (process.BROWSER_BUILD) {
-  var VueTyper = require('vue-typer').VueTyper
-}
 export default {
   mounted () {
     console.log('created')
     console.log(window)
-    this.$options.components.VueTyper = require('vue-typer').VueTyper
+    // const VueTyper = require('vue-typer').VueTyper
+    // this.$options.components.VueTyper = require('vue-typer').VueTyper
   },
   data () {
     return {
@@ -31,15 +29,38 @@ export default {
     }
   },
   components: {
-    // typewriter
-    // 'vue-typer': VueTyper
   }
 }
 </script>
 <style lang="scss">
+@import '~assets/css/var';
 .search-wrapper {
   background-image: url('~assets/img/search-bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+}
+// @keyframes rocking {
+//   0%,100% {transform: rotateZ(-10deg);},
+//   50%     {transform: rotateZ(10deg);}
+// }
+
+.vue-typer {
+  font-family: inherit;
+}
+.vue-typer .custom.char.typed {
+  color: $primary;
+}
+.vue-typer .custom.char.selected {
+  color: #E91E63;
+}
+.vue-typer .custom.caret {
+  // animation: rocking 1s ease-in-out 0s infinite;
+}
+.vue-typer .custom.caret.typing {
+  background-color: $primary;
+}
+.vue-typer .custom.caret.selecting {
+  display: inline-block;
+  background-color: #E91E63;
 }
 </style>
