@@ -1,0 +1,14 @@
+@import './var';
+@import './normalize';
+html {
+  background-color: $white;
+  color: $black;
+  font-family: $sans-serif;
+  font-size: 1rem;
+  text-rendering: optimizeLegibility;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  line-height: 1.428571428571429;
+}
+@import './components';
