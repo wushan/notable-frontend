@@ -7,5 +7,5 @@ nuxt.build()
   // Render every route with Nuxt.js
   app.use(nuxt.render)
   // Server listening
-  app.listen(3000)
+  app.listen(9487)
 })
