@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="507px" height="392px" viewBox="0 0 507 392" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-467.000000, -365.000000)">
+            <g id="Group-3" transform="translate(467.000000, 365.000000)">
+                <g id="Group-5">
+                    <circle id="Oval-2" fill="#F7F7F7" cx="87" cy="187" r="87"></circle>
+                    <circle id="Oval-2-Copy" fill="#F7F7F7" cx="344" cy="141" r="87"></circle>
+                    <circle id="Oval-2-Copy-2" fill="#F7F7F7" cx="420" cy="187" r="87"></circle>
+                    <circle id="Oval-3" fill="#F7F7F7" cx="214.5" cy="120.5" r="107.5"></circle>
+                    <g id="table" transform="translate(83.000000, 0.000000)">
+                        <g id="Capa_1">
+                            <polygon id="Shape" fill="#7D5C3E" points="24 342 12 342 6 168 36 168"></polygon>
+                            <polygon id="Shape" fill="#7D5C3E" points="336 342 324 342 312 168 342 168"></polygon>
+                            <path d="M324,144 C324,144.498 150,228 150,228 L18,144 L324,144 Z" id="Shape" fill="#EA6248"></path>
+                            <g id="Group" transform="translate(0.000000, 144.000000)" fill="#553323">
+                                <polygon id="Shape" points="18 0 55.716 24 0 24 0 0"></polygon>
+                                <path d="M324,0 L348,0 L348,24 L274.746,24 C302.556,10.578 324,0.174 324,0 Z" id="Shape"></path>
+                            </g>
+                            <rect id="Rectangle-path" fill="#C7CAC7" x="30" y="126" width="48" height="18"></rect>
+                            <path d="M24,126 L84,126" id="Shape" stroke="#949493" stroke-width="2"></path>
+                            <rect id="Rectangle-path" fill="#C7CAC7" x="276" y="126" width="48" height="18"></rect>
+                            <path d="M270,126 L330,126" id="Shape" stroke="#949493" stroke-width="2"></path>
+                            <path d="M180,90 L180,42" id="Shape" stroke="#88C057" stroke-width="2"></path>
+                            <path d="M180,78 L168,66" id="Shape" stroke="#88C057" stroke-width="2"></path>
+                            <path d="M180,66 L192,54" id="Shape" stroke="#88C057" stroke-width="2"></path>
+                            <path d="M162.15,90 C158.34,99.558 156,100.152 156,114 C156,143.82 166.746,144 180,144 C193.254,144 204,143.82 204,114 C204,100.152 201.66,99.558 197.85,90 L162.15,90 Z" id="Shape" fill="#694F87"></path>
+                            <path d="M180,0 L162,0 L162,30 C162,39.9 170.1,48 180,48 L180,0 Z" id="Shape" fill="#DD352E"></path>
+                            <path d="M180,12 L198,12 L198,24 C198,33.9 189.9,42 180,42 L180,12 Z" id="Shape" fill="#B02721"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="table" opacity="0.200000003" transform="translate(253.000000, 367.000000) scale(1, -1) translate(-253.000000, -367.000000) translate(79.000000, 342.000000)">
+                    <g id="Capa_1">
+                        <polygon id="Shape" fill="#9B9B9B" points="24 50 12 50 6 24.5614035 36 24.5614035"></polygon>
+                        <polygon id="Shape" fill="#9B9B9B" points="336 50 324 50 312 24.5614035 342 24.5614035"></polygon>
+                        <path d="M324,21.0526316 C324,21.1254386 150,33.3333333 150,33.3333333 L18,21.0526316 L324,21.0526316 Z" id="Shape" fill="#9B9B9B"></path>
+                        <g id="Group" transform="translate(0.000000, 21.052632)" fill="#9B9B9B">
+                            <polygon id="Shape" points="18 0 55.716 3.50877193 0 3.50877193 0 0"></polygon>
+                            <path d="M324,0 L348,0 L348,3.50877193 L274.746,3.50877193 C302.556,1.54649123 324,0.0254385965 324,0 Z" id="Shape"></path>
+                        </g>
+                        <rect id="Rectangle-path" fill="#9B9B9B" x="30" y="18.4210526" width="48" height="2.63157895"></rect>
+                        <path d="M24,18.4210526 L84,18.4210526" id="Shape"></path>
+                        <rect id="Rectangle-path" fill="#9B9B9B" x="276" y="18.4210526" width="48" height="2.63157895"></rect>
+                        <path d="M270,18.4210526 L330,18.4210526" id="Shape"></path>
+                        <path d="M180,13.1578947 L180,6.14035088" id="Shape"></path>
+                        <path d="M180,11.4035088 L168,9.64912281" id="Shape"></path>
+                        <path d="M180,9.64912281 L192,7.89473684" id="Shape"></path>
+                        <path d="M162.15,13.1578947 C158.34,14.5552632 156,14.6421053 156,16.6666667 C156,21.0263158 166.746,21.0526316 180,21.0526316 C193.254,21.0526316 204,21.0263158 204,16.6666667 C204,14.6421053 201.66,14.5552632 197.85,13.1578947 L162.15,13.1578947 Z" id="Shape" fill="#9B9B9B"></path>
+                        <path d="M180,0 L162,0 L162,4.38596491 C162,5.83333333 170.1,7.01754386 180,7.01754386 L180,0 Z" id="Shape" fill="#9B9B9B"></path>
+                        <path d="M180,1.75438596 L198,1.75438596 L198,3.50877193 C198,4.95614035 189.9,6.14035088 180,6.14035088 L180,1.75438596 Z" id="Shape" fill="#9B9B9B"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

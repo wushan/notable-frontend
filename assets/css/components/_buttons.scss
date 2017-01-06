@@ -1,0 +1,43 @@
+.button {
+  text-decoration: none;
+  border: 1px solid $gray;
+  box-sizing: border-box;
+  border-radius: 3px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 .2em;
+  padding: .4em 1em;
+  color: $black;
+  &:hover {
+    transition: .3s all ease;
+    background-color: $primary;
+    color: $white;
+    border-color: $primary;
+    box-shadow: 0px 1px 1px 1px $lightgray;
+  }
+  &:active {
+    background-color: darken($primary, 5%);
+    box-shadow:inset 0px 0px 3px 0px darken($primary, 15%);
+  }
+  &.invert {
+    background-color: $primary;
+    color: $white;
+    border-color: $primary;
+    &:hover {
+      transition: .3s all ease;
+      background-color: $white;
+      color: $black;
+      border-color: $gray;
+    }
+  }
+  &.primary {
+    border-color: $primary;
+    color: $primary;
+    &:hover {
+      transition: .3s all ease;
+      background-color: $primary;
+      color: $white;
+      border-color: darken($primary, 5%);
+    }
+  }
+}

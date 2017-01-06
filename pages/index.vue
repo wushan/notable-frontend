@@ -19,7 +19,7 @@
 
 export default {
   head: {
-    title: 'NOTABLE「無位la！」 - 小老闆團結！史上最絕奧客防治服務'
+    title: 'NOTABLE「嘸位la！」 - 小老闆團結！史上最絕奧客防治服務'
   },
   mounted () {
     console.log('created')

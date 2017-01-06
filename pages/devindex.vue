@@ -1,15 +1,56 @@
 <template lang="pug">
-  main
+  #intro
     section.hero-container.search-wrapper
+      .hero-content
+        .restrict.container
+          h1.title.centered 你好，不管你要訂哪一天，
+            vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
+        .restrict-small.container
+          .controlgroup.centered
+            .controls
+              input(type="search")
+              button 肉搜你
+        .hero-table
+          img(src="~assets/img/table.svg")
+    section.service-intro
       .restrict.container
-        h1.title 你好，不管你要訂哪一天，
-          vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
-        .controlgroup
-          input(type="search")
-          button SEARCH
-    section
-      .restrict.container
-        p Must-do is a good fucking master. Nothing of value comes to you without fucking working at it. Never, never assume that what you have achieved is fucking good enough. Don’t get hung up on things that don’t fucking work. Your rapidograph pens are fucking dried up, the x-acto blades in your bag are rusty, and your mind is dull. Stop clicking your mouse, get messy, go back to the basics and make something fucking original. When you sit down to work, external critics aren’t the enemy. It’s you who you must to fight against to do great fucking work. You must overcome yourself. To go partway is easy, but mastering anything requires hard fucking work. Think about all the fucking possibilities. Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design, because that is what it lives with. The new becomes threatening, the old reassuring.” Someday is not a fucking day of the week. Design as if your fucking life depended on it. To surpass others is fucking tough, if you only do as you are told you don’t have it in you to succeed. You won’t get good at anything by doing it a lot fucking aimlessly. When you design, you have to draw on your own fucking life experiences. If it’s not something you would want to read/look at/use then why fucking bother? Practice won’t get you anywhere if you mindlessly fucking practice the same thing. Change only occurs when you work deliberately with purpose toward a goal. Saul Bass on failure: Failure is built into creativity… the creative act involves this element of ‘newness’ and ‘experimentalism,’ then one must expect and accept the fucking possibility of failure. If you’re not being fucking honest with yourself how could you ever hope to communicate something meaningful to someone else? Intuition is fucking important. Form follows fucking function. The graphic designer’s first fucking consideration is always the size and shape of the format, whether for the printed page or for digital display. This design is fucking brilliant. Design is all about fucking relationships—the relationship of form and content, the relationship of elements, the relationship of designer and user. You need to sit down and sketch more fucking ideas because stalking your ex on facebook isn’t going to get you anywhere. If you fucking give up, you will achieve nothing. What’s important is the fucking drive to see a project through no matter what. Dedicate yourself to lifelong fucking learning. Can we all just agree as the greater design community to stop fucking talking about Comic Sans altogether? It’s getting fucking old. Respect your fucking craft. Learn from fucking criticism. Creativity is a fucking work-ethic. Widows and orphans are terrible fucking tragedies, both in real life and definitely in typography. Sometimes it is appropriate to place various typographic elements on the outside of the fucking left margin of text to maintain a strong vertical axis. This practice is referred to as exdenting and is most often used with bullets and quotations. While having drinks with Tibor Kalman one night, he told me, “When you make something no one hates, no one fucking loves it.” Make your work consistent but not fucking predictable. Fuck. A good fucking composition is the result of a hierarchy consisting of clearly contrasting elements set with distinct alignments containing irregular intervals of negative space. Don’t fucking lie to yourself. You are not your fucking work. Why are you fucking reading all of this? Get back to work. The details are not the details. They make the fucking design. Remember it’s called the creative process, it’s not the creative fucking moment. Use your fucking hands. Never let your guard down by thinking you’re fucking good enough. Don’t worry about what other people fucking think. Must-do is a good fucking master. Nothing of value comes to you without fucking working at it. Never, never assume that what you have achieved is fucking good enough. Don’t get hung up on things that don’t fucking work. Your rapidograph pens are fucking dried up, the x-acto blades in your bag are rusty, and your mind is dull. Stop clicking your mouse, get messy, go back to the basics and make something fucking original. When you sit down to work, external critics aren’t the enemy. It’s you who you must to fight against to do great fucking work. You must overcome yourself. To go partway is easy, but mastering anything requires hard fucking work. Think about all the fucking possibilities. Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design, because that is what it lives with. The new becomes threatening, the old reassuring.” Someday is not a fucking day of the week. Design as if your fucking life depended on it. To surpass others is fucking tough, if you only do as you are told you don’t have it in you to succeed. You won’t get good at anything by doing it a lot fucking aimlessly. When you design, you have to draw on your own fucking life experiences. If it’s not something you would want to read/look at/use then why fucking bother? Practice won’t get you anywhere if you mindlessly fucking practice the same thing. Change only occurs when you work deliberately with purpose toward a goal. Saul Bass on failure: Failure is built into creativity… the creative act involves this element of ‘newness’ and ‘experimentalism,’ then one must expect and accept the fucking possibility of failure. If you’re not being fucking honest with yourself how could you ever hope to communicate something meaningful to someone else? Intuition is fucking important. Form follows fucking function. The graphic designer’s first fucking consideration is always the size and shape of the format, whether for the printed page or for digital display. This design is fucking brilliant. Design is all about fucking relationships—the relationship of form and content, the relationship of elements, the relationship of designer and user. You need to sit down and sketch more fucking ideas because stalking your ex on facebook isn’t going to get you anywhere. If you fucking give up, you will achieve nothing. What’s important is the fucking drive to see a project through no matter what. Dedicate yourself to lifelong fucking learning. Can we all just agree as the greater design community to stop fucking talking about Comic Sans altogether? It’s getting fucking old. Respect your fucking craft. Learn from fucking criticism. Creativity is a fucking work-ethic. Widows and orphans are terrible fucking tragedies, both in real life and definitely in typography. Sometimes it is appropriate to place various typographic elements on the outside of the fucking left margin of text to maintain a strong vertical axis. This practice is referred to as exdenting and is most often used with bullets and quotations. While having drinks with Tibor Kalman one night, he told me, “When you make something no one hates, no one fucking loves it.” Make your work consistent but not fucking predictable. Fuck. A good fucking composition is the result of a hierarchy consisting of clearly contrasting elements set with distinct alignments containing irregular intervals of negative space. Don’t fucking lie to yourself. You are not your fucking work. Why are you fucking reading all of this? Get back to work. The details are not the details. They make the fucking design. Remember it’s called the creative process, it’s not the creative fucking moment. Use your fucking hands. Never let your guard down by thinking you’re fucking good enough. Don’t worry about what other people fucking think. Must-do is a good fucking master. Nothing of value comes to you without fucking working at it. Never, never assume that what you have achieved is fucking good enough. Don’t get hung up on things that don’t fucking work. Your rapidograph pens are fucking dried up, the x-acto blades in your bag are rusty, and your mind is dull. Stop clicking your mouse, get messy, go back to the basics and make something fucking original. When you sit down to work, external critics aren’t the enemy. It’s you who you must to fight against to do great fucking work. You must overcome yourself. To go partway is easy, but mastering anything requires hard fucking work. Think about all the fucking possibilities. Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design, because that is what it lives with. The new becomes threatening, the old reassuring.” Someday is not a fucking day of the week. Design as if your fucking life depended on it. To surpass others is fucking tough, if you only do as you are told you don’t have it in you to succeed. You won’t get good at anything by doing it a lot fucking aimlessly. When you design, you have to draw on your own fucking life experiences. If it’s not something you would want to read/look at/use then why fucking bother? Practice won’t get you anywhere if you mindlessly fucking practice the same thing. Change only occurs when you work deliberately with purpose toward a goal. Saul Bass on failure: Failure is built into creativity… the creative act involves this element of ‘newness’ and ‘experimentalism,’ then one must expect and accept the fucking possibility of failure. If you’re not being fucking honest with yourself how could you ever hope to communicate something meaningful to someone else? Intuition is fucking important. Form follows fucking function. The graphic designer’s first fucking consideration is always the size and shape of the format, whether for the printed page or for digital display. This design is fucking brilliant. Design is all about fucking relationships—the relationship of form and content, the relationship of elements, the relationship of designer and user. You need to sit down and sketch more fucking ideas because stalking your ex on facebook isn’t going to get you anywhere. If you fucking give up, you will achieve nothing. What’s important is the fucking drive to see a project through no matter what. Dedicate yourself to lifelong fucking learning. Can we all just agree as the greater design community to stop fucking talking about Comic Sans altogether? It’s getting fucking old. Respect your fucking craft. Learn from fucking criticism. Creativity is a fucking work-ethic. Widows and orphans are terrible fucking tragedies, both in real life and definitely in typography. Sometimes it is appropriate to place various typographic elements on the outside of the fucking left margin of text to maintain a strong vertical axis. This practice is referred to as exdenting and is most often used with bullets and quotations. While having drinks with Tibor Kalman one night, he told me, “When you make something no one hates, no one fucking loves it.” Make your work consistent but not fucking predictable. Fuck. A good fucking composition is the result of a hierarchy consisting of clearly contrasting elements set with distinct alignments containing irregular intervals of negative space. Don’t fucking lie to yourself. You are not your fucking work. Why are you fucking reading all of this? Get back to work. The details are not the details. They make the fucking design. Remember it’s called the creative process, it’s not the creative fucking moment. Use your fucking hands. Never let your guard down by thinking you’re fucking good enough. Don’t worry about what other people fucking think. Must-do is a good fucking master. Nothing of value comes to you without fucking working at it. Never, never assume that what you have achieved is fucking good enough. Don’t get hung up on things that don’t fucking work. Your rapidograph pens are fucking dried up, the x-acto blades in your bag are rusty, and your mind is dull. Stop clicking your mouse, get messy, go back to the basics and make something fucking
+        .intro-poem
+          p 
+            | 我是一位小老闆
+            br
+            | 我有一個小生意
+          p
+            | 平日馬馬又乎乎
+            br
+            | 只有假日還可以
+          p
+            | 有天你打來很豪氣
+            br
+            | 我有親友大小共二八
+            br
+            | 位子全部留給我
+
+          p
+            | 小老闆(他)很高興
+            br
+            | 假日臉色不再綠
+            br
+            | 人手趕緊添兩位
+            br
+            | 食材數量補三倍
+            br
+            | 桌子擦了一遍又一遍
+            br
+            | 只等大爺來消費
+
+          p
+            | 哪裡知道
+          p
+            | 最後你們沒出現
+            br
+            | 我讓你永遠訂沒位
+          p
+            | - Shit
 </template>
 <script>
 // import Vue from 'vue'
@@ -33,34 +74,41 @@ export default {
 }
 </script>
 <style lang="scss">
+@import "~breakpoint-sass";
 @import '~assets/css/var';
+#intro {
+  .intro-poem {
+    text-align: center;
+  }
+  .service-intro {
+    padding-top: 20%;
+    @include breakpoint(1024px) {
+      padding-top: 10%;
+    }
+  }
+}
 .search-wrapper {
   background-image: url('~assets/img/search-bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  position: relative;
+  .title {
+    @include breakpoint(768px) {
+     h1 {
+      font-size: 3em;
+     }
+    }
+  }
+  .hero-table {
+    position: absolute;
+    top: 76%;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
 }
 // @keyframes rocking {
 //   0%,100% {transform: rotateZ(-10deg);},
 //   50%     {transform: rotateZ(10deg);}
 // }
-
-.vue-typer {
-  font-family: inherit;
-}
-.vue-typer .custom.char.typed {
-  color: $primary;
-}
-.vue-typer .custom.char.selected {
-  color: #E91E63;
-}
-.vue-typer .custom.caret {
-  // animation: rocking 1s ease-in-out 0s infinite;
-}
-.vue-typer .custom.caret.typing {
-  background-color: $primary;
-}
-.vue-typer .custom.caret.selecting {
-  display: inline-block;
-  background-color: #E91E63;
-}
 </style>

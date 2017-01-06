@@ -8,6 +8,16 @@
   max-width: 960px;
   margin: auto;
 }
+
+.restrict-small {
+  max-width: 640px;
+  margin: auto;
+}
+
+.restrict-tiny {
+  max-width: 360px;
+  margin: auto;
+}
 // Columns
 .columns {
   display: flex;
@@ -18,8 +28,57 @@
 
 // Hero
 .hero-container {
-  display: flex;
-  padding: 180px 0;
+  height: 70vh;
+  min-height: 500px;
   background-color: $gray;
   color: $white;
+  display: flex;
+  -webkit-align-content: center;
+          align-content: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  .hero-content {
+    align-self: center;
+  }
 }
+
+//Vue typer
+.vue-typer {
+  font-family: inherit;
+}
+.vue-typer .custom.char.typed {
+  color: $primary;
+}
+.vue-typer .custom.char.selected {
+  color: #E91E63;
+}
+.vue-typer .custom.caret {
+  // animation: rocking 1s ease-in-out 0s infinite;
+}
+.vue-typer .custom.caret.typing {
+  background-color: $primary;
+}
+.vue-typer .custom.caret.selecting {
+  display: inline-block;
+  background-color: #E91E63;
+}
+
+//Typo
+.centered {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+// White Frame
+.frame {
+  background-color: $white;
+  box-shadow: 1px 1px 2px 1px $lightgray;
+  .title {
+    margin: 0;
+  }
+}
+@import "~assets/css/components/buttons";
+@import "~assets/css/components/form";
+@import '~assets/css/components/type';

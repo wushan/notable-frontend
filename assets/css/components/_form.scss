@@ -1,0 +1,84 @@
+.controlgroup {
+  margin: 2em 0;
+  .controls {
+    display: flex;
+    input[type="search"] {
+      flex: 1;
+    }
+  }
+  input[type="search"] {
+    border: 0;
+    height: $input-height;
+    box-sizing: border-box;
+    padding: 0 1em;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 3px 0 0 3px;
+    color: $black;
+    // box-shadow: inset 0px 0px 6px 0px $black;
+    &:focus {
+      box-shadow: inset 0px 0px 3px 0px $pureblack;
+    }
+    & + button {
+      // box-shadow: 1px 1px 1px 1px $pureblack;
+      outline: none;
+      border: 0;
+      display: inline-block;
+      vertical-align: middle;
+      border-radius: 0 3px 3px 0;
+      width: 20%;
+      height: $input-height;
+      box-sizing: border-box;
+      padding: .4em 1em;
+      background-color: $primary;
+      color: darken($primary, 20%);
+      cursor: pointer;
+      text-shadow: 1px 1px 0 rgba($white, .5);
+      transition: .3s all ease;
+      &:hover {
+        background-color: darken($primary, 5%);
+        color: $white;
+        text-shadow: none;
+        width: 33%;
+      }
+      &:active {
+        background-color: darken($primary, 5%);
+        box-shadow:inset 0px 0px 3px 1px darken($primary, 25%);
+        text-shadow: none;
+      }
+    }
+  }
+  // With Label
+  .controls {
+    position: relative;
+    input {
+      border-width: 0 0 1px 0;
+      border-color: $gray;
+      height: $input-height-normal;
+      box-sizing: border-box;
+      padding: 0 1em;
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      // z-index: 1;
+      transition: .3s all ease;
+      & + label {
+        color: $gray;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translateX(0) translateY(0);
+        transition: .3s all ease;
+      }
+      &:focus {
+        outline: none;
+        border-color: $black;
+        & + label {
+          color: $pureblack;
+          font-size: 12px;
+          transform: translateX(0) translateY(-1.5em);
+        }
+      }
+    }
+  }
+}

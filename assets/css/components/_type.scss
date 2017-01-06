@@ -1,0 +1,9 @@
+@import "~breakpoint-sass";
+h1, h2, h3, h4 {
+  font-weight: 300;
+}
+@include breakpoint(768px) {
+ h1 {
+  // font-size: 3em;
+ }
+}
