@@ -1,7 +1,7 @@
 <template lang="pug">
   #wrapper
     my-header
-    main
+    main#main
       nuxt
     my-footer
     script.
@@ -19,6 +19,9 @@ import MyHeader from '~components/Header.vue'
 import MyFooter from '~components/Footer.vue'
 
 export default {
+  head: {
+    title: 'NOTABLE「嘸位la！」 - 小老闆團結！史上最絕奧客防治服務'
+  },
   components: {
     MyHeader,
     MyFooter
@@ -27,5 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
+#main {
 
+}
 </style>
