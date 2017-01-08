@@ -8,6 +8,7 @@
   }
   .controls {
     display: flex;
+    flex-wrap: wrap;
     input[type="search"] {
       flex: 1;
       height: $input-height;
@@ -95,6 +96,17 @@
           transform: translateX(0) translateY(-1.5em);
         }
       }
+    }
+    &.error {
+      span.valid-notifier {
+        display: block;
+      }
+    }
+    span.valid-notifier {
+      display: none;
+      color: $red;
+      font-size: 12px;
+      margin: .3em .5em;
     }
   }
 }

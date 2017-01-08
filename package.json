@@ -13,8 +13,10 @@
     "node-sass": "^4.1.1",
     "nuxt": "latest",
     "pug": "^2.0.0-beta6",
+    "qs": "^6.3.0",
     "sass-loader": "^4.1.1",
-    "vue-typer": "^1.0.2"
+    "vue-typer": "^1.0.2",
+    "vuelidate": "^0.2.0"
   },
   "scripts": {
     "dev": "nuxt",
