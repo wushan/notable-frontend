@@ -21,6 +21,10 @@
 }
 // Columns
 .columns {
+  & + .columns {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
   .column {
   }
   @include breakpoint(1024px) {

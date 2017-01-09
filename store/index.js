@@ -3,45 +3,33 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 import axios from 'axios'
+
 const store = new Vuex.Store({
   state: {
-    counter: 0,
-    user: null,
-    records: null
+    authUser: null,
+    User: null
   },
   mutations: {
-    increment (state) {
-      state.counter++
+    SET_USER: function (state, user) {
+      state.authUser = user
+      localStorage.setItem('notable_token', user.data.id)
+      localStorage.setItem('notable_user', user.data.userId)
     },
-    user: function (state, user) {
-      state.user = user
-    },
-    records: function (state, records) {
-      state.records = records
+    SET_USERINFO: (state, user) => {
+      state.User = user
     }
   },
   actions: {
     nuxtServerInit ({ commit }, { req }) {
-      if (req.authUser) {
-        commit('user', req.authUser)
-      } else {
-        commit('user', 'oo')
-      }
+      // if (req.authUser) {
+      //   commit('user', req.authUser)
+      // } else {
+      //   commit('user', 'oo')
+      // }
+      console.log('AAKKAKAK')
     },
-    getRecords ({ commit }) {
-      axios.get('//localhost:35687/api/records', {
-        params: {
-          filter: {
-            limit: 5
-          }
-        }
-      })
-      .then((res) => {
-        commit('records', res.data)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
+    auth () {
+
     }
   }
 })
