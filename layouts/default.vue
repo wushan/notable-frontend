@@ -17,7 +17,7 @@
 <script>
 import MyHeader from '~components/Header.vue'
 import MyFooter from '~components/Footer.vue'
-
+import axios from 'axios'
 export default {
   head: {
     title: 'NOTABLE「嘸位la！」 - 小老闆團結！史上最絕奧客防治服務'
@@ -25,6 +25,29 @@ export default {
   components: {
     MyHeader,
     MyFooter
+  },
+  beforeMount () {
+    var instance = this
+    var token = localStorage.getItem('notable_token')
+    var user = localStorage.getItem('notable_user')
+    if (token && user) {
+      axios.get('https://api.notable.wushan.io/clients/' + user, {
+        params: {
+          access_token: token
+        }
+      })
+      .then((res) => {
+        this.$store.commit('SET_USERINFO', res)
+      })
+      .catch((error) => {
+        console.log(error)
+        localStorage.removeItem('notable_token')
+        localStorage.removeItem('notable_user')
+      })
+    } else {
+      localStorage.removeItem('notable_token')
+      localStorage.removeItem('notable_user')
+    }
   }
 }
 </script>

@@ -9,6 +9,15 @@
   .controls {
     display: flex;
     flex-wrap: wrap;
+    & + {
+      span {
+        display: block;
+        font-size: 12px;
+        color: $lightgray;
+        // text-align: left;
+        margin: .5em 0;
+      }
+    }
     input[type="search"] {
       flex: 1;
       height: $input-height;

@@ -8,12 +8,13 @@
         .restrict-small.container
           .controlgroup.centered
             .controls
-              input(type="search")
+              input.phone-type(type="search", v-model="number")
               button 肉搜你
-        .hero-table
-          img(src="~assets/img/table.svg")
+            span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
     section.service-intro
       .restrict.container
+        .hero-table
+          img(src="~assets/img/table.svg")
         .intro-poem
           p 
             | 我是一位小老闆
@@ -56,17 +57,20 @@
 // import Vue from 'vue'
 // import VueNotifications from 'vue-notifications'
 // var VueTyper = window.VueTyper.VueTyper
-
+var Cleave = require('cleave.js')
+require('cleave.js/dist/addons/cleave-phone.tw')
 export default {
   mounted () {
     console.log('created')
     console.log(window)
-    // const VueTyper = require('vue-typer').VueTyper
-    // this.$options.components.VueTyper = require('vue-typer').VueTyper
+    var cleave = new Cleave('.phone-type', {
+      phone: true,
+      phoneRegionCode: 'tw'
+    })
   },
   data () {
     return {
-
+      number: null
     }
   },
   components: {
@@ -81,30 +85,44 @@ export default {
     text-align: center;
   }
   .service-intro {
+    position: relative;
     padding-top: 20%;
+    .hero-table {
+      position: absolute;
+      top: -20vh;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+    }
     @include breakpoint(1024px) {
       padding-top: 10%;
     }
   }
 }
 .search-wrapper {
-  background-image: url('~assets/img/search-bg.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
   position: relative;
+  overflow: hidden;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-image: url('~assets/img/search-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 0 0 100% 100%;
+    transform-origin: center bottom;
+    transform: scaleX(1.5);
+  }
   .title {
     @include breakpoint(768px) {
      h1 {
       font-size: 3em;
      }
     }
-  }
-  .hero-table {
-    position: absolute;
-    top: 76%;
-    left: 0;
-    right: 0;
-    pointer-events: none;
   }
 }
 // @keyframes rocking {

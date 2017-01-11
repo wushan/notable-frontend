@@ -8,6 +8,7 @@
     "axios": "^0.15.3",
     "breakpoint-sass": "^2.7.1",
     "bulma": "^0.2.3",
+    "cleave.js": "^0.7.14",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
     "node-sass": "^4.1.1",

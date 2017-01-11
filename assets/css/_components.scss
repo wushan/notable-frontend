@@ -27,6 +27,16 @@
   }
   .column {
   }
+  &.is-mobile {
+    display: flex;
+    .column {
+      flex: 1;
+      margin-right: 1em;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
   @include breakpoint(1024px) {
     display: flex;
     .column {
@@ -41,9 +51,9 @@
 
 // Hero
 .hero-container {
-  height: 70vh;
+  height: 80vh;
   min-height: 500px;
-  background-color: $gray;
+  // background-color: $gray;
   color: $white;
   display: flex;
   -webkit-align-content: center;
@@ -53,6 +63,7 @@
   .hero-content {
     align-self: center;
     width: 100%;
+    position: relative;
   }
 }
 
@@ -106,6 +117,32 @@
     color: $link;
     text-decoration: none;
   }
+}
+// Notify
+.notification-bar {
+  background-color: $smokygray;
+  padding: .5em 1em;
+  box-sizing: border-box;
+  box-shadow: 0 1px 1px rgba($black, .33);
+  text-align: center;
+  span {
+    display: block;
+    font-size: 12px;
+  }
+  &.error-message {
+    color: $red;
+  }
+}
+// Transitions
+.fade-enter-active, .fade-leave-active {
+  transition: .1s all ease;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+  height: 0;
+  font-size: 0;
+  padding: 0;
+  transform: translateY(40%)
 }
 @import "~assets/css/components/buttons";
 @import "~assets/css/components/form";
