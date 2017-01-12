@@ -8,7 +8,8 @@ const store = new Vuex.Store({
   state: {
     authUser: null,
     User: null,
-    searchResult: null
+    searchResult: null,
+    notify: null
   },
   mutations: {
     SET_USER: function (state, user) {
@@ -21,6 +22,9 @@ const store = new Vuex.Store({
     },
     SET_Result: (state, data) => {
       state.searchResult = data
+    },
+    SET_NOTIFY: (state, data) => {
+      state.notify = data
     }
   },
   actions: {

@@ -41,8 +41,11 @@ form#addRecord
                     option(value="3") 就是奧客
                   label 事蹟
                 span 我知道他們很壞，但是到底有多壞，你說說看？
-        .call-action.container.restrict-small
-          button.button.invert.full#submit(type="submit", @click="$v.blacklist.$touch", v-bind:disabled="$v.blacklist.$error") 不要再害了，好嗎？
+        .call-action.container.restrict-small.centered
+          transition(name="fade", mode="out-in")
+            button.button.primary#submit(v-if="successMsg", type="submit", @click="$v.blacklist.$touch") {{successMsg}}
+          transition(name="fade", mode="out-in")
+            button.button.invert#submit(v-if="!successMsg", type="submit", @click="$v.blacklist.$touch") {{btnMsg}}
 </template>
 <script>
 var Cleave = require('cleave.js')
@@ -63,7 +66,10 @@ export default {
   },
   methods: {
     addRecord () {
+      var btn = document.getElementById('submit')
+      btn.disabled = true
       if (this.$v.$error) {
+        btn.disabled = false
         return
       } else {
         this.submitRecord()
@@ -73,7 +79,6 @@ export default {
       var userId = localStorage.getItem('notable_user')
       var token = localStorage.getItem('notable_token')
       var btn = document.getElementById('submit')
-      btn.disabled = true
       axios({
         method: 'post',
         url: 'https://api.notable.wushan.io/records',
@@ -91,6 +96,7 @@ export default {
       .then((response) => {
         console.log(response)
         btn.disabled = false
+        this.showSuccessMsg()
         // 清除
         this.blacklist.number = null
       })
@@ -98,6 +104,12 @@ export default {
         this.error = error
         btn.disabled = false
       });
+    },
+    showSuccessMsg () {
+      this.successMsg = "感謝提供"
+      this.timer = setTimeout(() => {
+        this.successMsg = null
+      }, 3000)
     }
   },
   data () {
@@ -107,7 +119,10 @@ export default {
         voice: 'male',
         date: '2017/01/01',
         description: '0'
-      }
+      },
+      successMsg: null,
+      btnMsg: '希望你不要再出來害了～送出！',
+      timer: null
     }
   },
   validations: {

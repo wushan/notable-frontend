@@ -59,5 +59,11 @@
     border: 1px solid $lightgray;
     color: $gray;
     text-shadow: 1px 1px 0 $white;
+    &:hover, &:active {
+      background-color: $lightgray;
+      border: 1px solid $lightgray;
+      color: $gray;
+      text-shadow: 1px 1px 0 $white;
+    }
   }
 }

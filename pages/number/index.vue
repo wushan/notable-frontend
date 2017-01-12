@@ -1,10 +1,6 @@
 <template lang="pug">
   #number
-    section
-      .container.restrict
-        .frame
-          h1 搜尋結果
-          nuxt-child
+    nuxt-child
 </template>
 <script>
 export default {
