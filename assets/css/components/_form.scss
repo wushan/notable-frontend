@@ -92,6 +92,11 @@
         opacity: 0;
         font-size: 12px;
         transition: .3s all ease;
+        & + span {
+          font-size: 12px;
+          display: block;
+          margin-top: .5em;
+        }
       }
       &:focus, &.active {
         outline: none;
@@ -111,11 +116,66 @@
         display: block;
       }
     }
+    span {
+      display: block;
+      font-size: 12px;
+      margin-top: .5em;
+      flex: none;
+      width: 100%;
+    }
     span.valid-notifier {
       display: none;
       color: $red;
       font-size: 12px;
       margin: .3em .5em;
     }
+  }
+}
+
+// Select
+.select-wrapper {
+  background-image: url("~assets/img/select-arrow.png");
+  background-position: calc(100% - 10px) center;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid $gray;
+  position: relative;
+  width: 100%;
+  select {
+    width: 100%;
+    height: $input-height-normal;
+    box-sizing: border-box;
+    padding: 0 1em 0 0;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    -moz-appearance: window;
+    color: $pureblack;
+    border: 0;
+    background-color: transparent;
+    & + label {
+      color: $gray;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translateX(0) translateY(0);
+      opacity: 0;
+      font-size: 12px;
+      transition: .3s all ease;
+    }
+    &:focus, &.active {
+      outline: none;
+      border-color: $secondary;
+      &::placeholder {
+        color: $white;
+      }
+      & + label {
+        opacity: 1;
+        color: $secondary;
+        transform: translateX(0) translateY(-1.5em);
+      }
+    }
+  }
+  select::-ms-expand {
+    display: none;
   }
 }

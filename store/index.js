@@ -7,7 +7,8 @@ import axios from 'axios'
 const store = new Vuex.Store({
   state: {
     authUser: null,
-    User: null
+    User: null,
+    searchResult: null
   },
   mutations: {
     SET_USER: function (state, user) {
@@ -17,6 +18,9 @@ const store = new Vuex.Store({
     },
     SET_USERINFO: (state, user) => {
       state.User = user
+    },
+    SET_Result: (state, data) => {
+      state.searchResult = data
     }
   },
   actions: {
@@ -28,8 +32,8 @@ const store = new Vuex.Store({
       // }
       console.log('AAKKAKAK')
     },
-    auth () {
-
+    searchNumber ({ commit }) {
+      commit('SET_Result', 'abc')
     }
   }
 })

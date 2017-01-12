@@ -60,6 +60,29 @@
           align-content: center;
   -webkit-justify-content: center;
           justify-content: center;
+  &.normal {
+    height: 35vh;
+    min-height: 250px;
+    position: relative;
+    overflow: hidden;
+    &:before {
+      /* Rectangle: */
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-image: linear-gradient(45deg, #beffc3 0%, rgb(249, 192, 31) 100%);
+      border-radius: 0 0 100% 100%;
+      transform-origin: center bottom;
+      transform: scaleX(1.5);
+    }
+    .controlgroup .controls + span {
+      color: $black;
+    }
+  }
   .hero-content {
     align-self: center;
     width: 100%;

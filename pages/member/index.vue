@@ -1,48 +1,73 @@
 <template lang="pug">
   #member
-    .restrict-small.container
-      .controlgroup.centered
-        .controls
-          input(type="search")
-          button 肉搜你
+    section.hero-container.normal
+      .hero-content
+        .restrict-small.container
+          .controlgroup.centered
+            form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
+              input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError")
+              button(type="submit", @click="$v.$touch") 肉搜你
+              span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
+              span.valid-notifier(v-if="!$v.number.required") (必填欄位)
+              span.valid-notifier(v-if="!$v.number.minLength") (電話格式不正確！)
+              span.valid-notifier(v-if="!$v.number.maxLength") (號碼有點多！)
     nuxt-child
 </template>
 <script>
-// import Vue from 'vue'
-// import VueNotifications from 'vue-notifications'
-// var VueTyper = window.VueTyper.VueTyper
 import axios from 'axios'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+var Cleave = require('cleave.js')
+require('cleave.js/dist/addons/cleave-phone.tw')
 export default {
   mounted () {
-    console.log('created')
-    console.log(window)
-    var instance = this
-    var token = localStorage.getItem('notable_token')
-    var user = localStorage.getItem('notable_user')
-    axios.get('https://api.notable.wushan.io/clients/' + user, {
-      params: {
-        access_token: token
-      }
-    })
-    .then((res) => {
-      this.$store.commit('SET_USERINFO', res)
-    })
-    .catch((error) => {
-      console.log(error)
-      console.log(this)
-      this.$router.replace('/login')
+    var cleave = new Cleave('.phone-type', {
+      phone: true,
+      phoneRegionCode: 'tw'
     })
   },
   data () {
     return {
-
+       number: null,
+       error: null
+    }
+  },
+  validations: {
+    number: {
+      required,
+      minLength: minLength(9),
+      maxLength: maxLength(12)
     }
   },
   components: {
+  },
+  methods: {
+    startSearch () {
+      if (this.number) {
+        if (this.$v.$error) {
+          return
+        } else {
+          this.$router.push('/number/' + this.cleanNumber)
+        }
+      } else {
+        this.error = '你沒輸入，不要玩好嗎？'
+      }
+    },
+    clearError () {
+      this.error = null
+    }
+  },
+  computed: {
+    cleanNumber () {
+      if (this.number) {
+        return this.number.replace(/ /g, '')
+      }
+    }
   }
 }
 </script>
 <style lang="scss">
 @import "~breakpoint-sass";
 @import '~assets/css/var';
+#member {
+}
 </style>

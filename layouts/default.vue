@@ -54,12 +54,12 @@ export default {
 
 <style lang="scss">
 #main {
-  min-height: calc( 100vh - 332px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &>div {
-    width: 100%;
-  }
+  // min-height: calc( 100vh - 332px);
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // &>div {
+  //   width: 100%;
+  // }
 }
 </style>

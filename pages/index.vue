@@ -7,10 +7,13 @@
             vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
         .restrict-small.container
           .controlgroup.centered
-            .controls
-              input.phone-type(type="search", v-model="number")
-              button 肉搜你
-            span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
+            form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
+              input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError")
+              button(type="submit", @click="$v.$touch") 肉搜你
+              span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
+              span.valid-notifier(v-if="!$v.number.required") (必填欄位)
+              span.valid-notifier(v-if="!$v.number.minLength") (電話格式不正確！)
+              span.valid-notifier(v-if="!$v.number.maxLength") (號碼有點多！)
     section.service-intro
       .restrict.container
         .hero-table
@@ -59,7 +62,10 @@
 // var VueTyper = window.VueTyper.VueTyper
 var Cleave = require('cleave.js')
 require('cleave.js/dist/addons/cleave-phone.tw')
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import axios from 'axios'
 export default {
+  name: 'Home',
   mounted () {
     console.log('created')
     console.log(window)
@@ -70,10 +76,33 @@ export default {
   },
   data () {
     return {
-      number: null
+      number: null,
+      error: null
+    }
+  },
+  validations: {
+    number: {
+      required,
+      minLength: minLength(9),
+      maxLength: maxLength(12)
     }
   },
   components: {
+  },
+  methods: {
+    startSearch () {
+      this.$router.push('/number/' + this.cleanNumber)
+    },
+    clearError () {
+      this.error = null
+    }
+  },
+  computed: {
+    cleanNumber () {
+      if (this.number) {
+        return this.number.replace(/ /g, '')
+      }
+    }
   }
 }
 </script>

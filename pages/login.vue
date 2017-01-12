@@ -32,7 +32,16 @@
 </template>
 
 <style lang="scss">
+#login {
+  min-height: calc( 100vh - 391px);
+  padding: 2em 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #login-container {
+  width: 100%;
   .title {
     text-align: center;
   }
