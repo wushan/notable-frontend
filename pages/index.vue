@@ -67,11 +67,12 @@ import axios from 'axios'
 export default {
   name: 'Home',
   mounted () {
-    console.log('created')
-    console.log(window)
-    var cleave = new Cleave('.phone-type', {
-      phone: true,
-      phoneRegionCode: 'tw'
+    this.windowAv = true
+    this.$nextTick(() => {
+      var cleave = new Cleave('.phone-type', {
+        phone: true,
+        phoneRegionCode: 'tw'
+      })
     })
   },
   data () {
@@ -80,9 +81,6 @@ export default {
       error: null,
       windowAv: false
     }
-  },
-  mounted () {
-    this.windowAv = true
   },
   validations: {
     number: {
