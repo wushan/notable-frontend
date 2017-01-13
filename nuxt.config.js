@@ -26,5 +26,5 @@ module.exports = {
       'axios'
     ]
   },
-  plugins: ['plugins/vue-typer.js', 'plugins/vuelidate.js']
+  plugins: ['plugins/vue-typer.js', 'plugins/vuelidate.js', 'plugins/ga.js']
 }

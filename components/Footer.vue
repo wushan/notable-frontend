@@ -1,13 +1,13 @@
 <template lang="pug">
-  footer#footer
-    .restaurant-animation
-      .windows
-      .tables
-      .floor
-    aside.bottom-nav.centered
-      navigation
-    .copyrights.centered
-      .container.restrict Copyrights by 小老闆的逆襲. All Rights Reserved.
+footer#footer
+  .restaurant-animation
+    .windows
+    .tables
+    .floor
+  aside.bottom-nav.centered
+    navigation
+  .copyrights.centered
+    .container.restrict Copyrights by 小老闆的逆襲. All Rights Reserved.
 </template>
 <script>
   import Navigation from '~components/navigation-footer.vue'

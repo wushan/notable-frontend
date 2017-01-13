@@ -1,28 +1,28 @@
 <template lang="pug">
-  #navigation
-    .columns.is-mobile
-      .column
-        nuxt-link(to="/")
-          img.logo(src="~assets/img/notable-logo.svg")
-      .column.text-right(v-if="user")
-        nav#menu
-          ul.menu
-            li
-              nuxt-link(to="/member", active-class="active") 我要提供黑名單
-            li
-              .user-menu
-                .button.invisible(@click="toggleSubmenu")
-                  .avatar
-                    img(v-bind:src="avatar")
-                  .brand {{user.data.brand}}
-                  .chevron-down
-                .dropdown(v-if="submenu")
-                  ul.submenu(@click="closeSubmenu")
-                    li
-                      nuxt-link#logout(to="/logout") 登出
-      .column.text-right(v-else)
-        nuxt-link.button.primary(to="/signup") 申請加入
-        nuxt-link.button(to="/login") 登入
+#navigation
+  .columns.is-mobile
+    .column
+      nuxt-link(to="/")
+        img.logo(src="~assets/img/notable-logo.svg")
+    .column.text-right(v-if="user")
+      nav#menu
+        ul.menu
+          li
+            nuxt-link(to="/member", active-class="active") 我要提供黑名單
+          li
+            .user-menu
+              .button.invisible(@click="toggleSubmenu")
+                .avatar
+                  img(v-bind:src="avatar")
+                .brand {{user.data.brand}}
+                .chevron-down
+              .dropdown(v-if="submenu")
+                ul.submenu(@click="closeSubmenu")
+                  li
+                    nuxt-link#logout(to="/logout") 登出
+    .column.text-right(v-else)
+      nuxt-link.button.primary(to="/signup") 申請加入
+      nuxt-link.button(to="/login") 登入
 </template>
 <script>
 export default {

@@ -1,60 +1,60 @@
 <template lang="pug">
-  #intro
-    section.hero-container.search-wrapper
-      .hero-content
-        .restrict.container
-          h1.title.centered 你好，不管你要訂哪一天，
-            vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
-        .restrict-small.container
-          .controlgroup.centered
-            form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
-              input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError")
-              button(type="submit", @click="$v.$touch") 肉搜你
-              span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
-              span.valid-notifier(v-if="!$v.number.required") (必填欄位)
-              span.valid-notifier(v-if="!$v.number.minLength") (電話格式不正確！)
-              span.valid-notifier(v-if="!$v.number.maxLength") (號碼有點多！)
-    section.service-intro
+#intro
+  section.hero-container.search-wrapper
+    .hero-content
       .restrict.container
-        .hero-table
-          img(src="~assets/img/table.svg")
-        .intro-poem
-          p 
-            | 我是一位小老闆
-            br
-            | 我有一個小生意
-          p
-            | 平日馬馬又乎乎
-            br
-            | 只有假日還可以
-          p
-            | 有天你打來很豪氣
-            br
-            | 我有親友大小共二八
-            br
-            | 位子全部留給我
+        h1.title.centered 你好，不管你要訂哪一天，
+          vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink', v-if="windowAv")
+      .restrict-small.container
+        .controlgroup.centered
+          form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
+            input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError")
+            button(type="submit", @click="$v.$touch") 肉搜你
+            span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
+            span.valid-notifier(v-if="!$v.number.required") (必填欄位)
+            span.valid-notifier(v-if="!$v.number.minLength") (電話格式不正確！)
+            span.valid-notifier(v-if="!$v.number.maxLength") (號碼有點多！)
+  section.service-intro
+    .restrict.container
+      .hero-table
+        img(src="~assets/img/table.svg")
+      .intro-poem
+        p 
+          | 我是一位小老闆
+          br
+          | 我有一個小生意
+        p
+          | 平日馬馬又乎乎
+          br
+          | 只有假日還可以
+        p
+          | 有天你打來很豪氣
+          br
+          | 我有親友大小共二八
+          br
+          | 位子全部留給我
 
-          p
-            | 小老闆(他)很高興
-            br
-            | 假日臉色不再綠
-            br
-            | 人手趕緊添兩位
-            br
-            | 食材數量不能缺
-            br
-            | 桌子擦了一遍又一遍
-            br
-            | 就等大爺來消費
+        p
+          | 小老闆(他)很高興
+          br
+          | 假日臉色不再綠
+          br
+          | 人手趕緊添兩位
+          br
+          | 食材數量不能缺
+          br
+          | 桌子擦了一遍又一遍
+          br
+          | 就等大爺來消費
 
-          p
-            | 哪裡知道
-          p
-            | 最後你們沒出現
-            br
-            | 我讓你永遠訂沒位
-          p
-            | - Shit
+        p
+          | 哪裡知道
+        p
+          | 最後你們沒出現
+          br
+          | 我讓你永遠訂沒位
+        p
+          | - Shit
 </template>
 <script>
 // import Vue from 'vue'
@@ -77,8 +77,12 @@ export default {
   data () {
     return {
       number: null,
-      error: null
+      error: null,
+      windowAv: false
     }
+  },
+  mounted () {
+    this.windowAv = true
   },
   validations: {
     number: {
