@@ -1,20 +1,30 @@
 <template lang="pug">
   section#results.container.restrict.results-wrapper
     .frame
-      .columns
-        .column
-          h3 查詢標的
-          .number {{number}}
-          .additional
-            .voice 電話持有人很可能是 {{voice}}
-          ul
-            li(v-for="item in searchResult") {{item.number}}/{{item.date}}
-        .column.grade.centered
+      .columns.reverse
+        .column.grade
           h3 綜合評分
           .score-wrapper
             .score
-              .points 8.0
-              .description 表現良好
+              .points(v-bind:class="scoresLevel") {{scores}}
+              .description
+                span 表現良好
+                span 或者說正義還沒被彰顯
+            .providing-blacklist
+              | 怎麼可能這麼高分？
+              nuxt-link(to="/member") 我有他的把柄！
+        .column.target
+          h3 查詢標的
+          .number {{number}}
+          .additional
+            .voice
+              | 電話持有人很可能是 
+              span(v-bind:class="voice") {{voice==='Male'?'男性':'女性'}}
+          ul.records
+            li(v-for="item in relatedRecords") {{item.number}}/{{item.date}}
+            li .
+            li .
+            li .
       footer
         p 注意！本服務旨在提供小老闆互助，避免紀錄不佳的顧客影響您正常的生意，請勿利用本站資訊對當事人進行任何有損其利益之行為，亦不得在本站之外以任何方式公開此評分資訊。
 </template>
@@ -22,15 +32,7 @@
 import axios from 'axios'
 export default {
   fetch ({ store, params }) {
-    return axios.get('https://api.notable.wushan.io/records', {
-      params: {
-        "filter": {
-          "where": {
-            "number": params.id
-          }
-        }
-      }
-    })
+    return axios.get('https://api.notable.wushan.io/numbers/' + params.id + '/blacklist')
     .then(function (response) {
       store.commit('SET_Result', response.data)
     })
@@ -49,6 +51,9 @@ export default {
     searchResult () {
       return this.$store.state.searchResult
     },
+    relatedRecords () {
+      return this.$store.state.searchResult.slice(0, 5)
+    },
     voice () {
       var voiceMale = []
       var voiceFemale = []
@@ -65,6 +70,18 @@ export default {
       } else {
         return 'Female'
       }
+    },
+    scores () {
+      return 10 - this.$store.state.searchResult.length
+    },
+    scoresLevel () {
+      if (this.scores < 0) {
+        return 'bad'
+      } else if (this.scores >= 0 && this.scores < 6) {
+        return 'serious'
+      } else {
+        return 'nice'
+      }
     }
   }
 }
@@ -74,8 +91,29 @@ export default {
 @import '~assets/css/var';
 .results-wrapper {
   .column {
+    padding-bottom: 2em;
     &:first-child {
-      border-right: 1px solid $lightgray;
+    }
+    &:last-child {
+      border-top: 1px solid $lightgray;
+      @include breakpoint(1024px) {
+        border-top: 0;
+        border-right: 1px solid $lightgray;
+      }
+    }
+  }
+  .grade, .target {
+    text-align: center;
+    position: relative;
+  }
+  .target {
+    @include breakpoint(1024px) {
+      text-align: left;
+    }
+    .records {
+      margin: 2em 0;
+      padding: 0;
+      list-style-type: none;
     }
   }
   .number {
@@ -85,15 +123,43 @@ export default {
   }
   .additional {
     font-size: 24px;
+    .voice {
+      span.Male {
+        color: $primary;
+      }
+      span.Female {
+        color: $red;
+      }
+    }
   }
   .points {
-    font-size: 288px;
+    font-size: 120px;
     font-weight: 100;
     line-height: 1;
+    @include breakpoint(1024px) {
+      font-size: 288px;
+    }
+    &.bad {
+      color: $red;
+    }
+    &.nice {
+      color: $primary;
+    }
+    &.serious {
+      color: $secondary;
+    }
   }
   .description {
     font-size: 36px;
     letter-spacing: 23px;
+    font-weight: 700;
+    span {
+      &:last-child {
+        font-size: 12px;
+        display: block;
+        letter-spacing: 1px;
+      }
+    }
   }
   .score-wrapper {
     display: flex;
@@ -102,7 +168,12 @@ export default {
     -webkit-align-content: center;
             align-content: center;
     .score {
-      
+    }
+    .providing-blacklist {
+      font-size: 12px;
+      position: absolute;
+      top: -0.5em;
+      right: -0.5em;
     }
   }
   footer {

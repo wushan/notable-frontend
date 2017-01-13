@@ -2,6 +2,8 @@
   .container.restrict.navigation-footer
     nuxt-link(to="/legal/privacy") 隱私權
     nuxt-link(to="/legal/tou") 使用條款
+    nuxt-link(to="/legal/copyrights") 版權說明
+    nuxt-link(to="/collaborate") 合作提案
     nuxt-link(to="/press") 媒體中心
 </template>
 <style lang="scss">

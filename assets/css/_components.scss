@@ -37,6 +37,13 @@
       }
     }
   }
+  &.reverse {
+    .column {
+      &:first-child {
+        order: 2;
+      }
+    }
+  }
   @include breakpoint(1024px) {
     display: flex;
     .column {
@@ -60,6 +67,11 @@
           align-content: center;
   -webkit-justify-content: center;
           justify-content: center;
+  h1 {
+    @include breakpoint(1280px) {
+      font-size: 3em;
+    }
+  }
   &.normal {
     height: 35vh;
     min-height: 250px;

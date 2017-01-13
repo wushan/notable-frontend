@@ -6,10 +6,13 @@
   display: inline-block;
   vertical-align: middle;
   margin: 0 .2em;
-  padding: .4em 1em;
+  padding: .4em .6em;
   color: $black;
   line-height: 1.6;
   background-color: transparent;
+  @include breakpoint(768px) {
+    padding: .4em 1em;
+  }
   &.full {
     width: 100%;
     margin: 0;
@@ -53,6 +56,9 @@
     background-color: $red;
     border-color: $red;
     color: $white;
+  }
+  &.invisible {
+    border: 0;
   }
   &[disabled] {
     background-color: $lightgray;

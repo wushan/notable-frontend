@@ -82,12 +82,13 @@ export default {
       axios({
         method: 'post',
         url: 'https://api.notable.wushan.io/records',
+        // url: 'http://localhost:3003/records',
         data: {
-          "number": this.cleanNumber,
           "voice": this.blacklist.voice,
-          "date": this.blacklist.date,
+          "date": Date.parse(this.blacklist.date.replace(/\//g, '-')),
           "description": this.blacklist.description,
-          "providerId": userId
+          "providerId": userId,
+          "numberId": this.cleanNumber
         },
         params: {
           access_token: token

@@ -8,8 +8,9 @@ const store = new Vuex.Store({
   state: {
     authUser: null,
     User: null,
-    searchResult: null,
-    notify: null
+    searchResult: [],
+    notify: null,
+    count: 0
   },
   mutations: {
     SET_USER: function (state, user) {
@@ -25,6 +26,9 @@ const store = new Vuex.Store({
     },
     SET_NOTIFY: (state, data) => {
       state.notify = data
+    },
+    SET_Count: (state, data) => {
+      state.count = data
     }
   },
   actions: {
@@ -34,7 +38,6 @@ const store = new Vuex.Store({
       // } else {
       //   commit('user', 'oo')
       // }
-      console.log('AAKKAKAK')
     },
     searchNumber ({ commit }) {
       commit('SET_Result', 'abc')

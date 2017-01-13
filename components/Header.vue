@@ -1,18 +1,25 @@
 <template lang="pug">
-  nav#navigation
+  #navigation
     .columns.is-mobile
       .column
         nuxt-link(to="/")
           img.logo(src="~assets/img/notable-logo.svg")
       .column.text-right(v-if="user")
-        .user-menu
-          .button.primary(@click="toggleSubmenu") {{user.data.brand}}
-          .dropdown(v-if="submenu")
-            ul.submenu(@click="closeSubmenu")
-              li
-                nuxt-link(to="/member") 輸入黑名單
-              li
-                nuxt-link#logout(to="/logout") 登出
+        nav#menu
+          ul.menu
+            li
+              nuxt-link(to="/member", active-class="active") 我要提供黑名單
+            li
+              .user-menu
+                .button.invisible(@click="toggleSubmenu")
+                  .avatar
+                    img(v-bind:src="avatar")
+                  .brand {{user.data.brand}}
+                  .chevron-down
+                .dropdown(v-if="submenu")
+                  ul.submenu(@click="closeSubmenu")
+                    li
+                      nuxt-link#logout(to="/logout") 登出
       .column.text-right(v-else)
         nuxt-link.button.primary(to="/signup") 申請加入
         nuxt-link.button(to="/login") 登入
@@ -30,6 +37,13 @@ export default {
   computed: {
     user () {
       return this.$store.state.User
+    },
+    avatar () {
+      if (this.$store.state.User.data.photo) {
+        return this.$store.state.User.data.photo
+      } else {
+        return 'https://dummyimage.com/256x256/ffa600/fff.png&text=' + this.$store.state.User.data.username.split('')[0]
+      }
     }
   },
   methods: {
@@ -47,7 +61,7 @@ export default {
 @import "~assets/css/var";
 #navigation {
   // background-color: $brown;
-  padding: .5em 1em;
+  padding: .5em;
   color: $black;
   border-bottom: 1px solid $lightgray;
   a {
@@ -107,7 +121,7 @@ export default {
       list-style-type: none;
       margin: 0;
       padding: 0;
-      text-align: left;
+      text-align: center;
       li {
         display: block;
         a {
@@ -120,6 +134,55 @@ export default {
           }
         }
       }
+    }
+  }
+}
+#menu {
+  ul.menu {
+    margin: 0;
+    padding: 0;
+    display: block;
+    & > li {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 1em;
+      &:last-child {
+        margin-right: 0;
+      }
+      a {
+        color: $darkgray;
+        text-decoration: none;
+        &:hover, &.active {
+          color: $pureblack;
+        }
+      }
+    }
+  }
+  .avatar {
+    display: inline-block;
+    vertical-align: middle;
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .brand {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 .5em;
+  }
+  .chevron-down {
+    display: inline-block;
+    vertical-align: middle;
+    &:after {
+      display: inline-block;
+      vertical-align: middle;
+      content: '\f2f9';
+      font-family: 'Material-Design-Iconic-Font';
     }
   }
 }
