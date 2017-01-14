@@ -3,8 +3,10 @@
   section.hero-container.search-wrapper
     .hero-content
       .restrict.container
-        h1.title.centered 你好，不管你要訂哪一天，
-          vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink', v-if="windowAv")
+        h1.title.centered
+          span 你好，不管你要訂哪一天，
+          span(v-if="windowAv")
+            vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
       .restrict-small.container
         .controlgroup.centered
           form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
