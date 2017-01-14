@@ -1,5 +1,5 @@
 <template lang="pug">
-form#addRecord
+#addRecord
   .container.restrict
     .frame
       h4.title 加入黑名單，幫助小老闆不再傷心
