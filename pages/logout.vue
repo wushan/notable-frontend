@@ -14,6 +14,10 @@ import axios from 'axios'
 import qs from 'qs'
 export default {
   name: 'Login',
+  head: {
+    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
+    title: '登出'
+  },
   data ({req}) {
     return {
       success: false,

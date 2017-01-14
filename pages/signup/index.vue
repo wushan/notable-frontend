@@ -78,6 +78,10 @@ import qs from 'qs'
 import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'SignUp',
+  head: {
+    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
+    title: '申請加入'
+  },
   data () {
     return {
       signup: {

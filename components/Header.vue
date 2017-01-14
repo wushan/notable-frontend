@@ -39,10 +39,12 @@ export default {
       return this.$store.state.User
     },
     avatar () {
-      if (this.$store.state.User.data.photo) {
-        return this.$store.state.User.data.photo
-      } else {
-        return 'https://dummyimage.com/256x256/ffa600/fff.png&text=' + this.$store.state.User.data.username.split('')[0]
+      if (this.user) {
+        if (this.$store.state.User.data.photo) {
+          return this.$store.state.User.data.photo
+        } else {
+          return 'https://dummyimage.com/256x256/ffa600/fff.png&text=' + this.$store.state.User.data.username.split('')[0]
+        }
       }
     }
   },

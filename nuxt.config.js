@@ -3,11 +3,13 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'starter',
+    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
+    titleTemplate: '%s - NOTABLE「嘸位la！」',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', content: "Nuxt.js project" }
+      { hid: 'description', content: "奧客查詢 顧客負評" },
+      { hid: 'keywords', content: "靠北奧客 拒絕奧客 奧客查詢 澳洲來的客人 奧客電話查詢 用餐紀錄 餐廳黑名單"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }

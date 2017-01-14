@@ -19,11 +19,17 @@ footer#footer
 </script>
 <style lang="scss">
 @import "~assets/css/var";
+@keyframes animatedBackground {
+  from { background-position: 0 0; }
+  to { background-position: 100% 0; }
+}
 .restaurant-animation {
   .tables {
     height: 130px;
     background-image: url('~assets/img/tables.svg');
     background-repeat: repeat-x;
+    background-position: 0 0;
+    // animation: animatedBackground 5s linear infinite;
     position: relative;
     bottom: -20px;
   }

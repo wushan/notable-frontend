@@ -14,11 +14,12 @@
     vertical-align: middle;
     margin: 0 1em;
     text-decoration: none;
-    color: $brown;
+    // color: $brown;
+    color: $white;
     border-bottom: 2px solid transparent;
-    &.active, &:hover, &:active {
-      border-bottom: 2px solid $brown;
-    }
+    // &.active, &:hover, &:active {
+    //   border-bottom: 2px solid $brown;
+    // }
   }
 }
 </style>

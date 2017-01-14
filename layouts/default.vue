@@ -14,9 +14,6 @@ import MyHeader from '~components/Header.vue'
 import MyFooter from '~components/Footer.vue'
 import axios from 'axios'
 export default {
-  head: {
-    title: 'NOTABLE「嘸位la！」 - 小老闆團結！史上最絕奧客防治服務'
-  },
   components: {
     MyHeader,
     MyFooter

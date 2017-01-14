@@ -20,6 +20,10 @@
 <script>
 export default {
   name: 'Message',
+  head: {
+    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
+    title: '註冊成功'
+  },
   data () {
     return {
       

@@ -42,6 +42,10 @@
 </template>
 <script>
 export default {
+  head: {
+    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
+    title: '隱私權政策'
+  },
   mounted () {
   },
   data () {

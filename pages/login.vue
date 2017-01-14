@@ -54,6 +54,10 @@ import { email, required, sameAs, between, minLength } from 'vuelidate/lib/valid
 import qs from 'qs'
 export default {
   name: 'Login',
+  head: {
+    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
+    title: '登入'
+  },
   data ({req}) {
     return {
       name: req ? 'server' : 'client',
