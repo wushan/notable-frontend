@@ -8,8 +8,6 @@
       nav#menu
         ul.menu
           li
-            nuxt-link(to="/member", active-class="active") 我要提供黑名單
-          li
             .user-menu
               .button.invisible(@click="toggleSubmenu")
                 .avatar
@@ -18,6 +16,8 @@
                 .chevron-down
               .dropdown(v-if="submenu")
                 ul.submenu(@click="closeSubmenu")
+                  li
+                    nuxt-link(to="/member", active-class="active") 提供黑名單
                   li
                     nuxt-link#logout(to="/logout") 登出
     .column.text-right(v-else)
@@ -71,8 +71,8 @@ export default {
     vertical-align: middle;
   }
   .logo {
-    padding: 5px 0;
-    margin: 0;
+    padding: 11px 0;
+    margin: 0 0 0 .5em;
   }
   .user-menu {
     position: relative;

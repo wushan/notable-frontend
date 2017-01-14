@@ -1,6 +1,6 @@
 <template lang="pug">
   #member
-    section.hero-container.normal
+    section.hero-container.tiny
       .hero-content
         .restrict-small.container
           .controlgroup.centered

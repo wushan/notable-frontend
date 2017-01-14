@@ -9,6 +9,7 @@
 <style lang="scss">
 @import "~assets/css/var";
 .navigation-footer {
+    font-size: .9em;
   a {
     display: inline-block;
     vertical-align: middle;

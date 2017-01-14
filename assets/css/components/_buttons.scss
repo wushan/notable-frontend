@@ -9,6 +9,7 @@
   padding: .4em .6em;
   color: $black;
   line-height: 1.6;
+  cursor: pointer;
   background-color: transparent;
   @include breakpoint(768px) {
     padding: .4em 1em;

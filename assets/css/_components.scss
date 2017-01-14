@@ -72,6 +72,11 @@
       font-size: 3em;
     }
   }
+  &.tiny {
+    height: auto;
+    min-height: auto;
+    background-color: $brown;
+  }
   &.normal {
     height: 35vh;
     min-height: 250px;
@@ -86,7 +91,7 @@
       bottom: 0;
       right: 0;
       left: 0;
-      background-image: linear-gradient(45deg, #beffc3 0%, rgb(249, 192, 31) 100%);
+      background-image: linear-gradient(45deg, #304e33 0%, #673c23 100%);
       border-radius: 0 0 100% 100%;
       transform-origin: center bottom;
       transform: scaleX(1.5);

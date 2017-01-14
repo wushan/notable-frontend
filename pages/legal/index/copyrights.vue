@@ -6,29 +6,51 @@
         h4 圖像
         .columns
           .column
-            a(href="http://www.flaticon.com/", target="_blank")
-              img(src="https://media.freepik.com/flaticon/img/flaticon-logo.svg")
+            .project
+              a(href="http://www.flaticon.com/", target="_blank")
+                img(src="~assets/img/brands/flaticon.png")
+              span FLATICON
           .column
+            .project
+              a(href="http://zavoloklom.github.io/material-design-iconic-font/", target="_blank")
+                img(src="~assets/img/brands/mdif.png")
+              span Material Design Iconic-font
           .column
+            .project
         h4 技術
         .columns
           .column
-            a(href="https://nodejs.org/", target="_blank")
-              img(src="https://nodesource.com/assets/nodejs-training.png")
+            .project
+              a(href="https://nodejs.org/", target="_blank")
+                img(src="~assets/img/brands/nodejs.png")
+              span Node.js
           .column
-            a(href="http://loopback.io/", target="_blank")
-              //- img(src="http://loopback.io/images/overview/loopback.svg")
-              img(src="https://d7umqicpi7263.cloudfront.net/img/product/369b5575-e2a8-4361-896f-9eec9f786030/f627dc3e-93c4-4cea-9354-3ae7c5073da6.png")
+            .project
+              a(href="http://loopback.io/", target="_blank")
+                //- img(src="http://loopback.io/images/overview/loopback.svg")
+                img(src="~assets/img/brands/loopback.png")
+              span Loopback
           .column
-            a(href="https://vuejs.org/", target="_blank")
-              img(src="https://vuejs.org/images/logo.png")
+            .project
+              a(href="https://vuejs.org/", target="_blank")
+                img(src="~assets/img/brands/vuejs.png")
+              span Vue.js
           .column
-            a(href="https://nuxtjs.org", target="_blank")
-              img(src="https://nuxtjs.org/_nuxt/img/logo_nav.png?be08efae0d5c46fd682e2a24f18545ae")
+            .project
+              a(href="https://nuxtjs.org", target="_blank")
+                img(src="~assets/img/brands/nuxtjs.png")
+              span Nuxt.js
 
 </template>
 <script>
 export default {
+  head: {
+    title: '版權說明',
+    meta: [
+      { hid: 'description', content: "奧客查詢、顧客負評，最強奧客電話查詢服務，小老闆拒絕再迎合奧客！" },
+      { hid: 'keywords', content: "靠北奧客 拒絕奧客 奧客查詢 澳洲來的客人 奧客電話查詢 用餐紀錄 餐廳黑名單 餐飲業奧客 訂位不接電話 NOSHOW"}
+    ]
+  },
   mounted () {
   },
   data () {
@@ -44,12 +66,28 @@ export default {
 @import "~breakpoint-sass";
 @import '~assets/css/var';
 #copyrights {
-  img {
-    max-height: 60px;
-    width: auto;
+  padding: 2em 0 6em 0;
+  box-sizing: border-box;
+  .project {
+    span {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: $darkgray;
+      margin-top: 1em;
+    }
   }
   a {
     display: block;
+    img {
+      transition: .3s all ease;
+      filter: grayscale(100%);
+    }
+    &:hover {
+      img {
+        filter: grayscale(0);
+      }
+    }
   }
   .columns {
     .column {

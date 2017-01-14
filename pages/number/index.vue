@@ -1,12 +1,12 @@
 <template lang="pug">
   #number
-    section.hero-container.normal
+    section.hero-container.tiny
       .hero-content
         .restrict-small.container
           .controlgroup.centered
             form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
               input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError")
-              button(type="submit", @click="$v.$touch") 肉搜你
+              button(type="submit", @click="$v.$touch") 搜尋
               span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
               span.valid-notifier(v-if="!$v.number.required") (必填欄位)
               span.valid-notifier(v-if="!$v.number.minLength") (電話格式不正確！)

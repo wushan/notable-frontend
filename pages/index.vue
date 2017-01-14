@@ -160,6 +160,9 @@ export default {
     transform-origin: center bottom;
     transform: scaleX(1.5);
   }
+  .hero-content {
+    margin-bottom: 10vh;
+  }
   .title {
     @include breakpoint(768px) {
      h1 {
