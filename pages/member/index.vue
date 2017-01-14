@@ -16,10 +16,10 @@
 <script>
 import axios from 'axios'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
-var Cleave = require('cleave.js')
-require('cleave.js/dist/addons/cleave-phone.tw')
 export default {
   mounted () {
+    var Cleave = require('cleave.js')
+    require('cleave.js/dist/addons/cleave-phone.tw')
     var cleave = new Cleave('.phone-type', {
       phone: true,
       phoneRegionCode: 'tw'

@@ -75,6 +75,9 @@ export default {
     this.windowAv = true
     var Cleave = require('cleave.js')
     require('cleave.js/dist/addons/cleave-phone.tw')
+    var testA = document.querySelector('.phone-type')
+    console.log('Home')
+    console.log(testA)
     this.$nextTick(() => {
       var cleave = new Cleave('.phone-type', {
         phone: true,

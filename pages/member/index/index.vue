@@ -48,13 +48,16 @@ form#addRecord
             button.button.invert#submit(v-if="!successMsg", type="submit", @click="$v.blacklist.$touch") {{btnMsg}}
 </template>
 <script>
-var Cleave = require('cleave.js')
-require('cleave.js/dist/addons/cleave-phone.tw')
 import axios from 'axios'
 import { email, required, sameAs, between, minLength, maxLength } from 'vuelidate/lib/validators'
 import qs from 'qs'
 export default {
   mounted () {
+    var Cleave = require('cleave.js')
+    require('cleave.js/dist/addons/cleave-phone.tw')
+    var testA = document.querySelector('.date-type')
+    var testB = document.querySelector('.number-type')
+    console.log(testA, testB)
     var cleaveDate = new Cleave('.date-type', {
       date: true,
       datePattern: ['Y', 'm', 'd']
