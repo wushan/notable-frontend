@@ -11,7 +11,11 @@
 import Navigation from '~components/navigation-footer.vue'
 export default {
   created () {
-    this.$router.replace('/legal/privacy')
+  },
+  mounted () {
+    if (this.$route.fullPath === '/legal' || this.$route.fullPath === '/legal/') {
+      this.$router.replace('/legal/privacy')
+    }
   },
   data () {
     return {
