@@ -53,7 +53,6 @@ export default {
       this.submenu = !this.submenu
     },
     closeSubmenu () {
-      console.log('trig')
       this.submenu = false
     }
   }

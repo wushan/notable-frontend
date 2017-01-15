@@ -5,14 +5,13 @@
       .restrict.container
         h1.title.centered
           span 你好，不管你要訂哪一天，
-          span
+          span(v-if="windowAv")
             vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
       .restrict-small.container
         .controlgroup.centered
           form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
-            input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError")
+            input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError",  placeholder="輸入號碼：0987987987")
             button(type="submit", @click="$v.$touch") 搜尋
-            span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
             span.valid-notifier(v-if="!$v.number.required") (必填欄位)
             span.valid-notifier(v-if="!$v.number.minLength") (電話格式不正確！)
             span.valid-notifier(v-if="!$v.number.maxLength") (號碼有點多！)
@@ -74,6 +73,7 @@ export default {
     ]
   },
   mounted () {
+    this.windowAv = true
   },
   data () {
     return {
