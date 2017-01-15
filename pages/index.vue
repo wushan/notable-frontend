@@ -9,12 +9,7 @@
             vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
       .restrict-small.container
         .controlgroup.centered
-          form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
-            input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError",  placeholder="輸入號碼：0987987987")
-            button(type="submit", @click="$v.$touch") 搜尋
-            span.valid-notifier(v-if="!$v.number.required") (必填欄位)
-            span.valid-notifier(v-if="!$v.number.minLength") (電話格式不正確！)
-            span.valid-notifier(v-if="!$v.number.maxLength") (號碼有點多！)
+          searchNumb
   section.service-intro
     .restrict.container
       .hero-table
@@ -61,7 +56,7 @@
 // import Vue from 'vue'
 // import VueNotifications from 'vue-notifications'
 // var VueTyper = window.VueTyper.VueTyper
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import searchNumb from '~components/searchNumb.vue'
 import axios from 'axios'
 export default {
   name: 'Home',
@@ -77,34 +72,14 @@ export default {
   },
   data () {
     return {
-      number: null,
       error: null,
       windowAv: false
     }
   },
-  validations: {
-    number: {
-      required,
-      minLength: minLength(9),
-      maxLength: maxLength(12)
-    }
-  },
   components: {
+    searchNumb
   },
   methods: {
-    startSearch () {
-      this.$router.push('/number/' + this.cleanNumber)
-    },
-    clearError () {
-      this.error = null
-    }
-  },
-  computed: {
-    cleanNumber () {
-      if (this.number) {
-        return this.number.replace(/ /g, '')
-      }
-    }
   }
 }
 </script>
@@ -159,8 +134,4 @@ export default {
     }
   }
 }
-// @keyframes rocking {
-//   0%,100% {transform: rotateZ(-10deg);},
-//   50%     {transform: rotateZ(10deg);}
-// }
 </style>

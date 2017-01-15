@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 module.exports = {
   /*
   ** Headers of the page
@@ -39,6 +40,12 @@ module.exports = {
   build: {
     vendor: [
       'axios'
+    ],
+    plugins: [
+      new webpack.ProvidePlugin({
+        '$': 'jquery'
+        // ...etc.
+      })
     ]
   },
   plugins: ['plugins/vue-typer.js', 'plugins/vuelidate.js', 'plugins/ga.js']
