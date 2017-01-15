@@ -4,7 +4,7 @@ module.exports = {
   */
   head: {
     // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
-    titleTemplate: '%s - NOTABLE「嘸位la！」',
+    titleTemplate: '%s - NOTABLE「嘸位la！」奧客查詢',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

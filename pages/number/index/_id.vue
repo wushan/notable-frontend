@@ -1,5 +1,8 @@
 <template lang="pug">
   section#results.container.restrict.results-wrapper
+    .providing-blacklist
+      | 怎麼可能這麼高分？
+      nuxt-link(to="/member") 我有他的把柄！
     .frame
       .columns.reverse
         .column.grade
@@ -7,12 +10,9 @@
           .score-wrapper
             .score
               .points(v-bind:class="scoresLevel") {{scores}}
-              .description
-                span 表現良好
-                span 或者說正義還沒被彰顯
-            .providing-blacklist
-              | 怎麼可能這麼高分？
-              nuxt-link(to="/member") 我有他的把柄！
+              .description(v-bind:class="scoresLevel")
+                span {{scoreDescription.name}}
+                span {{scoreDescription.notify}}
         .column.target
           h3 查詢標的
           .number {{number}}
@@ -43,6 +43,11 @@ export default {
   data ({ params }) {
     return {
       number: params.id
+    }
+  },
+  head () {
+    return {
+      title: '查詢號碼：' + this.number
     }
   },
   components: {
@@ -81,6 +86,24 @@ export default {
         return 'serious'
       } else {
         return 'nice'
+      }
+    },
+    scoreDescription () {
+      if (this.scores < 0) {
+        return {
+          name: '罪大惡極',
+          notify: '務必謹慎考慮'
+        }
+      } else if (this.scores >= 0 && this.scores < 6) {
+        return {
+          name: '人非聖賢',
+          notify: '有一點不良紀錄，不過程度不太嚴重'
+        }
+      } else {
+        return {
+          name: '表現優異',
+          notify: '也可能是還沒有人回報...'
+        }
       }
     }
   }
@@ -153,11 +176,21 @@ export default {
     font-size: 36px;
     letter-spacing: 23px;
     font-weight: 700;
+    &.bad {
+      color: $red;
+    }
+    &.nice {
+      color: $primary;
+    }
+    &.serious {
+      color: $secondary;
+    }
     span {
       &:last-child {
         font-size: 12px;
         display: block;
         letter-spacing: 1px;
+        color: $darkgray;
       }
     }
   }
@@ -169,11 +202,14 @@ export default {
             align-content: center;
     .score {
     }
-    .providing-blacklist {
-      font-size: 12px;
-      position: absolute;
-      top: -0.5em;
-      right: -0.5em;
+  }
+  .providing-blacklist {
+    font-size: 12px;
+    margin:.5em 0;
+    text-align: right;
+    a {
+      color: $link;
+      text-decoration: none;
     }
   }
   footer {

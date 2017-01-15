@@ -5,7 +5,7 @@
         .restrict-small.container
           .controlgroup.centered
             form.controls(@submit.stop.prevent="startSearch", v-bind:class="{error: $v.number.$error}")
-              input.phone-type(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError")
+              input(type="search", v-model.trim="number", v-bind:class="{active:number}", @input="$v.number.$touch()" @keyup="clearError")
               button(type="submit", @click="$v.$touch") 搜尋
               span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
               span.valid-notifier(v-if="!$v.number.required") (必填欄位)
@@ -18,12 +18,6 @@ import axios from 'axios'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
   mounted () {
-    var Cleave = require('cleave.js')
-    require('cleave.js/dist/addons/cleave-phone.tw')
-    var cleave = new Cleave('.phone-type', {
-      phone: true,
-      phoneRegionCode: 'tw'
-    })
   },
   data () {
     return {

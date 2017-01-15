@@ -2,7 +2,7 @@
 #addRecord
   .container.restrict
     .frame
-      h4.title 加入黑名單，幫助小老闆不再傷心
+      h4.title 回報奧客，幫助其他小老闆不再傷心
       form(@submit.stop.prevent="addRecord")
         .columns
           .column
@@ -52,6 +52,10 @@ import axios from 'axios'
 import { email, required, sameAs, between, minLength, maxLength } from 'vuelidate/lib/validators'
 import qs from 'qs'
 export default {
+  head: {
+    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
+    title: '回報奧客'
+  },
   mounted () {
     var Cleave = require('cleave.js')
     require('cleave.js/dist/addons/cleave-phone.tw')
