@@ -57,19 +57,6 @@ export default {
     title: '回報奧客'
   },
   mounted () {
-    var Cleave = require('cleave.js')
-    require('cleave.js/dist/addons/cleave-phone.tw')
-    var testA = document.querySelector('.date-type')
-    var testB = document.querySelector('.number-type')
-    console.log(testA, testB)
-    var cleaveDate = new Cleave('.date-type', {
-      date: true,
-      datePattern: ['Y', 'm', 'd']
-    })
-    var cleavePhone = new Cleave('.number-type', {
-      phone: true,
-      phoneRegionCode: 'tw'
-    })
   },
   methods: {
     addRecord () {

@@ -5,7 +5,7 @@
       .restrict.container
         h1.title.centered
           span 你好，不管你要訂哪一天，
-          span(v-if="windowAv")
+          span
             vue-typer(:text='["都沒位子","都不可能","都公休"]', :repeat='Infinity', :shuffle='false', initial-action='typing', :pre-type-delay='300', :type-delay='300', :pre-erase-delay='2000', :erase-delay='550', erase-style='select-all', :erase-on-complete='false', caret-animation='blink')
       .restrict-small.container
         .controlgroup.centered
@@ -74,18 +74,6 @@ export default {
     ]
   },
   mounted () {
-    this.windowAv = true
-    var Cleave = require('cleave.js')
-    require('cleave.js/dist/addons/cleave-phone.tw')
-    var testA = document.querySelector('.phone-type')
-    console.log('Home')
-    console.log(testA)
-    this.$nextTick(() => {
-      var cleave = new Cleave('.phone-type', {
-        phone: true,
-        phoneRegionCode: 'tw'
-      })
-    })
   },
   data () {
     return {
