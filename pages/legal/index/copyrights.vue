@@ -2,7 +2,7 @@
   #copyrights
     section
       .container.restrict
-        p 本網站的完成借助眾多網路資源及廣大免費服務提供商，特標注本站各類圖像、UI 元件等素材來源以及採用的各式開放原始碼模組，以回饋大眾。
+        p 本網站的完成借助眾多網路資源及廣大免費服務提供商，特標注本站各類圖像、UI 元件等素材來源以及採用的各式開放原始碼模組，以供參考。
         h4 圖像
         .columns
           .column
@@ -40,6 +40,12 @@
               a(href="https://nuxtjs.org", target="_blank")
                 img(src="~assets/img/brands/nuxtjs.png")
               span Nuxt.js
+        .columns  
+          .column
+            .project
+              a(href="https://monterail.github.io/vuelidate/", target="_blank")
+                img(src="~assets/img/brands/vuelidate.png")
+              span Vuelidate
 
 </template>
 <script>
@@ -90,6 +96,8 @@ export default {
     }
   }
   .columns {
+    -webkit-align-content: flex-start;
+            align-content: flex-start;
     .column {
       display: flex;
       align-items: center;

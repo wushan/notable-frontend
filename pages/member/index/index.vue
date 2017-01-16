@@ -8,7 +8,7 @@
           .column
             .controlgroup
               .controls
-                input.number-type(type="text", v-bind:class="{active:blacklist.number, error: error}", @keydown="clearError", placeholder="輸入號碼：0987987987", v-model.trim="blacklist.number")
+                input.number-type(type="tel", v-bind:class="{active:blacklist.number, error: error}", @keydown="clearError", placeholder="輸入號碼：0987987987", v-model.trim="blacklist.number")
                 label 電話
 
           .column
