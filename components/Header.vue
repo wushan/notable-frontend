@@ -17,7 +17,7 @@
               .dropdown(v-if="submenu")
                 ul.submenu(@click="closeSubmenu")
                   li
-                    nuxt-link(to="/member", active-class="active") 提供黑名單
+                    nuxt-link(to="/member", active-class="active") 通報奧客
                   li
                     nuxt-link#logout(to="/logout") 登出
     .column.text-right(v-else)

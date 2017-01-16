@@ -113,24 +113,9 @@
           transform: translateX(0) translateY(-1.5em);
         }
       }
-    }
-    &.error {
-      span.valid-notifier {
-        display: block;
+      &.error {
+        background-color: $pink;
       }
-    }
-    span {
-      display: block;
-      font-size: 12px;
-      margin-top: .5em;
-      flex: none;
-      width: 100%;
-    }
-    span.valid-notifier {
-      display: none;
-      color: $red;
-      font-size: 12px;
-      margin: .3em .5em;
     }
   }
 }

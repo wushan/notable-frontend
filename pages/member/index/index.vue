@@ -2,18 +2,15 @@
 #addRecord
   .container.restrict
     .frame
-      h4.title 回報奧客，幫助其他小老闆不再傷心
+      h3.title.centered 回報奧客，幫助其他小老闆不再傷心
       form(@submit.stop.prevent="addRecord")
         .columns
           .column
             .controlgroup
-              .controls(v-bind:class="{error: $v.blacklist.number.$error}")
-                input.number-type(type="text", placeholder="電話", v-model.trim="blacklist.number", v-bind:class="{active:blacklist.number}", @input="$v.blacklist.number.$touch()")
+              .controls
+                input.number-type(type="text", v-bind:class="{active:blacklist.number, error: error}", @keydown="clearError", placeholder="輸入號碼：0987987987", v-model.trim="blacklist.number")
                 label 電話
-                span.valid-notifier(v-if="!$v.blacklist.number.required") (必填欄位)
-                span.valid-notifier(v-if="!$v.blacklist.number.minLength") (電話格式不正確！)
-                span.valid-notifier(v-if="!$v.blacklist.number.maxLength") (號碼有點多！)
-                span 範例：手機： 0978978078；市話：0228785487 - 不用自己輸入空格
+
           .column
             .controlgroup
               .controls
@@ -22,13 +19,13 @@
                     option(value="male") 男聲
                     option(value="female") 女聲
                   label 性別
-                span 電話聽起來像男聲女聲呢？
+
           .column
             .controlgroup
               .controls
                 input.date-type(v-model.trim="blacklist.date", type="text", placeholder="YYYY/MM/DD", v-bind:class="{active:blacklist.date}")
                 label 發生時間
-                span 他們的惡形惡狀是多久之前發生的？
+
         .columns
           .column
             .controlgroup
@@ -40,12 +37,14 @@
                     option(value="2") 貪小便宜，要求眾多，理直氣壯
                     option(value="3") 就是奧客
                   label 事蹟
-                span 我知道他們很壞，但是到底有多壞，你說說看？
+
         .call-action.container.restrict-small.centered
-          transition(name="fade", mode="out-in")
-            button.button.primary#submit(v-if="successMsg", type="submit", @click="$v.blacklist.$touch") {{successMsg}}
-          transition(name="fade", mode="out-in")
-            button.button.invert#submit(v-if="!successMsg", type="submit", @click="$v.blacklist.$touch") {{btnMsg}}
+          button.button.invert#submit(type="submit", @click="$v.blacklist.$touch") {{btnMsg}}
+        transition(name="fade", mode="out-in")
+          .successView(v-if="successMsg")
+            .successView-inner
+              h2 通報成功
+              p 感謝
 </template>
 <script>
 import axios from 'axios'
@@ -53,7 +52,6 @@ import { email, required, sameAs, between, minLength, maxLength } from 'vuelidat
 import qs from 'qs'
 export default {
   head: {
-    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
     title: '回報奧客'
   },
   mounted () {
@@ -62,8 +60,12 @@ export default {
     addRecord () {
       var btn = document.getElementById('submit')
       btn.disabled = true
-      if (this.$v.$error) {
+      if (this.$v.$error || !this.startWith) {
         btn.disabled = false
+        this.error = true
+        setTimeout(() => {
+          this.error = false
+        }, 200)
         return
       } else {
         this.submitRecord()
@@ -97,18 +99,44 @@ export default {
       })
       .catch((error) => {
         this.error = error
+        // this.timer = setTimeout(() => {
+        //   this.successMsg = false
+        // }, 3000)
         btn.disabled = false
       });
     },
     showSuccessMsg () {
-      this.successMsg = "感謝提供"
+      this.successMsg = true
       this.timer = setTimeout(() => {
-        this.successMsg = null
+        this.successMsg = false
       }, 3000)
+    },
+    clearError (e) {
+      if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+           // Allow: Ctrl+A
+          (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+           // Allow: Ctrl+C
+          (e.keyCode == 67 && e.ctrlKey === true) ||
+           // Allow: Ctrl+X
+          (e.keyCode == 88 && e.ctrlKey === true) ||
+           // Allow: home, end, left, right
+          (e.keyCode >= 35 && e.keyCode <= 39)) {
+               // let it happen, don't do anything
+               return;
+      }
+      // Ensure that it is a number and stop the keypress
+      if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+          e.preventDefault();
+          this.error = true
+          setTimeout(() => {
+            this.error = false
+          }, 200)
+      }
     }
   },
   data () {
     return {
+      error: false,
       blacklist: {
         number: null,
         voice: 'male',
@@ -136,6 +164,33 @@ export default {
       if (this.blacklist.number) {
         return this.blacklist.number.replace(/ /g, '')
       }
+    },
+    startWith () {
+      if (this.blacklist.number) {
+        var string = this.blacklist.number.split('')
+        if (string[0] === '0') {
+          // First number must be 0
+          if (string[1] === '9') {
+            // Mobile (second number 9)
+            if (string.length === 10) {
+              return true
+            } else {
+              return false
+            }
+          } else {
+            // City
+            if (string.length >= 9 && string.length <=10) {
+              return true
+            } else {
+              return false
+            }
+          }
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
     }
   }
 }
@@ -145,5 +200,29 @@ export default {
 @import '~assets/css/var';
 #addRecord {
   margin: 4em 0;
+  .frame {
+    position: relative; 
+  }
+  .title {
+    margin: 1em 0 3em 0;
+  }
+  .successView {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    -webkit-align-content: center;
+            align-content: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    background-color: $white;
+    z-index: 9999;
+    text-align: center;
+    .successView-inner {
+        align-self: center;
+    }
+  }
 }
 </style>

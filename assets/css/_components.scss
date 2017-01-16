@@ -26,6 +26,10 @@
     margin-bottom: 2em;
   }
   .column {
+    margin-bottom: 2em;
+    @include breakpoint(1024px) {
+      margin-bottom: 0;
+    }
   }
   &.is-mobile {
     display: flex;
