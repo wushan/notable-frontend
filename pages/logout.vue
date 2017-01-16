@@ -8,6 +8,14 @@
 </template>
 
 <style lang="scss">
+#logut {
+  min-height: calc( 100vh - 391px);
+  padding: 2em 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 <script>
 import axios from 'axios'

@@ -176,6 +176,10 @@
   &.error-message {
     color: $red;
   }
+  &.success-message {
+    background-color: $link;
+    color: $white;
+  }
 }
 // Transitions
 .fade-enter-active, .fade-leave-active {

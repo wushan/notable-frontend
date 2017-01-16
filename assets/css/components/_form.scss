@@ -95,11 +95,6 @@
         opacity: 0;
         font-size: 12px;
         transition: .3s all ease;
-        & + span {
-          font-size: 12px;
-          display: block;
-          margin-top: .5em;
-        }
       }
       &:focus, &.active {
         outline: none;
@@ -116,6 +111,16 @@
       &.error {
         background-color: $pink;
       }
+    }
+    &.error {
+      span {
+        color: $red;
+      }
+    }
+    span {
+      font-size: 12px;
+      display: block;
+      margin-top: .5em;
     }
   }
 }

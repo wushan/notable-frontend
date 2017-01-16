@@ -28,10 +28,12 @@
                 span 還不是會員？
                 nuxt-link(to="/signup") 點此加入
               .column.text-right
-                nuxt-link(to="/reset") 忘記密碼？
+                nuxt-link(to="/auth/getpassword") 忘記密碼？
 </template>
 
 <style lang="scss">
+@import "~breakpoint-sass";
+@import '~assets/css/var';
 #login {
   min-height: calc( 100vh - 391px);
   padding: 2em 0;
@@ -44,6 +46,7 @@
   width: 100%;
   .title {
     text-align: center;
+    color: $pureblack;
   }
 }
 </style>

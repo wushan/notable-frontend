@@ -2,7 +2,7 @@
   #signup
     section#signup-container
       .container.restrict
-        form(@submit.prevent.stop="postSignUp").frame
+        form.frame(@submit.prevent.stop="postSignUp")
           h1.title 我要加入
           .columns
             .column
@@ -85,12 +85,12 @@ export default {
   data () {
     return {
       signup: {
-        email: null,
-        password: null,
-        confirm: null,
-        brand: null,
-        vat: null,
-        address: null
+        email: '',
+        password: '',
+        confirm: '',
+        brand: '',
+        vat: '',
+        address: ''
       }
     }
   },
