@@ -35,4 +35,7 @@ export default {
 <style lang="scss">
 @import "~breakpoint-sass";
 @import '~assets/css/var';
+#privacy {
+  padding: 4em 0;
+}
 </style>

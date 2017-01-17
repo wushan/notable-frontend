@@ -140,7 +140,7 @@ export default {
       blacklist: {
         number: null,
         voice: 'male',
-        date: '2017/01/01',
+        date: '',
         description: '0'
       },
       successMsg: null,

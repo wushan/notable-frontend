@@ -70,7 +70,6 @@ export default {
     vertical-align: middle;
   }
   .logo {
-    padding: 11px 0;
     margin: 0 0 0 .5em;
   }
   .user-menu {

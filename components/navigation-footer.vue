@@ -1,5 +1,5 @@
 <template lang="pug">
-  .container.restrict.navigation-footer.centered
+  .container.restrict.navigation-footer
     nuxt-link(to="/legal/privacy", active-class="active") 隱私權
     nuxt-link(to="/legal/tou", active-class="active") 使用條款
     nuxt-link(to="/legal/copyrights", active-class="active") 版權說明
@@ -18,6 +18,9 @@
     // color: $brown;
     color: $white;
     border-bottom: 2px solid transparent;
+    &:first-child {
+        margin-left: 0;
+    }
     // &.active, &:hover, &:active {
     //   border-bottom: 2px solid $brown;
     // }

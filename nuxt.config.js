@@ -5,12 +5,17 @@ module.exports = {
   */
   head: {
     // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
-    titleTemplate: '%s - NOTABLE「嘸位la！」奧客查詢',
+    titleTemplate: '%s - NOTABLE「嘸位la！」奧客查詢服務',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', content: "奧客查詢 顧客負評" },
-      { hid: 'keywords', content: "靠北奧客 拒絕奧客 奧客查詢 澳洲來的客人 奧客電話查詢 用餐紀錄 餐廳黑名單"}
+      { hid: 'description', content: "奧客警示/顧客負評最佳查詢網站，避免您的餐廳再接到澳洲來的客人" },
+      { hid: 'keywords', content: "靠北奧客 拒絕奧客 奧客查詢 澳洲來的客人 奧客電話查詢 用餐紀錄 餐廳黑名單"},
+      { hid: 'ogtitle', name: 'og:title', content: 'NOTABLE「嘸位la！」奧客查詢服務'},
+      // { hid: 'og:title', name: 'og:type', content: ''},
+      { hid: 'ogimage', name: 'og:image', content: 'notable-website-ogimage.jpg'},
+      { hid: 'ogurl', name: 'og:url', content: 'https://notable.wushan.io'},
+      { hid: 'ogdescription', name: 'og:description', content: '奧客警示/顧客負評最佳查詢網站，避免您的餐廳再接到澳洲來的客人'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' },

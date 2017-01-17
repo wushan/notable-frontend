@@ -10,6 +10,11 @@
 <script>
 import searchNumb from '~components/searchNumb.vue'
 export default {
+  beforeMount () {
+    if (!this.$store.state.User) {
+      this.$router.push('/login')
+    }
+  },
   mounted () {
   },
   data () {

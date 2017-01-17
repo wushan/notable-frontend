@@ -17,7 +17,9 @@
         // text-align: left;
         margin: .5em 0;
       }
-    }
+    } 
+  }
+  #search {
     input[type="tel"] {
       flex: 1;
       height: $input-height;
@@ -113,6 +115,9 @@
       }
     }
     &.error {
+      input.required {
+        border-color: $red;
+      }
       span {
         color: $red;
       }

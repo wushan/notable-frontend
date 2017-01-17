@@ -1,6 +1,17 @@
 <template lang="pug">
 #intro
   section.hero-container.search-wrapper
+    .background-color
+    .background-img(v-if="randomImages", v-bind:style="'background-image: url(' + randomImages.urls.regular + ');'")
+    .image-credit(v-if="randomImages")
+      .author
+        span Photo by 
+        .avatrar
+          img(v-bind:src="randomImages.user.profile_image.small")
+        .name
+          a(v-bind:href="randomImages.user.links.portfolio", target="_blank") {{randomImages.user.name}}
+          |  /  
+          a(href="https://unsplash.com", target="_blank") Unsplash
     .hero-content
       .restrict.container
         h1.title.centered
@@ -51,6 +62,8 @@
           | 我讓你永遠訂沒位
         p
           | - Shit
+      .call-action.centered
+        nuxt-link.button.invert(to="/member") 奧客通報
 </template>
 <script>
 // import Vue from 'vue'
@@ -69,17 +82,41 @@ export default {
   },
   mounted () {
     this.windowAv = true
+    axios({
+      method: 'get',
+      url: 'https://api.unsplash.com/search/photos',
+      params: {
+        client_id: '18399cc703b58fb798c5663595cbe1cde3958b0c3f495970106efc105f62f48b',
+        query: 'restaurant'
+      },
+    })
+    .then((response) => {
+      console.log(response)
+      this.images = response.data.results
+    })
+    .catch((error) => {
+      console.log(error)
+    });
   },
   data () {
     return {
       error: null,
-      windowAv: false
+      windowAv: false,
+      images: null
     }
   },
   components: {
     searchNumb
   },
   methods: {
+  },
+  computed: {
+    randomImages () {
+      var imagesArray
+      if (this.images) {
+        return this.images[Math.floor(Math.random()*10)]
+      }
+    }
   }
 }
 </script>
@@ -93,6 +130,7 @@ export default {
   .service-intro {
     position: relative;
     padding-top: 20%;
+    padding-bottom: 5em;
     .hero-table {
       position: absolute;
       top: -20vh;
@@ -108,7 +146,19 @@ export default {
 .search-wrapper {
   position: relative;
   overflow: hidden;
-  &:before {
+  .background-color {
+    background-color: $pureblack;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 0 0 100% 100%;
+    transform-origin: center bottom;
+    transform: scale(4);
+  }  
+  .background-img {
     content: '';
     display: block;
     position: absolute;
@@ -116,12 +166,13 @@ export default {
     bottom: 0;
     right: 0;
     left: 0;
-    background-image: url('~assets/img/search-bg.jpg');
+    background-image: url('~assets/img/random/2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 0 0 100% 100%;
     transform-origin: center bottom;
-    transform: scaleX(1.5);
+    transform: scale(4);
+    opacity: .65;
   }
   .hero-content {
     margin-bottom: 10vh;
@@ -131,6 +182,41 @@ export default {
      h1 {
       font-size: 3em;
      }
+    }
+  }
+}
+.image-credit {
+  background-color: $pureblack;
+  color: $white;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  padding: .5em 1em;
+  font-size: 12px;
+  font-style: italic;
+  a {
+    color: rgba($white, .7);
+    text-decoration: none;
+    font-style: normal;
+    &:hover {
+      color: $primary;
+    }
+  }
+  & > span {
+    
+  }
+  .author {
+    display: flex;
+    .avatrar {
+      width: 18px;
+      height: 18px;
+      flex: initial;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 .5em;
+    }
+    .name {
+      flex: 1;
     }
   }
 }

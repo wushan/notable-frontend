@@ -1,5 +1,5 @@
 <template lang="pug">
-form.controls(@submit.stop.prevent="startSearch")
+form.controls#search(@submit.stop.prevent="startSearch")
   input(type="tel", v-model.trim="number", v-bind:class="{active:number, error: error}", @keydown="clearError",  placeholder="輸入號碼：0987987987")
   button(type="submit") 搜尋
   

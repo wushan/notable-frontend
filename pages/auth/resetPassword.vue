@@ -71,6 +71,9 @@ export default {
     // this.$store.dispatch('getRecords')
   },
   mounted () {
+    if (!this.$route.query.access_token) {
+      this.$router.replace('/')
+    }
   },
   fetch ({ store }) {
     // store.commit('increment')

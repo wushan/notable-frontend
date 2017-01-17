@@ -4,10 +4,17 @@ footer#footer
     .windows
     .tables
     .floor
-  aside.bottom-nav.centered
-    navigation
-  .copyrights.centered
-    .container.restrict Copyrights by 小老闆的逆襲. All Rights Reserved.
+  aside.bottom-nav
+      .container.restrict.navigation-footer
+        nuxt-link(to="/about", active-class="active") 服務簡介
+        nuxt-link(to="/member", active-class="active") 奧客通報
+        nuxt-link(to="/contact", active-class="active") 聯絡我們
+      .footer-menu
+        navigation
+  .copyrights
+    .container.restrict.text-right
+      | POWERED BY  
+      b THE ANGRY BOSS.
 </template>
 <script>
   import Navigation from '~components/navigation-footer.vue'
@@ -48,6 +55,16 @@ footer#footer
   .bottom-nav {
     background-color: $brown;
     box-shadow: inset 0 10px 12px 0 rgba(darken($brown, 10%), .7);
+    .footer-menu {
+      background-color: $white;
+      font-size: 13px;
+      a {
+        color: $darkgray;
+        &:hover {
+          color: $pureblack;
+        }
+      }
+    }
   }
   .copyrights {
     font-size: 12px;

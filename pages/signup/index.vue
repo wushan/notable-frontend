@@ -8,37 +8,32 @@
             .column
               .controlgroup
                 .controls(v-bind:class="{error: $v.signup.email.$error}")
-                  input(type="text", placeholder="電子郵件", v-model.trim="signup.email", v-bind:class="{active:signup.email}", @input="$v.signup.email.$touch()")
+                  input(type="email", placeholder="電子郵件", v-model.trim="signup.email", v-bind:class="{active:signup.email, required:!$v.signup.email.required}", @input="$v.signup.email.$touch()")
                   label 電子郵件
-                  span.valid-notifier(v-if="!$v.signup.email.required") (必填欄位)
                   span.valid-notifier(v-if="!$v.signup.email.email") (格式不正確！)
               .controlgroup
                 .controls(v-bind:class="{error: $v.signup.password.$error}")
-                  input(type="password", placeholder="自訂密碼", v-model.trim="signup.password", v-bind:class="{active:signup.password}", @input="$v.signup.password.$touch()")
+                  input(type="password", placeholder="自訂密碼", v-model.trim="signup.password", v-bind:class="{active:signup.password, required:!$v.signup.password.required}", @input="$v.signup.password.$touch()")
                   label 自訂密碼
-                  span.valid-notifier(v-if="!$v.signup.password.required") (必填欄位)
                   span.valid-notifier(v-if="!$v.signup.password.minLength") 密碼至少 8 碼
               .controlgroup
                 .controls(v-bind:class="{error: $v.signup.confirm.$error}")
                   input(type="password", placeholder="再次輸入密碼", v-model.trim="signup.confirm", v-bind:class="{active:signup.confirm}", @input="$v.signup.confirm.$touch()")
                   label 再次輸入密碼
-                  span.valid-notifier(v-if="!$v.signup.password.sameAs") 密碼不吻合，請確認
+                  span.valid-notifier(v-if="!$v.signup.confirm.sameAsPassword") 密碼不吻合，請確認
               .controlgroup
                 .controls(v-bind:class="{error: $v.signup.brand.$error}")
-                  input(type="text", placeholder="您的店鋪名稱", v-model.trim="signup.brand", v-bind:class="{active:signup.brand}", @input="$v.signup.brand.$touch()")
+                  input(type="text", placeholder="您的店鋪名稱", v-model.trim="signup.brand", v-bind:class="{active:signup.brand, required:!$v.signup.brand.required}", @input="$v.signup.brand.$touch()")
                   label 您的店鋪名稱
-                  span.valid-notifier(v-if="!$v.signup.brand.required") 必填
               .controlgroup
                 .controls(v-bind:class="{error: $v.signup.vat.$error}")
-                  input(type="text", placeholder="統一編號", v-model.trim="signup.vat", v-bind:class="{active:signup.vat}", @input="$v.signup.vat.$touch()")
+                  input(type="text", placeholder="統一編號", v-model.trim="signup.vat", v-bind:class="{active:signup.vat, required:!$v.signup.vat.required}", @input="$v.signup.vat.$touch()")
                   label 統一編號
-                  span.valid-notifier(v-if="!$v.signup.vat.required") 必填
                   span.valid-notifier(v-if="!$v.signup.vat.minLength") 請輸入統一編號 8 碼
               .controlgroup
                 .controls(v-bind:class="{error: $v.signup.address.$error}")
-                  input(type="text", placeholder="店舖地址", v-model.trim="signup.address", v-bind:class="{active:signup.address}", @input="$v.signup.address.$touch()")
+                  input(type="text", placeholder="店舖地址", v-model.trim="signup.address", v-bind:class="{active:signup.address, required:!$v.signup.address.required}", @input="$v.signup.address.$touch()")
                   label 店舖地址
-                  span.valid-notifier(v-if="!$v.signup.address.required") 必填
               .call-action
                 button.button.invert.full(type="submit", @click="$v.signup.$touch") 申請加入
               .gray-box
@@ -94,8 +89,6 @@ export default {
       }
     }
   },
-  mounted () {
-  },
   validations: {
     signup: {
       email: {
@@ -120,6 +113,8 @@ export default {
         required
       }
     }
+  },
+  mounted () {
   },
   methods: {
     postSignUp (e) {

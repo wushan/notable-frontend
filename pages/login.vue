@@ -10,7 +10,7 @@
               span {{error.response.status}} {{error.response.statusText}} / {{error.response.data.error.message}}
           .controlgroup
             .controls(v-bind:class="{error: $v.login.email.$error}")
-              input(type="text", placeholder="電子郵件", v-model.trim="login.email", v-bind:class="{active:login.email}", @input="$v.login.email.$touch()", @keyup="clearError")
+              input(type="email", placeholder="電子郵件", v-model.trim="login.email", v-bind:class="{active:login.email}", @input="$v.login.email.$touch()", @keyup="clearError")
               label 電子郵件
               span.valid-notifier(v-if="!$v.login.email.required") (必填欄位)
               span.valid-notifier(v-if="!$v.login.email.email") (格式不正確！)

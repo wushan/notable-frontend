@@ -83,9 +83,6 @@ export default {
         .then((response) => {
           // instance.$router.push('signup/ok')
           this.success = true
-          setTimeout(() => {
-            this.success = false
-          }, 6000)
           console.log(response)
         })
         .catch((error) => {

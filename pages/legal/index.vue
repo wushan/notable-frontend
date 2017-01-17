@@ -30,5 +30,4 @@ export default {
 <style lang="scss">
 @import "~breakpoint-sass";
 @import '~assets/css/var';
-
 </style>
