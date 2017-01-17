@@ -5,7 +5,7 @@
   }
   &:last-child {
     margin-bottom: 0;
-  }
+  } 
   .controls {
     display: flex;
     flex-wrap: wrap;
@@ -74,6 +74,38 @@
   // With Label
   .controls {
     position: relative;
+    textarea {
+      width: 100%;
+      min-height: 250px;
+      border: 1px solid $gray;
+      box-sizing: border-box;
+      padding: 1em;
+      display: inline-block;
+      vertical-align: middle;
+      transition: .3s all ease;
+      & + label {
+        color: $gray;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translateX(0) translateY(0);
+        opacity: 0;
+        font-size: 12px;
+        transition: .3s all ease;
+      }
+      &:focus, &.active {
+        outline: none;
+        border-color: $secondary;
+        &::placeholder {
+          color: $white;
+        }
+        & + label {
+          opacity: 1;
+          color: $secondary;
+          transform: translateX(0) translateY(-2em);
+        }
+      }
+    }
     input {
       width: 100%;
       border-bottom: 1px solid $gray;

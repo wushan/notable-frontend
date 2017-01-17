@@ -30,4 +30,9 @@ export default {
 <style lang="scss">
 @import "~breakpoint-sass";
 @import '~assets/css/var';
+#legal {
+  .navigation-footer {
+    text-align: center;
+  }
+}
 </style>
