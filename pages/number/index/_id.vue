@@ -20,11 +20,11 @@
             .voice
               | 電話持有人很可能是 
               span(v-bind:class="voice") {{voice==='Male'?'男性':'女性'}}
-          ul.records
-            li(v-for="item in relatedRecords") {{item.number}}/{{item.date}}
-            li .
-            li .
-            li .
+          //- ul.records
+          //-   li(v-for="item in relatedRecords") {{item.number}}/{{item.date}}
+          //-   li .
+          //-   li .
+          //-   li .
       footer
         p 注意！本服務旨在提供小老闆互助，避免紀錄不佳的顧客影響您正常的生意，請勿利用本站資訊對當事人進行任何有損其利益之行為，亦不得在本站之外以任何方式公開此評分資訊。
 </template>
