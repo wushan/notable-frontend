@@ -1,32 +1,33 @@
 <template lang="pug">
-  section#results.container.restrict.results-wrapper(v-if="number", itemscope, v-bind:itemtype="'https://notable.wushan.io/number/' + number")
-    .providing-blacklist
-      | 怎麼可能這麼高分？
-      nuxt-link(to="/member") 我有他的把柄！
-    .frame
-      .columns.reverse
-        .column.grade
-          h3 綜合評分
-          .score-wrapper
-            .score
-              .points(v-bind:class="scoresLevel") {{scores}}
-              .description(v-bind:class="scoresLevel")
-                span {{scoreDescription.name}}
-                span {{scoreDescription.notify}}
-        .column.target
-          h3 查詢標的
-          .number(itemprop="name") {{number}}
-          .additional
-            .voice
-              | 電話持有人很可能是 
-              span(v-bind:class="voice") {{voice==='Male'?'男性':'女性'}}
-          //- ul.records
-          //-   li(v-for="item in relatedRecords") {{item.number}}/{{item.date}}
-          //-   li .
-          //-   li .
-          //-   li .
-      footer
-        p 注意！本服務旨在提供小老闆互助，避免紀錄不佳的顧客影響您正常的生意，請勿利用本站資訊對當事人進行任何有損其利益之行為，亦不得在本站之外以任何方式公開此評分資訊。
+  section#results.results-wrapper(v-if="number", itemscope, v-bind:itemtype="'https://notable.wushan.io/number/' + number")
+    .container.restrict
+      .providing-blacklist
+        | 怎麼可能這麼高分？
+        nuxt-link(to="/member") 我要回報這個人！
+      .frame
+        .columns.reverse
+          .column.grade
+            h3 綜合評分
+            .score-wrapper
+              .score
+                .points(v-bind:class="scoresLevel") {{scores}}
+                .description(v-bind:class="scoresLevel")
+                  span {{scoreDescription.name}}
+                  span {{scoreDescription.notify}}
+          .column.target
+            h3 查詢標的
+            .number(itemprop="name") {{number}}
+            .additional
+              .voice
+                | 電話持有人很可能是 
+                span(v-bind:class="voice") {{voice==='Male'?'男性':'女性'}}
+            //- ul.records
+            //-   li(v-for="item in relatedRecords") {{item.number}}/{{item.date}}
+            //-   li .
+            //-   li .
+            //-   li .
+        footer
+          p 注意！本服務旨在提供小老闆互助，避免紀錄不佳的顧客影響您正常的生意，請勿利用本站資訊對當事人進行任何有損其利益之行為，亦不得在本站之外以任何方式公開此評分資訊。
 </template>
 <script>
 import axios from 'axios'
@@ -113,6 +114,7 @@ export default {
 @import "~breakpoint-sass";
 @import '~assets/css/var';
 .results-wrapper {
+  padding: 0 0 4em 0;
   .column {
     padding-bottom: 2em;
     &:first-child {
