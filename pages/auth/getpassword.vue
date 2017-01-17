@@ -77,7 +77,7 @@ export default {
           this.error = false
         }, 3000)
       } else {
-        axios.post('http://localhost:3003/clients/reset', {
+        axios.post('https://api.notable.wushan.io/clients/reset', {
           email: this.email
         })
         .then((response) => {

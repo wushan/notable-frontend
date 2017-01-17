@@ -5,6 +5,8 @@
         form.frame(@submit.prevent.stop="resetPassword")
           h1.title.centered 重置密碼
           p 請輸入您的新密碼，密碼至少 8 碼英文數字組合。
+          transition(name="fade", mode="out-in")
+            .notification-bar.success-message(v-if="success") 密碼重置成功，請重新登入
           .controlgroup
             .controls(v-bind:class="{error: $v.password.$error}")
               input(type="password", placeholder="自訂密碼", v-model.trim="password", v-bind:class="{active:password}", @input="$v.password.$touch()")
@@ -100,8 +102,8 @@ export default {
           this.success = true
           setTimeout(() => {
             this.success = false
-          }, 6000)
-          console.log(response)
+            this.$router.replace('/login')
+          }, 1000)
         })
         .catch((error) => {
           console.log(error)
