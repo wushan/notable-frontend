@@ -1,5 +1,5 @@
 <template lang="pug">
-  section#results.container.restrict.results-wrapper
+  section#results.container.restrict.results-wrapper(v-if="number", itemscope, v-bind:itemtype="'https://notable.wushan.io/number/' + number")
     .providing-blacklist
       | 怎麼可能這麼高分？
       nuxt-link(to="/member") 我有他的把柄！
@@ -15,7 +15,7 @@
                 span {{scoreDescription.notify}}
         .column.target
           h3 查詢標的
-          .number {{number}}
+          .number(itemprop="name") {{number}}
           .additional
             .voice
               | 電話持有人很可能是 
