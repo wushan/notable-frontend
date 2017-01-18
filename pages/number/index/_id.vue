@@ -21,6 +21,11 @@
               .voice
                 | 電話持有人很可能是 
                 span(v-bind:class="voice") {{voice==='Male'?'男性':'女性'}}
+            .ads-wrapper(v-if="windowEl")
+              script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+              ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-7684683541536230", data-ad-slot="9848245811", data-ad-format="auto")
+              script.
+                (adsbygoogle = window.adsbygoogle || []).push({});
             //- ul.records
             //-   li(v-for="item in relatedRecords") {{item.number}}/{{item.date}}
             //-   li .
@@ -41,9 +46,13 @@ export default {
       console.log(error)
     })
   },
+  mounted () {
+    this.windowEl = true
+  },
   data ({ params }) {
     return {
-      number: params.id
+      number: params.id,
+      windowEl: false
     }
   },
   head () {
@@ -156,6 +165,9 @@ export default {
         color: $red;
       }
     }
+  }
+  .ads-wrapper {
+    margin-top: 2em;
   }
   .points {
     font-size: 120px;

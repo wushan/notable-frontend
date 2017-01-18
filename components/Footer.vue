@@ -11,6 +11,11 @@ footer#footer
         nuxt-link(to="/contact", active-class="active") 聯絡我們
       .footer-menu
         navigation
+  .ads-wrapper(v-if="windowEl")
+    script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-7684683541536230", data-ad-slot="3801712219", data-ad-format="auto")
+    script.
+      (adsbygoogle = window.adsbygoogle || []).push({});
   .copyrights
     .container.restrict.text-right
       | POWERED BY  
@@ -19,6 +24,14 @@ footer#footer
 <script>
   import Navigation from '~components/navigation-footer.vue'
   export default {
+    data () {
+      return {
+        windowEl: false
+      }
+    },
+    mounted () {
+      this.windowEl = true
+    },
     components: {
       Navigation
     }
