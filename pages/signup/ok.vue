@@ -5,8 +5,8 @@
         .frame.centered
           h1.title 註冊成功
           p 現在，把你的黑名單告訴我們吧！
-          nuxt-link.button.primary(to="") 輸入黑名單
-          nuxt-link.button(to="") 查詢澳客
+          nuxt-link.button.primary(to="/member") 輸入黑名單
+          nuxt-link.button(to="/") 查詢澳客
 
 </template>
 

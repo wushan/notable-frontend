@@ -112,7 +112,27 @@ export default {
           // instance.$router.push('signup/ok')
           console.log(response)
           instance.$store.commit('SET_USER', response)
-          instance.$router.push('/member')
+          var token = localStorage.getItem('notable_token')
+          var user = localStorage.getItem('notable_user')
+          if (token && user) {
+            axios.get('https://api.notable.wushan.io/clients/' + user, {
+              params: {
+                access_token: token
+              }
+            })
+            .then((res) => {
+              instance.$store.commit('SET_USERINFO', res)
+              instance.$router.push('/member')
+            })
+            .catch((error) => {
+              console.log(error)
+              localStorage.removeItem('notable_token')
+              localStorage.removeItem('notable_user')
+            })
+          } else {
+            localStorage.removeItem('notable_token')
+            localStorage.removeItem('notable_user')
+          }
         })
         .catch(function (error) {
           instance.error = error
