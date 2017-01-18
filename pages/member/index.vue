@@ -11,8 +11,27 @@
 import searchNumb from '~components/searchNumb.vue'
 export default {
   beforeMount () {
-    if (!this.$store.state.User) {
-      this.$router.push('/login')
+    var instance = this
+    var token = localStorage.getItem('notable_token')
+    var user = localStorage.getItem('notable_user')
+    if (token && user) {
+      axios.get('https://api.notable.wushan.io/clients/' + user, {
+        params: {
+          access_token: token
+        }
+      })
+      .then((res) => {
+        this.$store.commit('SET_USERINFO', res)
+      })
+      .catch((error) => {
+        console.log(error)
+        this.$router.push('/login')
+        localStorage.removeItem('notable_token')
+        localStorage.removeItem('notable_user')
+      })
+    } else {
+      localStorage.removeItem('notable_token')
+      localStorage.removeItem('notable_user')
     }
   },
   mounted () {
