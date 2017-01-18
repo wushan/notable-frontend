@@ -21,6 +21,9 @@
       .restrict-small.container
         .controlgroup.centered
           searchNumb
+          p
+            | 近期舉報：
+            nuxt-link.recentNumber(v-bind:to="'/number/' + num.number", v-for="num in recents") {{num.number}}
   section.service-intro
     .restrict.container
       .hero-table
@@ -82,33 +85,56 @@ export default {
   },
   mounted () {
     this.windowAv = true
-    axios({
-      method: 'get',
-      url: 'https://api.unsplash.com/search/photos',
-      params: {
-        client_id: '18399cc703b58fb798c5663595cbe1cde3958b0c3f495970106efc105f62f48b',
-        query: 'restaurant'
-      },
-    })
-    .then((response) => {
-      console.log(response)
-      this.images = response.data.results
-    })
-    .catch((error) => {
-      console.log(error)
-    });
+    this.init()
+    this.getRecentNumbers()
   },
   data () {
     return {
       error: null,
       windowAv: false,
-      images: null
+      images: null,
+      recents: []
     }
   },
   components: {
     searchNumb
   },
   methods: {
+    init () {
+      axios({
+        method: 'get',
+        url: 'https://api.unsplash.com/search/photos',
+        params: {
+          client_id: '18399cc703b58fb798c5663595cbe1cde3958b0c3f495970106efc105f62f48b',
+          query: 'restaurant'
+        },
+      })
+      .then((response) => {
+        console.log(response)
+        this.images = response.data.results
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    },
+    getRecentNumbers () {
+      axios({
+        method: 'get',
+        url: 'https://api.notable.wushan.io/numbers',
+        params: {
+          filter: {
+            limit: 4
+          }
+        },
+      })
+      .then((response) => {
+        console.log(response)
+        this.recents = response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    }
   },
   computed: {
     randomImages () {
@@ -146,6 +172,13 @@ export default {
 .search-wrapper {
   position: relative;
   overflow: hidden;
+  .recentNumber {
+    margin: .5em;
+    color: $white;
+    &:hover {
+      text-decoration: none;
+    }
+  }
   .background-color {
     background-color: $pureblack;
     display: block;

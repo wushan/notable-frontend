@@ -94,8 +94,10 @@ export default {
         return 'bad'
       } else if (this.scores >= 0 && this.scores < 6) {
         return 'serious'
-      } else {
+      } else if (this.scores === 10) {
         return 'nice'
+      } else {
+        return 'normal'
       }
     },
     scoreDescription () {
@@ -109,10 +111,15 @@ export default {
           name: '人非聖賢',
           notify: '有一點不良紀錄，不過程度不太嚴重'
         }
-      } else {
+      } else if (this.scores === 10) {
         return {
           name: '表現優異',
           notify: '也可能是還沒有人回報...'
+        }
+      } else {
+        return {
+          name: '表現普通',
+          notify: '曾有不良紀錄'
         }
       }
     }
@@ -182,6 +189,9 @@ export default {
     &.nice {
       color: $primary;
     }
+    &.normal {
+      color: #bbca0c;
+    }
     &.serious {
       color: $secondary;
     }
@@ -195,6 +205,9 @@ export default {
     }
     &.nice {
       color: $primary;
+    }
+    &.normal {
+      color: #bbca0c;
     }
     &.serious {
       color: $secondary;
