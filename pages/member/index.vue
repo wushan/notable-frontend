@@ -8,6 +8,7 @@
     nuxt-child
 </template>
 <script>
+import axios from 'axios'
 import searchNumb from '~components/searchNumb.vue'
 export default {
   beforeMount () {
