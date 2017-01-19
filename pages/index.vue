@@ -199,7 +199,7 @@ export default {
     bottom: 0;
     right: 0;
     left: 0;
-    background-image: url('~assets/img/random/2.jpg');
+    background-image: url('~assets/img/random/1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 0 0 100% 100%;
