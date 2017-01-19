@@ -2,7 +2,8 @@
 #intro
   section.hero-container.search-wrapper
     .background-color
-    .background-img(v-if="randomImages", v-bind:style="'background-image: url(' + randomImages.urls.regular + ');'")
+    .background-img(v-if="randomImages", v-bind:style="'background-image: url(' + randomImages.urls.full + ');'")
+    .background-img(v-else)
     .image-credit(v-if="randomImages")
       .author
         span Photo by 

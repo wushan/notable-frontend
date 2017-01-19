@@ -26,13 +26,14 @@ export default {
       })
       .catch((error) => {
         console.log(error)
-        this.$router.push('/login')
+        this.$nuxt.$router.push('/login')
         localStorage.removeItem('notable_token')
         localStorage.removeItem('notable_user')
       })
     } else {
       localStorage.removeItem('notable_token')
       localStorage.removeItem('notable_user')
+      this.$nuxt.$router.push('/login')
     }
   },
   mounted () {

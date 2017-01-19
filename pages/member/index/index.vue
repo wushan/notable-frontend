@@ -2,6 +2,10 @@
 #addRecord
   .container.restrict
     .frame
+      p 親愛的老闆，您好！本服務之顧客評等是基於您提供的資訊，您的資訊將可有效避免其他老闆們再有類似的遭遇。本於人性本善的精神，未經舉報的電話號碼一率顯示 10 分滿分，再次感謝您的提供，下次遇到有疑慮的訂位，先來查看看，更重要的是：再有遇到不好的客人，也一定要來回報喔！
+      p.small.centered 本服務本於互助的精神，提供此平台給您檢舉素行不佳的顧客，相信您在舉報之前，已仔細了解並試圖與顧客理性溝通，並且不是基於情緒而惡意舉報他人
+  .container.restrict
+    .frame
       h3.title.centered 回報奧客，幫助其他小老闆不再傷心
       form(@submit.stop.prevent="addRecord")
         .columns
@@ -45,8 +49,20 @@
             .successView-inner
               h2 通報成功
               p 感謝
+  .container.restrict
+    .frame
+      h3.title.centered
+        | 歷史紀錄
+        span 編輯功能即將推出
+      ul.history(v-if="records.data && records.data.length !== 0")
+        li(v-for="record in records.data")
+          span {{record.date | momentD}}
+          span {{record.numberId}}
+      p.centered(v-else) 暫無資料
 </template>
 <script>
+var Cleave = require('cleave.js')
+import moment from 'moment'
 import axios from 'axios'
 import { email, required, sameAs, between, minLength, maxLength } from 'vuelidate/lib/validators'
 import qs from 'qs'
@@ -54,7 +70,13 @@ export default {
   head: {
     title: '回報奧客'
   },
+  name: 'Member',
   mounted () {
+    this.getHistory()
+    var cleaveDate = new Cleave('.date-type', {
+      date: true,
+      datePattern: ['Y', 'm', 'd']
+    })
   },
   methods: {
     addRecord () {
@@ -81,7 +103,7 @@ export default {
         // url: 'http://localhost:3003/records',
         data: {
           "voice": this.blacklist.voice,
-          "date": Date.parse(this.blacklist.date.replace(/\//g, '-')),
+          "date": moment(this.blacklist.date.replace(/\//g, '-')).format('X'),
           "description": this.blacklist.description,
           "providerId": userId,
           "numberId": this.cleanNumber
@@ -132,6 +154,26 @@ export default {
             this.error = false
           }, 200)
       }
+    },
+    getHistory () {
+      var userId = localStorage.getItem('notable_user')
+      var token = localStorage.getItem('notable_token')
+      axios({
+        method: 'get',
+        url: 'https://api.notable.wushan.io/records/getHistory',
+        // url: 'http://localhost:3003/records/getHistory',
+        params: {
+          id: userId,
+          access_token: token
+        }
+      })
+      .then((response) => {
+        console.log(response)
+        this.records = response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      });
     }
   },
   data () {
@@ -143,6 +185,7 @@ export default {
         date: '',
         description: '0'
       },
+      records: {},
       successMsg: null,
       btnMsg: '希望你不要再出來害了～送出！',
       timer: null
@@ -158,6 +201,11 @@ export default {
     }
   },
   components: {
+  },
+  filters: {
+    momentD (arg) {
+      return moment.unix(arg).format('LL')
+    }
   },
   computed: {
     cleanNumber () {
@@ -222,6 +270,30 @@ export default {
     text-align: center;
     .successView-inner {
         align-self: center;
+    }
+  }
+}
+.history {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  li {
+    display: flex;
+    border-bottom: 1px solid $lightgray;
+    padding: .5em 0;
+    &:last-child {
+      border-bottom: 0;
+    }
+    span {
+      &:last-child {
+        text-align: right;
+        flex: 1;
+      }
+      &:first-child {
+        width: 180px;
+        overflow: hidden;
+      }
     }
   }
 }
