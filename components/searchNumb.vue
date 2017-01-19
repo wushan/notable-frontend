@@ -42,7 +42,7 @@ export default {
           this.error = false
         }, 200)
       } else {
-        this.$router.push('/number/' + this.number)
+        this.$nuxt.$router.push('/number/' + this.number)
       }
     },
     clearError (e) {

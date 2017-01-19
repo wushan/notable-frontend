@@ -122,7 +122,7 @@ export default {
             })
             .then((res) => {
               instance.$store.commit('SET_USERINFO', res)
-              instance.$router.push('/member')
+              instance.$nuxt.$router.push('/member')
             })
             .catch((error) => {
               console.log(error)

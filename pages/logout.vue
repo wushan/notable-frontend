@@ -60,17 +60,17 @@ export default {
           localStorage.removeItem('notable_user')
           instance.$store.commit('SET_USERINFO', null)
           instance.timer = setTimeout(() => {
-            instance.$router.replace('/')
+            instance.$nuxt.$router.replace('/')
           }, 1500)
         })
         .catch(function (error) {
-          instance.$router.replace('/')
+          instance.$nuxt.$router.replace('/')
           localStorage.removeItem('notable_token')
           localStorage.removeItem('notable_user')
           instance.$store.commit('SET_USERINFO', null)
         });
       } else {
-        instance.$router.replace('/')
+        instance.$nuxt.$router.replace('/')
       }
     }
   }
