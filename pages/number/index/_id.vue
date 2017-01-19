@@ -81,9 +81,11 @@ export default {
           voiceFemale.push(gender.voice)
         }
       }
-      if (voiceMale.length > voiceFemale) {
+      console.log(voiceMale.length)
+      console.log(voiceFemale.length)
+      if (voiceMale.length > voiceFemale.length) {
         return 'male' //male
-      } else if (voiceMale.length < voiceFemale) {
+      } else if (voiceMale.length < voiceFemale.length) {
         return 'female' //female
       } else {
         return 'unknow'
