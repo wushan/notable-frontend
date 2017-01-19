@@ -43,6 +43,7 @@ export default {
       store.commit('SET_Result', response.data)
     })
     .catch(function (error) {
+      store.commit('SET_Result', [])
       console.log(error)
     })
   },
