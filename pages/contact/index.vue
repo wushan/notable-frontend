@@ -79,9 +79,7 @@ export default {
       } else {
         axios({
           method: 'post',
-          // url: 'http://localhost:3003/clients/setPassword',
-          // url: 'https://api.notable.wushan.io/clients/sendContact',
-          url: 'http://localhost:3003/clients/sendContact',
+          url: 'https://api.notable.wushan.io/clients/sendContact',
           data: {
             "name": this.name,
             "mail": this.mail,
