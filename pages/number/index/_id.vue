@@ -20,7 +20,7 @@
             .additional
               .voice
                 | 電話持有人很可能是 
-                span(v-bind:class="voice") {{voice==='Male'?'男性':'女性'}}
+                span(v-bind:class="voice") {{voiceText}}
             .ads-wrapper(v-if="windowEl")
               script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
               ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-7684683541536230", data-ad-slot="9848245811", data-ad-format="auto")
@@ -81,9 +81,26 @@ export default {
         }
       }
       if (voiceMale.length > voiceFemale) {
-        return 'Male'
+        return 'male' //male
+      } else if (voiceMale.length < voiceFemale) {
+        return 'female' //female
       } else {
-        return 'Female'
+        return 'unknow'
+      }
+    },
+    voiceText () {
+      if (this.voice) {
+        switch(this.voice) {
+          case 'male':
+            return '男性'
+            break
+          case 'female':
+            return '女性'
+            break
+          case 'unknow':
+            return '未知性別'
+            break
+        }
       }
     },
     scores () {
@@ -165,11 +182,14 @@ export default {
   .additional {
     font-size: 24px;
     .voice {
-      span.Male {
+      span.male {
         color: $primary;
       }
-      span.Female {
+      span.female {
         color: $red;
+      }
+      span.unknow {
+        color: $secondary;
       }
     }
   }
