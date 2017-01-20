@@ -193,6 +193,10 @@
   padding: 0;
   transform: translateY(40%)
 }
+.full {
+  width: 100%;
+  display: block;
+}
 @import "~assets/css/components/buttons";
 @import "~assets/css/components/form";
 @import '~assets/css/components/type';

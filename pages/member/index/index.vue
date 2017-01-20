@@ -27,20 +27,23 @@
           .column
             .controlgroup
               .controls
-                input.date-type(v-model.trim="blacklist.date", type="text", placeholder="YYYY/MM/DD", v-bind:class="{active:blacklist.date}")
-                label 發生時間
+                date-picker.full(v-bind:date="startTime", v-bind:option="option", v-bind:limit="limit")
 
         .columns
           .column
             .controlgroup
               .controls
                 .select-wrapper
-                  select(v-model.trim="blacklist.description", v-bind:class="{active:blacklist.description}")
+                  select(@change="filldecription")
                     option(value="0") 預約未到也沒通知
                     option(value="1") 預約時間很逼進才臨時取消
                     option(value="2") 貪小便宜，要求眾多，理直氣壯
                     option(value="3") 就是奧客
-                  label 事蹟
+                  label 快選
+            .controlgroup
+              .controls(v-bind:class="{error: $v.blacklist.description.$error}")
+                input(type="text", v-model.trim="blacklist.description", v-bind:class="{active:blacklist.description, required:!$v.blacklist.description.required}", placeholder="請填寫舉報原因或選擇上方預設值")
+                label 事蹟
 
         .call-action.container.restrict-small.centered
           button.button.invert#submit(type="submit", @click="$v.blacklist.$touch") {{btnMsg}}
@@ -61,11 +64,11 @@
       p.centered(v-else) 暫無資料
 </template>
 <script>
-var Cleave = require('cleave.js')
 import moment from 'moment'
 import axios from 'axios'
 import { email, required, sameAs, between, minLength, maxLength } from 'vuelidate/lib/validators'
 import qs from 'qs'
+import myDatepicker from 'vue-datepicker'
 export default {
   head: {
     title: '回報奧客'
@@ -73,21 +76,20 @@ export default {
   name: 'Member',
   mounted () {
     this.getHistory()
-    var cleaveDate = new Cleave('.date-type', {
-      date: true,
-      datePattern: ['Y', 'm', 'd']
-    })
   },
   methods: {
     addRecord () {
       var btn = document.getElementById('submit')
       btn.disabled = true
-      if (this.$v.$error || !this.startWith) {
+      if (!this.startWith) {
         btn.disabled = false
         this.error = true
         setTimeout(() => {
           this.error = false
         }, 200)
+        return
+      } else if (this.$v.$error || this.$v.$invalid || !this.startTime) {
+        btn.disabled = false
         return
       } else {
         this.submitRecord()
@@ -103,7 +105,7 @@ export default {
         // url: 'http://localhost:3003/records',
         data: {
           "voice": this.blacklist.voice,
-          "date": moment(this.blacklist.date.replace(/\//g, '-')).format('X'),
+          "date": moment(this.startTime),
           "description": this.blacklist.description,
           "providerId": userId,
           "numberId": this.cleanNumber
@@ -174,6 +176,10 @@ export default {
       .catch((error) => {
         console.log(error)
       });
+    },
+    filldecription (e) {
+      console.log(e)
+      this.blacklist.description = this.presets[e.target.value]
     }
   },
   data () {
@@ -183,12 +189,65 @@ export default {
         number: null,
         voice: 'male',
         date: '',
-        description: '0'
+        description: ''
       },
       records: {},
       successMsg: null,
       btnMsg: '希望你不要再出來害了～送出！',
-      timer: null
+      timer: null,
+      presets: ['預約未到也沒通知', '預約時間很逼進才臨時取消', '貪小便宜，要求眾多，理直氣壯', '就是奧客'],
+      startTime: {
+        time: moment().format('YYYY-MM-DD')
+      },
+      endtime: {
+        time: ''
+      },
+      option: {
+        type: 'day',
+        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        format: 'YYYY-MM-DD',
+        placeholder: '請選擇日期',
+        // inputStyle: {
+        //   'display': 'inline-block',
+        //   'padding': '6px',
+        //   'line-height': '22px',
+        //   'font-size': '16px',
+        //   'border': '2px solid #fff',
+        //   'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
+        //   'border-radius': '2px',
+        //   'color': '#5F5F5F'
+        // },
+        color: {
+          header: '#ccc',
+          headerText: '#f00'
+        },
+        buttons: {
+          ok: 'Ok',
+          cancel: 'Cancel'
+        },
+        overlayOpacity: 0.5, // 0.5 as default
+        dismissible: true // as true as default
+      },
+      timeoption: {
+        type: 'min',
+        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        format: 'YYYY-MM-DD HH:mm'
+      },
+      multiOption: {
+        type: 'multi-day',
+        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        format:"YYYY-MM-DD HH:mm"
+      },
+      limit: [
+        {
+          type: 'fromto',
+          from: '2015-01-01',
+          to: moment().format('YYYY-MM-DD')
+        }
+      ]
     }
   },
   validations: {
@@ -197,10 +256,14 @@ export default {
         required,
         minLength: minLength(9),
         maxLength: maxLength(12)
+      },
+      description: {
+        required
       }
     }
   },
   components: {
+    'date-picker': myDatepicker
   },
   filters: {
     momentD (arg) {
