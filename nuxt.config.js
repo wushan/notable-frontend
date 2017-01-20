@@ -9,9 +9,10 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', content: "奧客警示/顧客負評最佳查詢網站，避免您的餐廳再接到澳洲來的客人" },
-      { hid: 'keywords', content: "靠北奧客 拒絕奧客 奧客查詢 澳洲來的客人 奧客電話查詢 用餐紀錄 餐廳黑名單"},
+      { hid: 'description', name: "description", content: "奧客警示/顧客負評最佳查詢網站，避免您的餐廳再接到澳洲來的客人" },
+      { hid: 'keywords', name: "keywords", content: "靠北奧客 拒絕奧客 奧客查詢 澳洲來的客人 奧客電話查詢 用餐紀錄 餐廳黑名單"},
       { hid: 'ogtitle', property: 'og:title', content: 'NOTABLE「嘸位la！」奧客查詢服務'},
+      { property: "fb:page_id", content:"1836475513305061"},
       // { hid: 'og:title', name: 'og:type', content: ''},
       { hid: 'ogimage', property: 'og:image', content: 'https://notable.wushan.io/notable-website-ogimage.jpg'},
       { hid: 'ogurl', property: 'og:url', content: 'https://notable.wushan.io'},
