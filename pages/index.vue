@@ -78,11 +78,7 @@ import axios from 'axios'
 export default {
   name: 'Home',
   head: {
-    title: '小老闆團結！史上最絕奧客防治服務',
-    meta: [
-      { hid: 'description', content: "奧客查詢、顧客負評，最強奧客電話查詢服務，小老闆拒絕再迎合奧客！" },
-      { hid: 'keywords', content: "靠北奧客 拒絕奧客 奧客查詢 澳洲來的客人 奧客電話查詢 用餐紀錄 餐廳黑名單 餐飲業奧客 訂位不接電話 NOSHOW"}
-    ]
+    title: '小老闆團結！史上最絕奧客防治服務'
   },
   mounted () {
     this.windowAv = true
