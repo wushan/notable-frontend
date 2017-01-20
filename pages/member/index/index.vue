@@ -88,7 +88,7 @@ export default {
           this.error = false
         }, 200)
         return
-      } else if (this.$v.$error || this.$v.$invalid || !this.startTime) {
+      } else if (this.$v.$error || this.$v.$invalid || !this.startTime.time) {
         btn.disabled = false
         return
       } else {
@@ -105,7 +105,7 @@ export default {
         // url: 'http://localhost:3003/records',
         data: {
           "voice": this.blacklist.voice,
-          "date": moment(this.startTime),
+          "date": moment(this.startTime.time).format('X'),
           "description": this.blacklist.description,
           "providerId": userId,
           "numberId": this.cleanNumber
