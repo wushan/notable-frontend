@@ -225,6 +225,8 @@ export default {
             } else {
               return false
             }
+          } else if (string[1] === '0' || string[1] === '1') {
+            return false
           } else {
             // City
             if (string.length >= 9 && string.length <=10) {

@@ -26,7 +26,7 @@
                   input(type="text", placeholder="您的店鋪名稱", v-model.trim="signup.brand", v-bind:class="{active:signup.brand, required:!$v.signup.brand.required}", @input="$v.signup.brand.$touch()")
                   label 您的店鋪名稱
               .controlgroup
-                .controls(v-bind:class="{error: $v.signup.vat.$error}")
+                .controls(v-bind:class="{error: $v.signup.vat.$error, vaterror: !vatValid}")
                   input(type="text", placeholder="統一編號", v-model.trim="signup.vat", v-bind:class="{active:signup.vat, required:!$v.signup.vat.required}", @input="$v.signup.vat.$touch()")
                   label 統一編號
                   span.valid-notifier(v-if="!$v.signup.vat.minLength") 請輸入統一編號 8 碼
@@ -62,6 +62,11 @@
         top: -10%;
         right: -5%;
       }
+    }
+  }
+  .vaterror {
+    input {
+      border-bottom: 1px solid $red !important;
     }
   }
 }
@@ -119,11 +124,12 @@ export default {
   methods: {
     postSignUp (e) {
       var instance = this
-      if (this.$v.$error) {
+      if (this.$v.$invalid || this.$v.$error || !this.vatValid) {
         return console.log('There is still Errors')
       } else {
         console.log(this.signup)
         axios.post('https://api.notable.wushan.io/clients', qs.stringify({
+        // axios.post('http://localhost:3003/clients', qs.stringify({
             email: this.signup.email,
             password: this.signup.password,
             vat: this.signup.vat,
@@ -138,6 +144,32 @@ export default {
         });
         console.log('submitted')
       }
+    },
+    vatCheck (taxId) {
+      var invalidList = "00000000,11111111";
+      if (/^\d{8}$/.test(taxId) == false || invalidList.indexOf(taxId) != -1) {
+          return false;
+      }
+
+      var validateOperator = [1, 2, 1, 2, 1, 2, 4, 1],
+          sum = 0,
+          calculate = function(product) { // 個位數 + 十位數
+              var ones = product % 10,
+                  tens = (product - ones) / 10;
+              return ones + tens;
+          };
+      for (var i = 0; i < validateOperator.length; i++) {
+          sum += calculate(taxId[i] * validateOperator[i]);
+      }
+
+      return sum % 10 == 0 || (taxId[6] == "7" && (sum + 1) % 10 == 0);
+    }
+  },
+  computed: {
+    vatValid () {
+      var result = this.vatCheck(this.signup.vat)
+      console.log(result)
+      return  result
     }
   }
 }
