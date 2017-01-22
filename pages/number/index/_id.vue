@@ -110,9 +110,9 @@ export default {
       return 10 - this.$store.state.searchResult.length
     },
     scoresLevel () {
-      if (this.scores < 0) {
+      if (this.scores <= 0) {
         return 'bad'
-      } else if (this.scores >= 0 && this.scores < 6) {
+      } else if (this.scores > 0 && this.scores < 6) {
         return 'serious'
       } else if (this.scores === 10) {
         return 'nice'
@@ -121,15 +121,15 @@ export default {
       }
     },
     scoreDescription () {
-      if (this.scores < 0) {
+      if (this.scores <= 0) {
         return {
           name: '罪大惡極',
           notify: '務必謹慎考慮'
         }
-      } else if (this.scores >= 0 && this.scores < 6) {
+      } else if (this.scores > 0 && this.scores < 6) {
         return {
-          name: '人非聖賢',
-          notify: '有一點不良紀錄，不過程度不太嚴重'
+          name: '朽木不可雕',
+          notify: '紀錄不良'
         }
       } else if (this.scores === 10) {
         return {
