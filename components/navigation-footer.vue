@@ -4,7 +4,7 @@
     nuxt-link(to="/legal/tou", active-class="active") 使用條款
     nuxt-link(to="/legal/copyrights", active-class="active") 版權說明
     nuxt-link(to="/collaborate", active-class="active") 合作提案
-    nuxt-link(to="/press", active-class="active") 媒體中心
+    nuxt-link(to="/press", active-class="active") 媒體報導
     a(href="https://develop.wushan.io", target="_blank") 開發部落格
 </template>
 <style lang="scss">
