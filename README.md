@@ -1,6 +1,7 @@
-# notable-frontend
+![](https://travis-ci.com/wushan/notable-frontend.svg?token=EeiE6Wf1ZMZWUT4ydAqB&branch=master)
+# notable.wushan.io frontend project.
 
-> Nuxt.js project
+Its a Vue.js project with Nuxt.js SSR
 
 ## Build Setup
 
