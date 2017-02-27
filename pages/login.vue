@@ -12,13 +12,13 @@
             .controls(v-bind:class="{error: $v.login.email.$error}")
               input(type="email", placeholder="電子郵件", v-model.trim="login.email", v-bind:class="{active:login.email}", @input="$v.login.email.$touch()", @keyup="clearError")
               label 電子郵件
-              span.valid-notifier(v-if="!$v.login.email.required") (必填欄位)
+              span.valid-notifier(v-if="!$v.login.email.required && $v.login.email.$dirty") (必填欄位)
               span.valid-notifier(v-if="!$v.login.email.email") (格式不正確！)
           .controlgroup
             .controls(v-bind:class="{error: $v.login.password.$error}")
               input(type="password", placeholder="密碼", v-model.trim="login.password", v-bind:class="{active:login.password}", @input="$v.login.password.$touch()", @keyup="clearError")
               label 密碼
-              span.valid-notifier(v-if="!$v.login.password.required") (必填欄位)
+              span.valid-notifier(v-if="!$v.login.password.required && $v.login.password.$dirty") (必填欄位)
               span.valid-notifier(v-if="!$v.login.password.minLength") (至少 8 碼)
           .call-action
             button.button.invert.full(type="submit", @click="$v.login.$touch") 登入
@@ -65,8 +65,8 @@ export default {
     return {
       name: req ? 'server' : 'client',
       login: {
-        email: null,
-        password: null
+        email: '',
+        password: ''
       },
       error: null
     }
