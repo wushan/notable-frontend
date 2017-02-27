@@ -19,7 +19,7 @@
     "qs": "^6.3.0",
     "sass-loader": "^4.1.1",
     "vue-typer": "^1.0.2",
-    "vuejs-datepicker": "^0.5.4",
+    "vue-datepicker": "^0.5.4",
     "vuelidate": "^0.2.0",
     "webpack": "^2.1.0-beta.19"
   },
