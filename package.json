@@ -7,7 +7,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "breakpoint-sass": "^2.7.1",
-    "bulma": "^0.2.3",
+    "bulma": "^0.3.2",
     "cleave.js": "^0.7.14",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
@@ -17,9 +17,8 @@
     "nuxt": "latest",
     "pug": "^2.0.0-beta6",
     "qs": "^6.3.0",
-    "sass-loader": "^4.1.1",
+    "sass-loader": "^6.0.2",
     "vue-typer": "^1.0.2",
-    "vue-datepicker": "^0.5.4",
     "vuelidate": "^0.2.0",
     "webpack": "^2.1.0-beta.19"
   },
