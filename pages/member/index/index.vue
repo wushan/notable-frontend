@@ -27,7 +27,7 @@
           .column
             .controlgroup
               .controls
-                date-picker.full(v-bind:date="startTime", v-bind:option="option", v-bind:limit="limit")
+                input.datepicker(type="text")
 
         .columns
           .column
@@ -60,6 +60,7 @@
       ul.history(v-if="records.data && records.data.length !== 0")
         li(v-for="record in records.data")
           span {{record.date | momentD}}
+          span {{record.description}}
           span {{record.numberId}}
       p.centered(v-else) 暫無資料
 </template>
@@ -68,7 +69,10 @@ import moment from 'moment'
 import axios from 'axios'
 import { email, required, sameAs, between, minLength, maxLength } from 'vuelidate/lib/validators'
 import qs from 'qs'
-import myDatepicker from 'vue-datepicker'
+// import myDatepicker from 'vue-datepicker'
+if (process.BROWSER_BUILD) {
+  var $ = window.$
+}
 export default {
   head: {
     title: '回報奧客'
@@ -76,6 +80,37 @@ export default {
   name: 'Member',
   mounted () {
     this.getHistory()
+    var input = $('.datepicker').pickadate()
+    var picker = input.pickadate('picker')
+    picker.set('select', moment().format('YYYY-MM-DD'))
+  },
+  data () {
+    return {
+      error: false,
+      blacklist: {
+        number: null,
+        voice: 'male',
+        date: '',
+        description: ''
+      },
+      records: {},
+      successMsg: null,
+      btnMsg: '希望你不要再出來害了～送出！',
+      timer: null,
+      presets: ['預約未到也沒通知', '預約時間很逼進才臨時取消', '貪小便宜，要求眾多，理直氣壯', '就是奧客'],
+    }
+  },
+  validations: {
+    blacklist: {
+      number: {
+        required,
+        minLength: minLength(9),
+        maxLength: maxLength(12)
+      },
+      description: {
+        required
+      }
+    }
   },
   methods: {
     addRecord () {
@@ -99,13 +134,14 @@ export default {
       var userId = localStorage.getItem('notable_user')
       var token = localStorage.getItem('notable_token')
       var btn = document.getElementById('submit')
+      var picker = $('.datepicker').pickadate('picker')
       axios({
         method: 'post',
         url: 'https://api.notable.wushan.io/records',
         // url: 'http://localhost:3003/records',
         data: {
           "voice": this.blacklist.voice,
-          "date": moment(this.startTime.time).format('X'),
+          "date": moment(picker.get('select', 'yyyy-mm-dd')).format('X'),
           "description": this.blacklist.description,
           "providerId": userId,
           "numberId": this.cleanNumber
@@ -182,92 +218,13 @@ export default {
       this.blacklist.description = this.presets[e.target.value]
     }
   },
-  data () {
-    return {
-      error: false,
-      blacklist: {
-        number: null,
-        voice: 'male',
-        date: '',
-        description: ''
-      },
-      records: {},
-      successMsg: null,
-      btnMsg: '希望你不要再出來害了～送出！',
-      timer: null,
-      presets: ['預約未到也沒通知', '預約時間很逼進才臨時取消', '貪小便宜，要求眾多，理直氣壯', '就是奧客'],
-      startTime: {
-        time: moment().format('YYYY-MM-DD')
-      },
-      endtime: {
-        time: ''
-      },
-      option: {
-        type: 'day',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-        format: 'YYYY-MM-DD',
-        placeholder: '請選擇日期',
-        // inputStyle: {
-        //   'display': 'inline-block',
-        //   'padding': '6px',
-        //   'line-height': '22px',
-        //   'font-size': '16px',
-        //   'border': '2px solid #fff',
-        //   'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
-        //   'border-radius': '2px',
-        //   'color': '#5F5F5F'
-        // },
-        color: {
-          header: '#ccc',
-          headerText: '#f00'
-        },
-        buttons: {
-          ok: 'Ok',
-          cancel: 'Cancel'
-        },
-        overlayOpacity: 0.5, // 0.5 as default
-        dismissible: true // as true as default
-      },
-      timeoption: {
-        type: 'min',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        format: 'YYYY-MM-DD HH:mm'
-      },
-      multiOption: {
-        type: 'multi-day',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        format:"YYYY-MM-DD HH:mm"
-      },
-      limit: [
-        {
-          type: 'fromto',
-          from: '2015-01-01',
-          to: moment().format('YYYY-MM-DD')
-        }
-      ]
-    }
-  },
-  validations: {
-    blacklist: {
-      number: {
-        required,
-        minLength: minLength(9),
-        maxLength: maxLength(12)
-      },
-      description: {
-        required
-      }
-    }
-  },
   components: {
-    'date-picker': myDatepicker
+    // myDatepicker
+    // Datepicker
   },
   filters: {
     momentD (arg) {
-      return moment.unix(arg).format('LL')
+      return moment.unix(arg).format('YYYY/MM/DD')
     }
   },
   computed: {

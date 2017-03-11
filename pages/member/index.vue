@@ -39,6 +39,7 @@ export default {
   mounted () {
   },
   data () {
+    return {}
   },
   components: {
     searchNumb
