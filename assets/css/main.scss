@@ -18,5 +18,14 @@ img {
   height: auto;
   margin: auto;
 }
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s
+}
+.page-enter, .page-leave-active {
+  opacity: 0
+}
+
 @import './components';
+@import './plugins/classic.scss';
+@import './plugins/classic.date.scss';
 @import './iconic/material-design-iconic-font';

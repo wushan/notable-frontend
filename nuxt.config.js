@@ -34,6 +34,11 @@ module.exports = {
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: 'favicon-32x32.png'},
       { rel: 'icon', type: 'image/png', sizes: '96x96', href: 'favicon-96x96.png'},
       { rel: 'icon', type: 'image/png', sizes: '16x16', href: 'favicon-16x16.png'}
+    ],
+    script: [
+      {src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js' , type: 'text/javascript'},
+      {src: '/js/picker.js' , type: 'text/javascript'},
+      {src: '/js/picker.date.js' , type: 'text/javascript'}
     ]
   },
   /*
@@ -50,7 +55,8 @@ module.exports = {
     ],
     plugins: [
       new webpack.ProvidePlugin({
-        '$': 'jquery'
+        '$': 'jquery',
+        'jQuery': 'jquery'
         // ...etc.
       })
     ]
