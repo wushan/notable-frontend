@@ -123,7 +123,7 @@ export default {
           this.error = false
         }, 200)
         return
-      } else if (this.$v.$error || this.$v.$invalid || !this.startTime.time) {
+      } else if (this.$v.$error || this.$v.$invalid) {
         btn.disabled = false
         return
       } else {
