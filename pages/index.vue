@@ -120,7 +120,8 @@ export default {
         url: 'https://api.notable.wushan.io/numbers',
         params: {
           filter: {
-            limit: 4
+            limit: 4,
+            order: 'updatedAt DESC'
           }
         },
       })
