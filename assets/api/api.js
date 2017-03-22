@@ -67,5 +67,17 @@ export default {
     .catch((error) => {
       cb(error)
     });
+  },
+  getMediaReports (cb) {
+    axios({
+      method: 'get',
+      url: Store.state.baseurl + 'media',
+    })
+    .then((response) => {
+      cb(null, response)
+    })
+    .catch((error) => {
+      cb(error)
+    });
   }
 }

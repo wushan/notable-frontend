@@ -77,7 +77,7 @@
 }
 </style>
 <script>
-import axios from 'axios'
+import Api from '~assets/api/api'
 export default {
   name: 'Press',
   head: {
@@ -95,17 +95,13 @@ export default {
   },
   methods: {
     init () {
-      axios({
-        method: 'get',
-        url: 'https://api.notable.wushan.io/media',
+      Api.getMediaReports ((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.press = res.data
+        }
       })
-      .then((response) => {
-        console.log(response)
-        this.press = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      });
     }
   }
 }
