@@ -5,10 +5,10 @@
         .restrict-small.container
           .controlgroup.centered
             searchNumb
-    nuxt-child
+    nuxt-child(v-if="user")
 </template>
 <script>
-import axios from 'axios'
+import Auth from '~assets/api/auth'
 import searchNumb from '~components/searchNumb.vue'
 export default {
   beforeMount () {
@@ -16,19 +16,13 @@ export default {
     var token = localStorage.getItem('notable_token')
     var user = localStorage.getItem('notable_user')
     if (token && user) {
-      axios.get('http://localhost:3003/clients/' + user, {
-        params: {
-          access_token: token
+      Auth.authCheck(user, token, (err, res) => {
+        if (err) {
+          console.log(err)
+          this.$nuxt.$router.push('/login')
+        } else {
+          console.log(res)
         }
-      })
-      .then((res) => {
-        this.$store.commit('SET_USERINFO', res)
-      })
-      .catch((error) => {
-        console.log(error)
-        this.$nuxt.$router.push('/login')
-        localStorage.removeItem('notable_token')
-        localStorage.removeItem('notable_user')
       })
     } else {
       localStorage.removeItem('notable_token')
@@ -45,6 +39,11 @@ export default {
     searchNumb
   },
   methods: {
+  },
+  computed: {
+    user () {
+      return this.$store.state.User
+    }
   }
 }
 </script>
