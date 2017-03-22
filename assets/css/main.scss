@@ -1,6 +1,7 @@
 @import './var';
 @import './normalize';
-@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+@import url('https://fonts.googleapis.com/earlyaccess/notosanstc.css');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
 html {
   background-color: $smokygray;
   color: $black;

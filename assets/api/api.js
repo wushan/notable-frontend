@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Store from '~store/index'
+import qs from 'qs'
 export default {
   getUnsplashImages (cb) {
     axios({
@@ -27,6 +28,38 @@ export default {
           order: 'updatedAt DESC'
         }
       },
+    })
+    .then((response) => {
+      cb(null, response)
+    })
+    .catch((error) => {
+      cb(error)
+    });
+  },
+  submitRecord (data, token, cb) {
+    axios({
+      method: 'post',
+      url: Store.state.baseurl + 'records',
+      data: data,
+      params: {
+        access_token: token
+      }
+    })
+    .then((response) => {
+      cb(null, response)
+    })
+    .catch((error) => {
+      cb(error)
+    });
+  },
+  getReportHistory (userId, token, cb) {
+    axios({
+      method: 'get',
+      url: Store.state.baseurl + 'records/getHistory',
+      params: {
+        id: userId,
+        access_token: token
+      }
     })
     .then((response) => {
       cb(null, response)

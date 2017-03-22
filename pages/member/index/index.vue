@@ -34,7 +34,7 @@
             .controlgroup
               .controls
                 .select-wrapper
-                  select(@change="filldecription")
+                  select(@change="filldescription")
                     option(value="0") 預約未到也沒通知
                     option(value="1") 預約時間很逼進才臨時取消
                     option(value="2") 貪小便宜，要求眾多，理直氣壯
@@ -66,9 +66,8 @@
 </template>
 <script>
 import moment from 'moment'
-import axios from 'axios'
+import Api from '~assets/api/api'
 import { email, required, sameAs, between, minLength, maxLength } from 'vuelidate/lib/validators'
-import qs from 'qs'
 // import myDatepicker from 'vue-datepicker'
 if (process.BROWSER_BUILD) {
   var $ = window.$
@@ -135,35 +134,24 @@ export default {
       var token = localStorage.getItem('notable_token')
       var btn = document.getElementById('submit')
       var picker = $('.datepicker').pickadate('picker')
-      axios({
-        method: 'post',
-        url: 'https://api.notable.wushan.io/records',
-        // url: 'http://localhost:3003/records',
-        data: {
-          "voice": this.blacklist.voice,
-          "date": moment(picker.get('select', 'yyyy-mm-dd')).format('X'),
-          "description": this.blacklist.description,
-          "providerId": userId,
-          "numberId": this.cleanNumber
-        },
-        params: {
-          access_token: token
+      var data = {
+        voice: this.blacklist.voice,
+        date: moment(picker.get('select', 'yyyy-mm-dd')).format('X'),
+        description: this.blacklist.description,
+        providerId: userId,
+        numberId: this.cleanNumber
+      }
+      Api.submitRecord(data, token, (err, res) => {
+        if (err) {
+          this.error = error
+          btn.disabled = false
+        } else {
+          btn.disabled = false
+          this.showSuccessMsg()
+          // 清除
+          this.blacklist.number = null
         }
       })
-      .then((response) => {
-        console.log(response)
-        btn.disabled = false
-        this.showSuccessMsg()
-        // 清除
-        this.blacklist.number = null
-      })
-      .catch((error) => {
-        this.error = error
-        // this.timer = setTimeout(() => {
-        //   this.successMsg = false
-        // }, 3000)
-        btn.disabled = false
-      });
     },
     showSuccessMsg () {
       this.successMsg = true
@@ -196,25 +184,15 @@ export default {
     getHistory () {
       var userId = localStorage.getItem('notable_user')
       var token = localStorage.getItem('notable_token')
-      axios({
-        method: 'get',
-        url: 'https://api.notable.wushan.io/records/getHistory',
-        // url: 'http://localhost:3003/records/getHistory',
-        params: {
-          id: userId,
-          access_token: token
+      Api.getReportHistory (userId, token, (err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.records = res.data
         }
       })
-      .then((response) => {
-        console.log(response)
-        this.records = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      });
     },
-    filldecription (e) {
-      console.log(e)
+    filldescription (e) {
       this.blacklist.description = this.presets[e.target.value]
     }
   },
@@ -311,10 +289,12 @@ export default {
       &:last-child {
         text-align: right;
         flex: 1;
+        font-family: 'Ubuntu Mono', monospace;
       }
       &:first-child {
         width: 180px;
         overflow: hidden;
+        font-family: 'Ubuntu Mono', monospace;
       }
     }
   }
