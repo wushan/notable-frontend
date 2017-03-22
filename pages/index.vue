@@ -10,7 +10,7 @@
         .avatrar
           img(v-bind:src="randomImages.user.profile_image.small")
         .name
-          a(v-bind:href="randomImages.user.links.portfolio", target="_blank") {{randomImages.user.name}}
+          a(v-bind:href="'https://unsplash.com/@' + randomImages.user.username", target="_blank") {{randomImages.user.name}}
           |  /  
           a(href="https://unsplash.com", target="_blank") Unsplash
     .hero-content
@@ -70,11 +70,8 @@
         nuxt-link.button.invert(to="/member") 奧客通報
 </template>
 <script>
-// import Vue from 'vue'
-// import VueNotifications from 'vue-notifications'
-// var VueTyper = window.VueTyper.VueTyper
+import Api from '~assets/api/api'
 import searchNumb from '~components/searchNumb.vue'
-import axios from 'axios'
 export default {
   name: 'Home',
   head: {
@@ -83,7 +80,6 @@ export default {
   mounted () {
     this.windowAv = true
     this.init()
-    this.getRecentNumbers()
   },
   data () {
     return {
@@ -98,40 +94,20 @@ export default {
   },
   methods: {
     init () {
-      axios({
-        method: 'get',
-        url: 'https://api.unsplash.com/search/photos',
-        params: {
-          client_id: '18399cc703b58fb798c5663595cbe1cde3958b0c3f495970106efc105f62f48b',
-          query: 'restaurant'
-        },
+      Api.getUnsplashImages ((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.images = res.data.results
+        }
       })
-      .then((response) => {
-        console.log(response)
-        this.images = response.data.results
+      Api.getRecentNumbers ((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.recents = res.data
+        }
       })
-      .catch((error) => {
-        console.log(error)
-      });
-    },
-    getRecentNumbers () {
-      axios({
-        method: 'get',
-        url: 'https://api.notable.wushan.io/numbers',
-        params: {
-          filter: {
-            limit: 4,
-            order: 'updatedAt DESC'
-          }
-        },
-      })
-      .then((response) => {
-        console.log(response)
-        this.recents = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      });
     }
   },
   computed: {
