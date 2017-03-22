@@ -12,7 +12,7 @@
 <script>
 import MyHeader from '~components/Header.vue'
 import MyFooter from '~components/Footer.vue'
-import axios from 'axios'
+import Auth from '~assets/api/auth'
 export default {
   components: {
     MyHeader,
@@ -23,18 +23,12 @@ export default {
     var token = localStorage.getItem('notable_token')
     var user = localStorage.getItem('notable_user')
     if (token && user) {
-      axios.get('https://api.notable.wushan.io/clients/' + user, {
-        params: {
-          access_token: token
+      Auth.authCheck(user, token, (err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(res)
         }
-      })
-      .then((res) => {
-        this.$store.commit('SET_USERINFO', res)
-      })
-      .catch((error) => {
-        console.log(error)
-        localStorage.removeItem('notable_token')
-        localStorage.removeItem('notable_user')
       })
     } else {
       localStorage.removeItem('notable_token')
@@ -52,15 +46,7 @@ export default {
 <style lang="scss">
 @import "~breakpoint-sass";
 @import '~assets/css/var';
-#main {
-  // min-height: calc( 100vh - 332px);
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // &>div {
-  //   width: 100%;
-  // }
-}
+#main {}
 #notify {
   position: fixed;
   bottom: 0;
