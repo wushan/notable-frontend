@@ -52,18 +52,15 @@
 </style>
 <script>
 import { mapState } from 'vuex'
-import axios from 'axios'
+import Auth from '~assets/api/auth'
 import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
-import qs from 'qs'
 export default {
   name: 'Login',
   head: {
-    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
     title: '登入'
   },
-  data ({req}) {
+  data () {
     return {
-      name: req ? 'server' : 'client',
       login: {
         email: '',
         password: ''
@@ -83,60 +80,21 @@ export default {
       }
     }
   },
-  created () {
-    // this.$store.dispatch('getRecords')
-  },
-  fetch ({ store }) {
-    // store.commit('increment')
-  },
-  computed: mapState([
-    // 'counter',
-    // 'user',
-    // 'records'
-  ]),
   methods: {
     clearError () {
       this.error = null
     },
     postLogin (e) {
-      var instance = this
       if (this.$v.$error) {
         return console.log('There is still Errors')
       } else {
-        console.log(this.login)
-        axios.post('https://api.notable.wushan.io/clients/login', qs.stringify({
-            email: this.login.email,
-            password: this.login.password
-          }))
-        .then(function (response) {
-          // instance.$router.push('signup/ok')
-          console.log(response)
-          instance.$store.commit('SET_USER', response)
-          var token = localStorage.getItem('notable_token')
-          var user = localStorage.getItem('notable_user')
-          if (token && user) {
-            axios.get('https://api.notable.wushan.io/clients/' + user, {
-              params: {
-                access_token: token
-              }
-            })
-            .then((res) => {
-              instance.$store.commit('SET_USERINFO', res)
-              instance.$nuxt.$router.push('/member')
-            })
-            .catch((error) => {
-              console.log(error)
-              localStorage.removeItem('notable_token')
-              localStorage.removeItem('notable_user')
-            })
+        Auth.login(this.login.email, this.login.password, (err, res) => {
+          if (err) {
+            this.error = err
           } else {
-            localStorage.removeItem('notable_token')
-            localStorage.removeItem('notable_user')
+            this.$nuxt.$router.push('/member')
           }
         })
-        .catch(function (error) {
-          instance.error = error
-        });
         console.log('submitted')
       }
     }

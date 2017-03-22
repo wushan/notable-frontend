@@ -26,8 +26,9 @@
               ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-7684683541536230", data-ad-slot="9848245811", data-ad-format="auto")
               script.
                 (adsbygoogle = window.adsbygoogle || []).push({});
+            p(v-if="latestRecord && latestProvider") {{latestProvider.brand}}
             //- ul.records
-            //-   li(v-for="item in relatedRecords") {{item.number}}/{{item.date}}
+            //-   li(v-for="item in relatedRecords") {{item.date}} / {{item.description}}
             //-   li .
             //-   li .
             //-   li .
@@ -53,7 +54,8 @@ export default {
   data ({ params }) {
     return {
       number: params.id,
-      windowEl: false
+      windowEl: false,
+      latestProvider: null
     }
   },
   head () {
@@ -63,12 +65,38 @@ export default {
   },
   components: {
   },
+  methods: {
+    getProvider () {
+      var token = localStorage.getItem('notable_token')
+      var user = localStorage.getItem('notable_user')
+      if (token && user) {
+        axios.get('http://localhost:3003/records/' + this.searchResult[0].id + '/provider', {
+          params: {
+            access_token: token
+          }
+        })
+        .then((res) => {
+          console.log(res)
+          this.latestProvider = res.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      }
+    }
+  },
   computed: {
     searchResult () {
       return this.$store.state.searchResult
     },
     relatedRecords () {
       return this.$store.state.searchResult.slice(0, 5)
+    },
+    latestRecord () {
+      if (this.searchResult && this.windowEl) {
+        this.getProvider()
+        return this.searchResult[0]
+      }
     },
     voice () {
       var voiceMale = []

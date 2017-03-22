@@ -16,7 +16,7 @@ export default {
     var token = localStorage.getItem('notable_token')
     var user = localStorage.getItem('notable_user')
     if (token && user) {
-      axios.get('https://api.notable.wushan.io/clients/' + user, {
+      axios.get('http://localhost:3003/clients/' + user, {
         params: {
           access_token: token
         }

@@ -10,7 +10,8 @@ const store = new Vuex.Store({
     User: null,
     searchResult: [],
     notify: null,
-    count: 0
+    count: 0,
+    baseurl: 'http://localhost:3003/' // Production: https://api.notable.wushan.io/
   },
   mutations: {
     SET_USER: function (state, user) {
