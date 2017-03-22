@@ -9,7 +9,6 @@
 </template>
 <script>
 import searchNumb from '~components/searchNumb.vue'
-import axios from 'axios'
 export default {
   mounted () {
   },
