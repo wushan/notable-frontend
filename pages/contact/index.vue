@@ -33,7 +33,7 @@
     nuxt-child
 </template>
 <script>
-import axios from 'axios'
+import Api from '~assets/api/api'
 import { email, required } from 'vuelidate/lib/validators'
 export default {
   head: {
@@ -77,31 +77,53 @@ export default {
         btn.disabled = false
         return
       } else {
-        axios({
-          method: 'post',
-          url: 'https://api.notable.wushan.io/clients/sendContact',
-          data: {
-            "name": this.name,
-            "mail": this.mail,
-            "subject": this.subject,
-            "message": this.message
+        var data = {
+          name: this.name,
+          mail: this.mail,
+          subject: this.subject,
+          message: this.message
+        }
+        Api.sendForm(data, (err, res) => {
+          if (err) {
+            console.log(err)
+            btn.disabled = false
+          } else {
+            this.success = true
+            this.name = ''
+            this.mail = ''
+            this.subject = ''
+            this.message = ''
+            btn.disabled = false
+            setTimeout(() => {
+              this.success = false
+            }, 1000)
           }
         })
-        .then((response) => {
-          this.success = true
-          this.name = ''
-          this.mail = ''
-          this.subject = ''
-          this.message = ''
-          btn.disabled = false
-          setTimeout(() => {
-            this.success = false
-          }, 1000)
-        })
-        .catch((error) => {
-          console.log(error)
-          btn.disabled = false
-        });
+        // axios({
+        //   method: 'post',
+        //   url: 'https://api.notable.wushan.io/clients/sendContact',
+        //   data: {
+        //     "name": this.name,
+        //     "mail": this.mail,
+        //     "subject": this.subject,
+        //     "message": this.message
+        //   }
+        // })
+        // .then((response) => {
+        //   this.success = true
+        //   this.name = ''
+        //   this.mail = ''
+        //   this.subject = ''
+        //   this.message = ''
+        //   btn.disabled = false
+        //   setTimeout(() => {
+        //     this.success = false
+        //   }, 1000)
+        // })
+        // .catch((error) => {
+        //   console.log(error)
+        //   btn.disabled = false
+        // });
       }
     }
   }

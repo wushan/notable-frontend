@@ -79,5 +79,18 @@ export default {
     .catch((error) => {
       cb(error)
     });
+  },
+  sendForm (data, cb) {
+    axios({
+      method: 'post',
+      url: Store.state.baseurl + 'clients/sendContact',
+      data: data
+    })
+    .then((response) => {
+      cb(null, response)
+    })
+    .catch((error) => {
+      cb(error)
+    });
   }
 }
