@@ -50,5 +50,32 @@ export default {
     .catch(function (error) {
       cb(error)
     });
+  },
+  requestResetPassword (email, cb) {
+    axios.post(Store.state.baseurl + 'clients/reset', {
+      email: email
+    })
+    .then((response) => {
+      cb(null, response)
+    })
+    .catch((error) => {
+      cb(error)
+    });
+  },
+  resetPassword (data, token, cb) {
+    axios({
+      method: 'post',
+      url: Store.state.baseurl + 'clients/setPassword',
+      data: data,
+      params: {
+        access_token: token
+      }
+    })
+    .then((response) => {
+      cb(null, response)
+    })
+    .catch((error) => {
+      cb(error)
+    });
   }
 }

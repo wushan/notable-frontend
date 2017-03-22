@@ -38,7 +38,7 @@
 }
 </style>
 <script>
-import axios from 'axios'
+import Auth from '~assets/api/auth'
 import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
 // import qs from 'qs'
 export default {
@@ -77,20 +77,17 @@ export default {
           this.error = false
         }, 3000)
       } else {
-        axios.post('https://api.notable.wushan.io/clients/reset', {
-          email: this.email
+        Auth.requestResetPassword(this.email, (err, res) => {
+          if (err) {
+            console.log(err)
+            this.error = true
+            setTimeout(() => {
+              this.error = false
+            }, 3000)
+          } else {
+            this.success = true
+          }
         })
-        .then((response) => {
-          // instance.$router.push('signup/ok')
-          this.success = true
-          console.log(response)
-        })
-        .catch((error) => {
-          this.error = true
-          setTimeout(() => {
-            this.error = false
-          }, 3000)
-        });
       }
     }
   }

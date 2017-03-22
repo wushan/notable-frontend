@@ -42,7 +42,7 @@
 }
 </style>
 <script>
-import axios from 'axios'
+import Auth from '~assets/api/auth'
 import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
 // import qs from 'qs'
 export default {
@@ -67,16 +67,10 @@ export default {
       sameAsPassword: sameAs('password')
     }
   },
-  created () {
-    // this.$store.dispatch('getRecords')
-  },
   mounted () {
     if (!this.$route.query.access_token) {
       this.$router.replace('/')
     }
-  },
-  fetch ({ store }) {
-    // store.commit('increment')
   },
   computed: {
   },
@@ -88,33 +82,26 @@ export default {
           this.error = false
         }, 3000)
       } else {
-        axios({
-          method: 'post',
-          // url: 'http://localhost:3003/clients/setPassword',
-          url: 'https://api.notable.wushan.io/clients/setPassword',
-          data: {
-            "password": this.password,
-            "confirmation": this.confirm
-          },
-          params: {
-            access_token: this.$route.query.access_token
+        var data = {
+          password: this.password,
+          confirmation: this.confirm
+        }
+        var token = this.$route.query.access_token
+        Auth.resetPassword(data, token, (err,res) => {
+          if (err) {
+            console.log(err)
+            this.error = true
+            setTimeout(() => {
+              this.error = false
+            }, 3000)
+          } else {
+            this.success = true
+            setTimeout(() => {
+              this.success = false
+              this.$router.replace('/login')
+            }, 1000)
           }
         })
-        .then((response) => {
-          // instance.$router.push('signup/ok')
-          this.success = true
-          setTimeout(() => {
-            this.success = false
-            this.$router.replace('/login')
-          }, 1000)
-        })
-        .catch((error) => {
-          console.log(error)
-          this.error = true
-          setTimeout(() => {
-            this.error = false
-          }, 3000)
-        });
       }
     }
   }
