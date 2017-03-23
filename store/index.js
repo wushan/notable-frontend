@@ -30,6 +30,21 @@ const store = new Vuex.Store({
     },
     SET_Count: (state, data) => {
       state.count = data
+    },
+    SET_USERPHOTO: (state, url) => {
+      state.User.data.photo = url
+    },
+    SET_BRAND: (state, data) => {
+      state.User.data.brand = data
+    },
+    SET_VAT: (state, data) => {
+      state.User.data.vat = data
+    },
+    SET_ADDRESS: (state, data) => {
+      state.User.data.address = data
+    },
+    SET_FB: (state, data) => {
+      state.User.data.fanpage = data
     }
   },
   actions: {

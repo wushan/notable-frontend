@@ -17,6 +17,8 @@
               .dropdown(v-if="submenu")
                 ul.submenu(@click="closeSubmenu")
                   li
+                    nuxt-link(to="/member/profile", active-class="active") 店舖檔案
+                  li
                     nuxt-link(to="/member", active-class="active") 通報奧客
                   li
                     nuxt-link#logout(to="/logout") 登出

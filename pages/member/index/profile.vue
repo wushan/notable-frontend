@@ -1,0 +1,158 @@
+<template lang="pug">
+#profile
+  .container.restrict
+    form.frame(@submit.prevent.stop="saveProfile")
+      h1.title 店舖檔案
+      p {{error.vat}}
+      p {{error.address}}
+      p {{error.brand}}
+      .columns
+        .column
+          .controlgroup
+            .controls
+              input.active(type="email", placeholder="電子郵件", :value="User.email" readonly)
+              label 電子郵件
+        .column
+          .controlgroup
+            .controls(v-bind:class="{error: !brandValid}")
+              input.active(type="text", placeholder="店舖/公司名稱", :value="User.brand", @input="updateBrand")
+              label 店舖/公司名稱
+              span.valid-notifier(v-if="!brandValid") 店舖/公司名稱有誤
+        .column
+          .controlgroup
+            .controls(v-bind:class="{error: !vatValid}")
+              input.active(type="text", placeholder="統一編號", :value="User.vat", @input="updateVat")
+              label 統一編號
+              span.valid-notifier(v-if="!vatValid") 統一編號錯誤
+      .columns
+        .column
+          .controlgroup
+            .controls(v-bind:class="{error: !addressValid}")
+              input.active(type="text", placeholder="地址", :value="User.address", @input="updateAddress")
+              label 地址
+              span.valid-notifier(v-if="!addressValid") 地址有誤
+        .column
+          .controlgroup
+            .controls
+              input.active(type="text", placeholder="Facebook 粉絲專頁", :value="User.fanpage", @input="updateFb")
+              label Facebook 粉絲專頁
+      .preview-wrapper
+        .preview
+          img(v-bind:src="UserPhoto")
+      .controlgroup
+        .controls
+          input.active(type="text", placeholder="顯示圖片", :value="User.photo", @keyup="updateUserPhoto")
+          label 顯示圖片
+          .tips 貼上您的圖片網址如：https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
+      .call-action.centered
+        button.button.invert(to="/member") 更新店舖資料
+</template>
+<script>
+import Api from '~assets/api/api'
+export default {
+  data () {
+    return {
+      photoUrl: null,
+      error: {
+        vat: '',
+        address: '',
+        brand: ''
+      }
+    }
+  },
+  methods: {
+    updateUserPhoto (e) {
+      this.$store.commit('SET_USERPHOTO', e.target.value)
+    },
+    updateBrand (e) {
+      this.$store.commit('SET_BRAND', e.target.value)
+    },
+    updateVat (e) {
+      this.$store.commit('SET_VAT', e.target.value)
+    },
+    updateAddress (e) {
+      this.$store.commit('SET_ADDRESS', e.target.value)
+    },
+    updateFb (e) {
+      this.$store.commit('SET_FB', e.target.value)
+    },
+    saveProfile () {
+      if (this.vatValid && this.brandValid && this.addressValid) {
+        var token = localStorage.getItem('notable_token')
+        Api.patchClientProfile(this.$store.state.User.data, token, (err, res) => {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(res)
+          }
+        })
+      }
+    },
+    vatCheck (taxId) {
+      var invalidList = "00000000,11111111";
+      if (/^\d{8}$/.test(taxId) == false || invalidList.indexOf(taxId) != -1) {
+          return false;
+      }
+      var validateOperator = [1, 2, 1, 2, 1, 2, 4, 1],
+          sum = 0,
+          calculate = function(product) { // 個位數 + 十位數
+              var ones = product % 10,
+                  tens = (product - ones) / 10;
+              return ones + tens;
+          };
+      for (var i = 0; i < validateOperator.length; i++) {
+          sum += calculate(taxId[i] * validateOperator[i]);
+      }
+
+      return sum % 10 == 0 || (taxId[6] == "7" && (sum + 1) % 10 == 0);
+    }
+  },
+  computed: {
+    User () {
+      console.log('uu')
+      return this.$store.state.User.data
+    },
+    UserPhoto () {
+      console.log('exed')
+      return this.$store.state.User.data.photo
+    },
+    vatValid () {
+      var result = this.vatCheck(this.$store.state.User.data.vat)
+      console.log(result)
+      return  result
+    },
+    brandValid () {
+      if (this.$store.state.User.data.brand) {
+        return true
+      } else {
+        return false
+      }
+    },
+    addressValid () {
+      if (this.$store.state.User.data.address) {
+        return true
+      } else {
+        return false
+      }
+    }
+  }
+}
+</script>
+<style lang="scss">
+@import "~breakpoint-sass";
+@import '~assets/css/var';
+#profile {
+  margin: 4em 0;
+  .preview-wrapper {
+    text-align: center;
+  }
+  .preview {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid $gray;
+    padding: 1em;
+    img {
+    }
+  }
+}
+</style>

@@ -105,5 +105,21 @@ export default {
     .catch((error) => {
       cb(error)
     })
+  },
+  patchClientProfile (data, token, cb) {
+    axios({
+      method: 'patch',
+      url: Store.state.baseurl + 'clients',
+      data: data,
+      params: {
+        access_token: token
+      }
+    })
+    .then((response) => {
+      cb(null, response)
+    })
+    .catch((error) => {
+      cb(error)
+    });
   }
 }
