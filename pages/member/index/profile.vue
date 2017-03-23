@@ -45,7 +45,12 @@
           label 顯示圖片
           .tips 貼上您的圖片網址如：https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
       .call-action.centered
-        button.button.invert(to="/member") 更新店舖資料
+        button.button.invert(type="submit") 更新店舖資料
+      transition(name="fade", mode="out-in")
+        .successView(v-if="successMsg")
+          .successView-inner
+            h2 店舖資料已更新
+            p 感謝
 </template>
 <script>
 import Api from '~assets/api/api'
@@ -53,6 +58,8 @@ export default {
   data () {
     return {
       photoUrl: null,
+      successMsg: null,
+      timer: null,
       error: {
         vat: '',
         address: '',
@@ -93,9 +100,16 @@ export default {
             console.log(err)
           } else {
             console.log(res)
+            this.showSuccessMsg()
           }
         })
       }
+    },
+    showSuccessMsg () {
+      this.successMsg = true
+      this.timer = setTimeout(() => {
+        this.successMsg = false
+      }, 3000)
     },
     vatCheck (taxId) {
       var invalidList = "00000000,11111111";
@@ -152,6 +166,27 @@ export default {
 @import '~assets/css/var';
 #profile {
   margin: 4em 0;
+  .frame {
+    position: relative; 
+  }
+  .successView {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    -webkit-align-content: center;
+            align-content: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    background-color: $white;
+    z-index: 9999;
+    text-align: center;
+    .successView-inner {
+        align-self: center;
+    }
+  }
   .preview-wrapper {
     text-align: center;
   }
