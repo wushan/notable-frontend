@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-import Store from '~store/index'
+import Store from '~store'
 export default {
   authCheck (user, token, cb) {
     axios.get(Store.state.baseurl + 'clients/' + user, {

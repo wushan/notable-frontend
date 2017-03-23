@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Store from '~store/index'
+import Store from '~store'
 import qs from 'qs'
 export default {
   getUnsplashImages (cb) {
