@@ -79,7 +79,16 @@ export default {
     saveProfile () {
       if (this.vatValid && this.brandValid && this.addressValid) {
         var token = localStorage.getItem('notable_token')
-        Api.patchClientProfile(this.$store.state.User.data, token, (err, res) => {
+        var readyToPatch = {
+          brand: this.$store.state.User.data.brand,
+          vat: this.$store.state.User.data.vat,
+          address: this.$store.state.User.data.address,
+          fanpage: this.$store.state.User.data.fb,
+          photo: this.$store.state.User.data.photo,
+          email: this.$store.state.User.data.email,
+          id: this.$store.state.User.data.id
+        }
+        Api.patchClientProfile(readyToPatch, token, (err, res) => {
           if (err) {
             console.log(err)
           } else {
