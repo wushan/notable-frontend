@@ -78,8 +78,9 @@
 </style>
 <script>
 import { mapState } from 'vuex'
-import axios from 'axios'
-import qs from 'qs'
+// import axios from 'axios'
+// import qs from 'qs'
+import Auth from '~assets/api/auth'
 import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'SignUp',
@@ -128,26 +129,23 @@ export default {
   },
   methods: {
     postSignUp (e) {
-      var instance = this
       if (this.$v.$invalid || this.$v.$error || !this.vatValid) {
         return console.log('There is still Errors')
       } else {
-        console.log(this.signup)
-        axios.post('https://api.notable.wushan.io/clients', qs.stringify({
-        // axios.post('http://localhost:3003/clients', qs.stringify({
-            email: this.signup.email,
-            password: this.signup.password,
-            vat: this.signup.vat,
-            brand: this.signup.brand,
-            address: this.signup.address
-          }))
-        .then(function (response) {
-          instance.$router.push('signup/ok')
+        var data = {
+          email: this.signup.email,
+          password: this.signup.password,
+          vat: this.signup.vat,
+          brand: this.signup.brand,
+          address: this.signup.address
+        }
+        Auth.signUp(data, (err, res) => {
+          if (err) {
+            console.log(err)
+          } else {
+            this.$router.push('signup/ok')
+          }
         })
-        .catch(function (error) {
-          console.log(error);
-        });
-        console.log('submitted')
       }
     },
     vatCheck (taxId) {

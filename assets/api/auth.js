@@ -77,5 +77,14 @@ export default {
     .catch((error) => {
       cb(error)
     });
+  },
+  signUp (data, cb) {
+    axios.post(Store.state.baseurl + 'clients', qs.stringify(data))
+    .then(function (response) {
+      cb(null, response)
+    })
+    .catch(function (error) {
+      cb(error)
+    });
   }
 }
