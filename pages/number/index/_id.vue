@@ -21,12 +21,25 @@
               .voice
                 | 電話持有人很可能是 
                 span(v-bind:class="voice") {{voiceText}}
+            .provider-wrapper(v-if="latestRecord && latestProvider")
+              .provider-inner
+                .provider-info
+                  h4 最近的提供者
+                  .provider
+                    .brand
+                      | 「{{latestProvider.brand}}」
+                      a(:href="'https://company.g0v.ronny.tw/id/' + latestProvider.vat", title="g0v台灣公司資料查詢", target="_blank") 公司查詢
+                    .address 地址：{{latestProvider.address}}
+                  .provider-message
+                    i.zmdi.zmdi-comment-alert
+                    |  {{latestRecord.description}}
+                .provider-footer
+                  .tips 提供者資訊僅提供店家會員參考，非店家會員無法看到此訊息
             .ads-wrapper(v-if="windowEl")
               script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
               ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-7684683541536230", data-ad-slot="9848245811", data-ad-format="auto")
               script.
                 (adsbygoogle = window.adsbygoogle || []).push({});
-            p(v-if="latestRecord && latestProvider") {{latestProvider.brand}}
             //- ul.records
             //-   li(v-for="item in relatedRecords") {{item.date}} / {{item.description}}
             //-   li .
@@ -36,10 +49,11 @@
           p 注意！本服務旨在提供小老闆互助，避免紀錄不佳的顧客影響您正常的生意，請勿利用本站資訊對當事人進行任何有損其利益之行為，亦不得在本站之外以任何方式公開此評分資訊。
 </template>
 <script>
+import Api from '~assets/api/api'
 import axios from 'axios'
 export default {
   fetch ({ store, params }) {
-    return axios.get('https://api.notable.wushan.io/numbers/' + params.id + '/blacklist')
+    return axios.get(store.state.baseurl + 'numbers/' + params.id + '/blacklist')
     .then(function (response) {
       store.commit('SET_Result', response.data)
     })
@@ -70,17 +84,12 @@ export default {
       var token = localStorage.getItem('notable_token')
       var user = localStorage.getItem('notable_user')
       if (token && user) {
-        axios.get('http://localhost:3003/records/' + this.searchResult[0].id + '/provider', {
-          params: {
-            access_token: token
+        Api.getProvider(this.searchResult[0].id, token, (err, res) => {
+          if (err) {
+            console.log(err)
+          } else {
+            this.latestProvider = res.data
           }
-        })
-        .then((res) => {
-          console.log(res)
-          this.latestProvider = res.data
-        })
-        .catch((error) => {
-          console.log(error)
         })
       }
     }
@@ -222,6 +231,41 @@ export default {
       span.unknow {
         color: $secondary;
       }
+    }
+  }
+  .provider-wrapper {
+    margin: 1em 1em 1em 0;
+    background-color: #4d6f84;
+    box-shadow: 0 0 24px rgba(0,0,0,.33);
+    border-radius: 3px;
+    color: $white;
+    a {
+      color: $white;
+      cursor: pointer;
+    }
+    .provider-inner {
+      .provider-info {
+        padding: 1em;
+        font-size: .9em;
+        .brand {
+          font-weight: 600;
+        }
+        .provider-message {
+          background-color: darken(#4d6f84, 10%);
+          padding: 1em;
+          margin-top: .5em;
+        }
+      }
+      .provider-footer {
+        padding: .5em 1em;
+        background-color: white;
+        text-align: center;
+        border-radius: 0 0 3px 3px;
+      }
+    }
+    h4 {
+      margin: 0;
+      color: $white;
     }
   }
   .ads-wrapper {

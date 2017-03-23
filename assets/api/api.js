@@ -92,5 +92,18 @@ export default {
     .catch((error) => {
       cb(error)
     });
+  },
+  getProvider (id, token, cb) {
+    axios.get(Store.state.baseurl + 'records/' + id + '/provider', {
+      params: {
+        access_token: token
+      }
+    })
+    .then((res) => {
+      cb(null, res)
+    })
+    .catch((error) => {
+      cb(error)
+    })
   }
 }
