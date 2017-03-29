@@ -64,10 +64,11 @@ export default {
   },
   mounted () {
     this.windowEl = true
+    this.number = this.$route.params.id
   },
-  data ({ params }) {
+  data () {
     return {
-      number: params.id,
+      number: null,
       windowEl: false,
       latestProvider: null
     }
