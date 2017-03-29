@@ -24,7 +24,7 @@
           searchNumb
           p
             | 近期舉報：
-            nuxt-link.recentNumber(v-bind:to="'/number/' + num.number", v-for="num in recents") {{num.number}}
+            nuxt-link.recentNumber(v-bind:to="'/number/' + num.number", v-for="num in recents", :key="num") {{num.number}}
   section.service-intro
     .restrict.container
       .hero-table
