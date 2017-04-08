@@ -90,7 +90,7 @@ export default {
           brand: this.$store.state.User.data.brand,
           vat: this.$store.state.User.data.vat,
           address: this.$store.state.User.data.address,
-          fanpage: this.$store.state.User.data.fb,
+          fanpage: this.$store.state.User.data.fanpage,
           photo: this.$store.state.User.data.photo,
           email: this.$store.state.User.data.email,
           id: this.$store.state.User.data.id
