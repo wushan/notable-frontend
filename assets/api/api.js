@@ -121,5 +121,19 @@ export default {
     .catch((error) => {
       cb(error)
     });
+  },
+  getScore (num, token, cb) {
+    axios.get(Store.state.baseurl + 'numbers/score', {
+      params: {
+        number: num,
+        access_token: token
+      }
+    })
+    .then((res) => {
+      cb(null, res.data)
+    })
+    .catch((error) => {
+      cb(error)
+    })
   }
 }

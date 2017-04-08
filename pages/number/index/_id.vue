@@ -10,10 +10,10 @@
             h3 綜合評分
             .score-wrapper
               .score
-                .points(v-bind:class="scoresLevel") {{scores}}
+                .points(v-bind:class="scoresLevel", v-if="scoreResult") {{scoreResult.score}}
                 .description(v-bind:class="scoresLevel")
-                  span {{scoreDescription.name}}
-                  span {{scoreDescription.notify}}
+                  span(v-if="scoreDescription") {{scoreDescription.name}}
+                  span(v-if="scoreDescription") {{scoreDescription.notify}}
           .column.target
             h3 查詢標的
             .number(itemprop="name") {{number}}
@@ -21,18 +21,18 @@
               .voice
                 | 電話持有人很可能是 
                 span(v-bind:class="voice") {{voiceText}}
-            .provider-wrapper(v-if="latestRecord && latestProvider")
+            .provider-wrapper(v-if="provider")
               .provider-inner
                 .provider-info
                   h4 最近的提供者
                   .provider
                     .brand
-                      | 「{{latestProvider.brand}}」
-                      a(:href="'https://company.g0v.ronny.tw/id/' + latestProvider.vat", title="g0v台灣公司資料查詢", target="_blank") 公司查詢
-                    .address 地址：{{latestProvider.address}}
+                      | 「{{scoreResult.provider[0].brand}}」
+                      a(:href="'https://company.g0v.ronny.tw/id/' + scoreResult.provider[0].vat", title="g0v台灣公司資料查詢", target="_blank") 公司查詢
+                    .address 地址：{{scoreResult.provider[0].address}}
                   .provider-message
                     i.zmdi.zmdi-comment-alert
-                    |  {{latestRecord.description}}
+                    |  {{scoreResult.description}}
                 .provider-footer
                   .tips 提供者資訊僅提供店家會員參考，非店家會員無法看到此訊息
             .ads-wrapper(v-if="windowEl")
@@ -40,11 +40,7 @@
               ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-7684683541536230", data-ad-slot="9848245811", data-ad-format="auto")
               script.
                 (adsbygoogle = window.adsbygoogle || []).push({});
-            //- ul.records
-            //-   li(v-for="item in relatedRecords") {{item.date}} / {{item.description}}
-            //-   li .
-            //-   li .
-            //-   li .
+           
         footer
           p 注意！本服務旨在提供小老闆互助，避免紀錄不佳的顧客影響您正常的生意，請勿利用本站資訊對當事人進行任何有損其利益之行為，亦不得在本站之外以任何方式公開此評分資訊。
 </template>
@@ -65,12 +61,14 @@ export default {
   mounted () {
     this.windowEl = true
     this.number = this.$route.params.id
+    this.getScore()
   },
   data () {
     return {
       number: null,
       windowEl: false,
-      latestProvider: null
+      latestProvider: null,
+      scoreResult: null
     }
   },
   head () {
@@ -81,104 +79,64 @@ export default {
   components: {
   },
   methods: {
-    getProvider () {
+    getScore () {
       var token = localStorage.getItem('notable_token')
       var user = localStorage.getItem('notable_user')
       if (token && user) {
-        Api.getProvider(this.searchResult[0].id, token, (err, res) => {
+        Api.getScore(this.$route.params.id, token, (err, res) => {
           if (err) {
             console.log(err)
           } else {
-            this.latestProvider = res.data
+            this.scoreResult = res.data
+          }
+        })
+      } else {
+        Api.getScore(this.$route.params.id, null, (err, res) => {
+          if (err) {
+            console.log(err)
+          } else {
+            this.scoreResult = res.data
           }
         })
       }
     }
   },
   computed: {
-    searchResult () {
-      return this.$store.state.searchResult
-    },
-    relatedRecords () {
-      return this.$store.state.searchResult.slice(0, 5)
-    },
-    latestRecord () {
-      if (this.searchResult && this.windowEl) {
-        this.getProvider()
-        return this.searchResult[0]
+    provider () {
+      if (this.scoreResult) {
+        if (this.scoreResult.provider) {
+          return true
+        } else {
+          return false
+        }
       }
     },
     voice () {
-      var voiceMale = []
-      var voiceFemale = []
-      var data = this.$store.state.searchResult
-      for (var gender of data) {
-        if (gender.voice === 'male') {
-          voiceMale.push(gender.voice)
-        } else {
-          voiceFemale.push(gender.voice)
-        }
-      }
-      console.log(voiceMale.length)
-      console.log(voiceFemale.length)
-      if (voiceMale.length > voiceFemale.length) {
-        return 'male' //male
-      } else if (voiceMale.length < voiceFemale.length) {
-        return 'female' //female
-      } else {
-        return 'unknow'
+      if (this.scoreResult) {
+        return this.scoreResult.gender
       }
     },
     voiceText () {
-      if (this.voice) {
-        switch(this.voice) {
-          case 'male':
-            return '男性'
-            break
-          case 'female':
-            return '女性'
-            break
-          case 'unknow':
-            return '未知性別'
-            break
-        }
+      if (this.scoreResult) {
+        return this.scoreResult.genderText
       }
     },
-    scores () {
-      return 10 - this.$store.state.searchResult.length
-    },
     scoresLevel () {
-      if (this.scores <= 0) {
-        return 'bad'
-      } else if (this.scores > 0 && this.scores < 6) {
-        return 'serious'
-      } else if (this.scores === 10) {
-        return 'nice'
-      } else {
-        return 'normal'
+      if (this.scoreResult) {
+        if (this.scoreResult.score <= 0) {
+          return 'bad'
+        } else if (this.scoreResult.score > 0 && this.scoreResult.score < 6) {
+          return 'serious'
+        } else if (this.scoreResult.score === 10) {
+          return 'nice'
+        } else {
+          return 'normal'
+        }
       }
     },
     scoreDescription () {
-      if (this.scores <= 0) {
-        return {
-          name: '罪大惡極',
-          notify: '務必謹慎考慮'
-        }
-      } else if (this.scores > 0 && this.scores < 6) {
-        return {
-          name: '朽木不可雕',
-          notify: '紀錄不良'
-        }
-      } else if (this.scores === 10) {
-        return {
-          name: '表現優異',
-          notify: '也可能是還沒有人回報...'
-        }
-      } else {
-        return {
-          name: '表現普通',
-          notify: '曾有不良紀錄'
-        }
+      if (this.scoreResult) {
+        return this.scoreResult.scoreDescription
       }
     }
   }
