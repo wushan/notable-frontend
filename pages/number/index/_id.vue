@@ -48,19 +48,21 @@
 import Api from '~assets/api/api'
 import axios from 'axios'
 export default {
-  fetch ({ store, params }) {
-    return axios.get(store.state.baseurl + 'numbers/' + params.id + '/blacklist')
-    .then(function (response) {
-      store.commit('SET_Result', response.data)
-    })
-    .catch(function (error) {
-      store.commit('SET_Result', [])
-      console.log(error)
-    })
+  // fetch ({ store, params }) {
+  //   return axios.get(store.state.baseurl + 'numbers/' + params.id + '/blacklist')
+  //   .then(function (response) {
+  //     store.commit('SET_Result', response.data)
+  //   })
+  //   .catch(function (error) {
+  //     store.commit('SET_Result', [])
+  //     console.log(error)
+  //   })
+  // },
+  watch: {
+    '$route.params.id': 'getScore'
   },
   mounted () {
     this.windowEl = true
-    this.number = this.$route.params.id
     this.getScore()
   },
   data () {
@@ -68,7 +70,18 @@ export default {
       number: null,
       windowEl: false,
       latestProvider: null,
-      scoreResult: null
+      scoreResult: {
+        description: '',
+        gender: 'unknow',
+        genderText: '未知',
+        lastProvider: 0,
+        number: '00000000',
+        score: 10,
+        scoreDescription: {
+          name: '表現優異',
+          notify: '也可能是還沒有人回報...'
+        }
+      }
     }
   },
   head () {
@@ -80,6 +93,7 @@ export default {
   },
   methods: {
     getScore () {
+      this.number = this.$route.params.id
       var token = localStorage.getItem('notable_token')
       var user = localStorage.getItem('notable_user')
       if (token && user) {
