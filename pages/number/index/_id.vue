@@ -1,5 +1,5 @@
 <template lang="pug">
-  section#results.results-wrapper(v-if="number", itemscope, v-bind:itemtype="'https://notable.wushan.io/number/' + number")
+  section#results.results-wrapper(itemscope, v-bind:itemtype="'https://notable.wushan.io/number/' + this.$route.params.id")
     .container.restrict
       .providing-blacklist
         | 怎麼可能這麼高分？
@@ -16,7 +16,7 @@
                   span(v-if="scoreDescription") {{scoreDescription.notify}}
           .column.target
             h3 查詢標的
-            .number(itemprop="name") {{number}}
+            .number(itemprop="name") {{this.$route.params.id}}
             .additional
               .voice
                 | 電話持有人很可能是 
@@ -86,14 +86,14 @@ export default {
   },
   head () {
     return {
-      title: '查詢號碼：' + this.number
+      title: '查詢號碼：' + this.$route.params.id
     }
   },
   components: {
   },
   methods: {
     getScore () {
-      this.number = this.$route.params.id
+      // this.number = this.$route.params.id
       var token = localStorage.getItem('notable_token')
       var user = localStorage.getItem('notable_user')
       if (token && user) {
