@@ -4,7 +4,6 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
     titleTemplate: '%s - NOTABLE「嘸位la！」奧客查詢服務',
     meta: [
       { 'http-equiv':"Content-Type", content:"text/html", charset:"UTF-8"},
@@ -46,20 +45,31 @@ module.exports = {
   */
   css: [{ src: '~assets/css/main.scss', lang: 'scss'}, { src: 'font-awesome/scss/font-awesome.scss', lang: 'scss' }],
   /*
-  ** Customize the progress-bar color
+  ** Add axios globally
   */
   loading: { color: '#3B8070' },
   build: {
-    vendor: [
-      'axios'
-    ],
+    vendor: ['axios'],
     plugins: [
       new webpack.ProvidePlugin({
         '$': 'jquery',
         'jQuery': 'jquery'
         // ...etc.
       })
-    ]
+    ],
+    /*
+    ** Run ESLINT on save
+    */
+    extend (config, ctx) {
+      if (ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   },
   plugins: ['plugins/vue-typer.js', 'plugins/vuelidate.js', 'plugins/ga.js']
 }

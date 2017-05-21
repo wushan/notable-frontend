@@ -5,5 +5,5 @@ import Vue from 'vue'
 // }
 if (process.BROWSER_BUILD) {
   var VueTyperPlugin = require('vue-typer').default
-  Vue.use(VueTyperPlugin) 
+  Vue.use(VueTyperPlugin)
 }

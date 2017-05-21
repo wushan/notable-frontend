@@ -19,7 +19,6 @@
 </style>
 <script>
 import axios from 'axios'
-import qs from 'qs'
 export default {
   name: 'Login',
   head: {
@@ -64,11 +63,12 @@ export default {
           }, 1500)
         })
         .catch(function (error) {
+          console.log(error)
           instance.$nuxt.$router.replace('/')
           localStorage.removeItem('notable_token')
           localStorage.removeItem('notable_user')
           instance.$store.commit('SET_USERINFO', null)
-        });
+        })
       } else {
         instance.$nuxt.$router.replace('/')
       }

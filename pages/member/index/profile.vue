@@ -112,22 +112,21 @@ export default {
       }, 3000)
     },
     vatCheck (taxId) {
-      var invalidList = "00000000,11111111";
-      if (/^\d{8}$/.test(taxId) == false || invalidList.indexOf(taxId) != -1) {
-          return false;
+      var invalidList = '00000000,11111111'
+      if (/^\d{8}$/.test(taxId) === false || invalidList.indexOf(taxId) !== -1) {
+        return false
       }
-      var validateOperator = [1, 2, 1, 2, 1, 2, 4, 1],
-          sum = 0,
-          calculate = function(product) { // 個位數 + 十位數
-              var ones = product % 10,
-                  tens = (product - ones) / 10;
-              return ones + tens;
-          };
+      var validateOperator = [1, 2, 1, 2, 1, 2, 4, 1]
+      var sum = 0
+      var calculate = function (product) { // 個位數 + 十位數
+        var ones = product % 10
+        var tens = (product - ones) / 10
+        return ones + tens
+      }
       for (var i = 0; i < validateOperator.length; i++) {
-          sum += calculate(taxId[i] * validateOperator[i]);
+        sum += calculate(taxId[i] * validateOperator[i])
       }
-
-      return sum % 10 == 0 || (taxId[6] == "7" && (sum + 1) % 10 == 0);
+      return sum % 10 === 0 || (taxId[6] === '7' && (sum + 1) % 10 === 0)
     }
   },
   computed: {
@@ -142,7 +141,7 @@ export default {
     vatValid () {
       var result = this.vatCheck(this.$store.state.User.data.vat)
       console.log(result)
-      return  result
+      return result
     },
     brandValid () {
       if (this.$store.state.User.data.brand) {

@@ -20,9 +20,9 @@ export default {
   },
   login (email, password, cb) {
     axios.post(Store.state.baseurl + 'clients/login', qs.stringify({
-        email: email,
-        password: password
-      }))
+      email: email,
+      password: password
+    }))
     .then(function (response) {
       Store.commit('SET_USER', response)
       var token = localStorage.getItem('notable_token')
@@ -49,7 +49,7 @@ export default {
     })
     .catch(function (error) {
       cb(error)
-    });
+    })
   },
   requestResetPassword (email, cb) {
     axios.post(Store.state.baseurl + 'clients/reset', {
@@ -60,7 +60,7 @@ export default {
     })
     .catch((error) => {
       cb(error)
-    });
+    })
   },
   resetPassword (data, token, cb) {
     axios({
@@ -76,7 +76,7 @@ export default {
     })
     .catch((error) => {
       cb(error)
-    });
+    })
   },
   signUp (data, cb) {
     axios.post(Store.state.baseurl + 'clients', qs.stringify(data))
@@ -85,6 +85,6 @@ export default {
     })
     .catch(function (error) {
       cb(error)
-    });
+    })
   }
 }

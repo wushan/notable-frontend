@@ -35,7 +35,7 @@
 </template>
 <script>
 import axios from 'axios'
-import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
+import { email, required, minLength } from 'vuelidate/lib/validators'
 import qs from 'qs'
 export default {
   created () {
@@ -74,9 +74,9 @@ export default {
       } else {
         console.log(this.login)
         axios.post('https://api.notable.wushan.io/clients/login', qs.stringify({
-            email: this.login.email,
-            password: this.login.password
-          }))
+          email: this.login.email,
+          password: this.login.password
+        }))
         .then(function (response) {
           // instance.$router.push('signup/ok')
           console.log(response)
@@ -105,7 +105,7 @@ export default {
         })
         .catch(function (error) {
           instance.error = error
-        });
+        })
         console.log('submitted')
       }
     }

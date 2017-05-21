@@ -46,7 +46,6 @@
 </template>
 <script>
 import Api from '~assets/api/api'
-import axios from 'axios'
 export default {
   // fetch ({ store, params }) {
   //   return axios.get(store.state.baseurl + 'numbers/' + params.id + '/blacklist')

@@ -77,11 +77,10 @@
 }
 </style>
 <script>
-import { mapState } from 'vuex'
 // import axios from 'axios'
 // import qs from 'qs'
 import Auth from '~assets/api/auth'
-import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
+import { email, required, sameAs, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'SignUp',
   head: {
@@ -149,30 +148,28 @@ export default {
       }
     },
     vatCheck (taxId) {
-      var invalidList = "00000000,11111111";
-      if (/^\d{8}$/.test(taxId) == false || invalidList.indexOf(taxId) != -1) {
-          return false;
+      var invalidList = '00000000,11111111'
+      if (/^\d{8}$/.test(taxId) === false || invalidList.indexOf(taxId) !== -1) {
+        return false
       }
-
-      var validateOperator = [1, 2, 1, 2, 1, 2, 4, 1],
-          sum = 0,
-          calculate = function(product) { // 個位數 + 十位數
-              var ones = product % 10,
-                  tens = (product - ones) / 10;
-              return ones + tens;
-          };
+      var validateOperator = [1, 2, 1, 2, 1, 2, 4, 1]
+      var sum = 0
+      var calculate = function (product) { // 個位數 + 十位數
+        var ones = product % 10
+        var tens = (product - ones) / 10
+        return ones + tens
+      }
       for (var i = 0; i < validateOperator.length; i++) {
-          sum += calculate(taxId[i] * validateOperator[i]);
+        sum += calculate(taxId[i] * validateOperator[i])
       }
-
-      return sum % 10 == 0 || (taxId[6] == "7" && (sum + 1) % 10 == 0);
+      return sum % 10 === 0 || (taxId[6] === '7' && (sum + 1) % 10 === 0)
     }
   },
   computed: {
     vatValid () {
       var result = this.vatCheck(this.signup.vat)
       console.log(result)
-      return  result
+      return result
     }
   }
 }

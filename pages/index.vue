@@ -94,14 +94,14 @@ export default {
   },
   methods: {
     init () {
-      Api.getUnsplashImages ((err, res) => {
+      Api.getUnsplashImages((err, res) => {
         if (err) {
           console.log(err)
         } else {
           this.images = res.data.results
         }
       })
-      Api.getRecentNumbers ((err, res) => {
+      Api.getRecentNumbers((err, res) => {
         if (err) {
           console.log(err)
         } else {
@@ -112,9 +112,8 @@ export default {
   },
   computed: {
     randomImages () {
-      var imagesArray
       if (this.images) {
-        return this.images[Math.floor(Math.random()*10)]
+        return this.images[Math.floor(Math.random() * 10)]
       }
     }
   }

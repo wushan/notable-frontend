@@ -51,9 +51,8 @@
 }
 </style>
 <script>
-import { mapState } from 'vuex'
 import Auth from '~assets/api/auth'
-import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
+import { email, required, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'Login',
   head: {

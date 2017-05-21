@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     init () {
-      Api.getMediaReports ((err, res) => {
+      Api.getMediaReports((err, res) => {
         if (err) {
           console.log(err)
         } else {

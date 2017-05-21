@@ -39,7 +39,7 @@
 </style>
 <script>
 import Auth from '~assets/api/auth'
-import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
+import { email, required } from 'vuelidate/lib/validators'
 // import qs from 'qs'
 export default {
   name: 'getPassword',

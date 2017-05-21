@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Store from '~store'
-import qs from 'qs'
 export default {
   getUnsplashImages (cb) {
     axios({
@@ -9,14 +8,14 @@ export default {
       params: {
         client_id: '18399cc703b58fb798c5663595cbe1cde3958b0c3f495970106efc105f62f48b',
         query: 'restaurant'
-      },
+      }
     })
-    .then((response) => {
-      cb(null, response)
-    })
-    .catch((error) => {
-      cb(error)
-    });
+      .then(response => {
+        cb(null, response)
+      })
+      .catch(error => {
+        cb(error)
+      })
   },
   getRecentNumbers (cb) {
     axios({
@@ -27,14 +26,14 @@ export default {
           limit: 4,
           order: 'updatedAt DESC'
         }
-      },
+      }
     })
-    .then((response) => {
-      cb(null, response)
-    })
-    .catch((error) => {
-      cb(error)
-    });
+      .then(response => {
+        cb(null, response)
+      })
+      .catch(error => {
+        cb(error)
+      })
   },
   submitRecord (data, token, cb) {
     axios({
@@ -45,12 +44,12 @@ export default {
         access_token: token
       }
     })
-    .then((response) => {
-      cb(null, response)
-    })
-    .catch((error) => {
-      cb(error)
-    });
+      .then(response => {
+        cb(null, response)
+      })
+      .catch(error => {
+        cb(error)
+      })
   },
   getReportHistory (userId, token, cb) {
     axios({
@@ -61,24 +60,24 @@ export default {
         access_token: token
       }
     })
-    .then((response) => {
-      cb(null, response)
-    })
-    .catch((error) => {
-      cb(error)
-    });
+      .then(response => {
+        cb(null, response)
+      })
+      .catch(error => {
+        cb(error)
+      })
   },
   getMediaReports (cb) {
     axios({
       method: 'get',
-      url: Store.state.baseurl + 'media',
+      url: Store.state.baseurl + 'media'
     })
-    .then((response) => {
-      cb(null, response)
-    })
-    .catch((error) => {
-      cb(error)
-    });
+      .then(response => {
+        cb(null, response)
+      })
+      .catch(error => {
+        cb(error)
+      })
   },
   sendForm (data, cb) {
     axios({
@@ -86,25 +85,26 @@ export default {
       url: Store.state.baseurl + 'clients/sendContact',
       data: data
     })
-    .then((response) => {
-      cb(null, response)
-    })
-    .catch((error) => {
-      cb(error)
-    });
+      .then(response => {
+        cb(null, response)
+      })
+      .catch(error => {
+        cb(error)
+      })
   },
   getProvider (id, token, cb) {
-    axios.get(Store.state.baseurl + 'records/' + id + '/provider', {
-      params: {
-        access_token: token
-      }
-    })
-    .then((res) => {
-      cb(null, res)
-    })
-    .catch((error) => {
-      cb(error)
-    })
+    axios
+      .get(Store.state.baseurl + 'records/' + id + '/provider', {
+        params: {
+          access_token: token
+        }
+      })
+      .then(res => {
+        cb(null, res)
+      })
+      .catch(error => {
+        cb(error)
+      })
   },
   patchClientProfile (data, token, cb) {
     axios({
@@ -115,25 +115,26 @@ export default {
         access_token: token
       }
     })
-    .then((response) => {
-      cb(null, response)
-    })
-    .catch((error) => {
-      cb(error)
-    });
+      .then(response => {
+        cb(null, response)
+      })
+      .catch(error => {
+        cb(error)
+      })
   },
   getScore (num, token, cb) {
-    axios.get(Store.state.baseurl + 'numbers/score', {
-      params: {
-        number: num,
-        access_token: token
-      }
-    })
-    .then((res) => {
-      cb(null, res.data)
-    })
-    .catch((error) => {
-      cb(error)
-    })
+    axios
+      .get(Store.state.baseurl + 'numbers/score', {
+        params: {
+          number: num,
+          access_token: token
+        }
+      })
+      .then(res => {
+        cb(null, res.data)
+      })
+      .catch(error => {
+        cb(error)
+      })
   }
 }

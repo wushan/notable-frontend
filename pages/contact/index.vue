@@ -75,7 +75,6 @@ export default {
       btn.disabled = true
       if (this.$v.$error) {
         btn.disabled = false
-        return
       } else {
         var data = {
           name: this.name,

@@ -12,7 +12,6 @@ import Auth from '~assets/api/auth'
 import searchNumb from '~components/searchNumb.vue'
 export default {
   beforeMount () {
-    var instance = this
     var token = localStorage.getItem('notable_token')
     var user = localStorage.getItem('notable_user')
     if (token && user) {

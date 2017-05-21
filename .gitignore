@@ -1,5 +1,4 @@
 # dependencies
-yarn.lock
 node_modules
 
 # logs
@@ -10,3 +9,6 @@ npm-debug.log
 
 # Nuxt generate
 dist
+
+# Backpack build
+build

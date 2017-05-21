@@ -67,7 +67,7 @@
 <script>
 import moment from 'moment'
 import Api from '~assets/api/api'
-import { email, required, sameAs, between, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 // import myDatepicker from 'vue-datepicker'
 if (process.BROWSER_BUILD) {
   var $ = window.$
@@ -96,7 +96,7 @@ export default {
       successMsg: null,
       btnMsg: '希望你不要再出來害了～送出！',
       timer: null,
-      presets: ['預約未到也沒通知', '預約時間很逼進才臨時取消', '貪小便宜，要求眾多，理直氣壯', '就是奧客'],
+      presets: ['預約未到也沒通知', '預約時間很逼進才臨時取消', '貪小便宜，要求眾多，理直氣壯', '就是奧客']
     }
   },
   validations: {
@@ -121,15 +121,13 @@ export default {
         setTimeout(() => {
           this.error = false
         }, 200)
-        return
       } else if (this.$v.$error || this.$v.$invalid) {
         btn.disabled = false
-        return
       } else {
         this.submitRecord()
       }
     },
-    submitRecord() {
+    submitRecord () {
       var userId = localStorage.getItem('notable_user')
       var token = localStorage.getItem('notable_token')
       var btn = document.getElementById('submit')
@@ -143,7 +141,7 @@ export default {
       }
       Api.submitRecord(data, token, (err, res) => {
         if (err) {
-          this.error = error
+          this.error = err
           btn.disabled = false
         } else {
           btn.disabled = false
@@ -161,30 +159,30 @@ export default {
     },
     clearError (e) {
       if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-           // Allow: Ctrl+A
-          (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-           // Allow: Ctrl+C
-          (e.keyCode == 67 && e.ctrlKey === true) ||
-           // Allow: Ctrl+X
-          (e.keyCode == 88 && e.ctrlKey === true) ||
-           // Allow: home, end, left, right
-          (e.keyCode >= 35 && e.keyCode <= 39)) {
-               // let it happen, don't do anything
-               return;
+          // Allow: Ctrl+A
+        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+          // Allow: Ctrl+C
+        (e.keyCode === 67 && e.ctrlKey === true) ||
+          // Allow: Ctrl+X
+        (e.keyCode === 88 && e.ctrlKey === true) ||
+          // Allow: home, end, left, right
+        (e.keyCode >= 35 && e.keyCode <= 39)) {
+              // let it happen, don't do anything
+        return
       }
       // Ensure that it is a number and stop the keypress
       if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-          e.preventDefault();
-          this.error = true
-          setTimeout(() => {
-            this.error = false
-          }, 200)
+        e.preventDefault()
+        this.error = true
+        setTimeout(() => {
+          this.error = false
+        }, 200)
       }
     },
     getHistory () {
       var userId = localStorage.getItem('notable_user')
       var token = localStorage.getItem('notable_token')
-      Api.getReportHistory (userId, token, (err, res) => {
+      Api.getReportHistory(userId, token, (err, res) => {
         if (err) {
           console.log(err)
         } else {
@@ -227,7 +225,7 @@ export default {
             return false
           } else {
             // City
-            if (string.length >= 9 && string.length <=10) {
+            if (string.length >= 9 && string.length <= 10) {
               return true
             } else {
               return false

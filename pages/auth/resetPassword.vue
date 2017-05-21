@@ -43,7 +43,7 @@
 </style>
 <script>
 import Auth from '~assets/api/auth'
-import { email, required, sameAs, between, minLength } from 'vuelidate/lib/validators'
+import { required, sameAs, minLength } from 'vuelidate/lib/validators'
 // import qs from 'qs'
 export default {
   name: 'getPassword',
@@ -87,7 +87,7 @@ export default {
           confirmation: this.confirm
         }
         var token = this.$route.query.access_token
-        Auth.resetPassword(data, token, (err,res) => {
+        Auth.resetPassword(data, token, (err, res) => {
           if (err) {
             console.log(err)
             this.error = true

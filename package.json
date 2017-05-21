@@ -4,28 +4,30 @@
   "description": "Nuxt.js project",
   "author": "wushan <chiangloveslynn@gmail.com>",
   "private": true,
-  "dependencies": {
-    "axios": "^0.15.3",
-    "breakpoint-sass": "^2.7.1",
-    "bulma": "^0.3.2",
-    "cleave.js": "^0.7.14",
-    "express": "^4.14.0",
-    "font-awesome": "^4.7.0",
-    "jquery": "^3.1.1",
-    "moment": "^2.17.1",
-    "node-sass": "^4.1.1",
-    "nuxt": "latest",
-    "pug": "^2.0.0-beta6",
-    "qs": "^6.3.0",
-    "sass-loader": "^6.0.2",
-    "vue-typer": "^1.0.2",
-    "vuelidate": "^0.2.0",
-    "webpack": "^2.1.0-beta.19"
-  },
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "backpack dev",
+    "build": "nuxt build && backpack build",
+    "start": "cross-env NODE_ENV=production node build/main.js",
+    "precommit": "npm run lint",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "cross-env": "^4.0.0",
+    "express": "^4.14.0",
+    "nuxt": "~0.10.6",
+    "source-map-support": "^0.4.14"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "backpack-core": "^0.3.0",
+    "eslint": "^3.13.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-html": "^2.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

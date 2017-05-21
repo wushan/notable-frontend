@@ -19,7 +19,6 @@ export default {
     MyFooter
   },
   beforeMount () {
-    var instance = this
     var token = localStorage.getItem('notable_token')
     var user = localStorage.getItem('notable_user')
     if (token && user) {
