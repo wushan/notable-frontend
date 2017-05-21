@@ -18,14 +18,14 @@
 }
 </style>
 <script>
-import axios from 'axios'
+import Auth from '~assets/api/auth'
 export default {
   name: 'Login',
   head: {
     // title: '小老闆團結！史上最絕奧客防治服務 - NOTABLE「嘸位la！」',
     title: '登出'
   },
-  data ({req}) {
+  data () {
     return {
       success: false,
       timer: null
@@ -47,27 +47,23 @@ export default {
       var instance = this
       var token = localStorage.getItem('notable_token')
       if (token) {
-        axios({
-          method: 'post',
-          url: 'https://api.notable.wushan.io/clients/logout',
-          params: {
-            access_token: token
+        Auth.logout(token, (err, res) => {
+          if (err) {
+            console.log(err)
+            this.$nuxt.$router.replace('/')
+            localStorage.removeItem('notable_token')
+            localStorage.removeItem('notable_user')
+            this.$store.commit('SET_USERINFO', null)
+          } else {
+            console.log('first Success')
+            this.success = true
+            localStorage.removeItem('notable_token')
+            localStorage.removeItem('notable_user')
+            this.$store.commit('SET_USERINFO', null)
+            this.timer = setTimeout(() => {
+              this.$nuxt.$router.replace('/')
+            }, 1500)
           }
-        }).then(function (response) {
-          instance.success = true
-          localStorage.removeItem('notable_token')
-          localStorage.removeItem('notable_user')
-          instance.$store.commit('SET_USERINFO', null)
-          instance.timer = setTimeout(() => {
-            instance.$nuxt.$router.replace('/')
-          }, 1500)
-        })
-        .catch(function (error) {
-          console.log(error)
-          instance.$nuxt.$router.replace('/')
-          localStorage.removeItem('notable_token')
-          localStorage.removeItem('notable_user')
-          instance.$store.commit('SET_USERINFO', null)
         })
       } else {
         instance.$nuxt.$router.replace('/')

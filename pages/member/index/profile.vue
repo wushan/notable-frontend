@@ -36,14 +36,23 @@
             .controls
               input.active(type="text", placeholder="Facebook 粉絲專頁", :value="User.fanpage", @input="updateFb")
               label Facebook 粉絲專頁
-      .preview-wrapper
-        .preview
-          img(v-bind:src="UserPhoto")
+      .columns
+        .column
+          .preview-wrapper
+            .preview
+              img(v-bind:src="UserPhoto")
+        .column
+          .controlgroup
+            .controls
+              input.active(type="text", placeholder="顯示圖片", :value="User.photo", @keyup="updateUserPhoto")
+              label 顯示圖片
+              .tips 貼上您的圖片網址如：https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
       .controlgroup
         .controls
-          input.active(type="text", placeholder="顯示圖片", :value="User.photo", @keyup="updateUserPhoto")
-          label 顯示圖片
-          .tips 貼上您的圖片網址如：https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
+          label
+            input(type="checkbox", v-model="isPublic", @change="updatePublic")
+            span 您是否願意在首頁顯示您的店名，告訴大家您已加入 NOTABLE「嘸位la！」？
+
       .call-action.centered
         button.button.invert(type="submit") 更新店舖資料
       transition(name="fade", mode="out-in")
@@ -64,8 +73,12 @@ export default {
         vat: '',
         address: '',
         brand: ''
-      }
+      },
+      isPublic: null
     }
+  },
+  mounted () {
+    this.isPublic = this.$store.state.User.data.public
   },
   methods: {
     updateUserPhoto (e) {
@@ -83,6 +96,9 @@ export default {
     updateFb (e) {
       this.$store.commit('SET_FB', e.target.value)
     },
+    updatePublic () {
+      this.$store.commit('SET_PUBLIC', this.isPublic)
+    },
     saveProfile () {
       if (this.vatValid && this.brandValid && this.addressValid) {
         var token = localStorage.getItem('notable_token')
@@ -93,7 +109,8 @@ export default {
           fanpage: this.$store.state.User.data.fanpage,
           photo: this.$store.state.User.data.photo,
           email: this.$store.state.User.data.email,
-          id: this.$store.state.User.data.id
+          id: this.$store.state.User.data.id,
+          public: this.$store.state.User.data.public
         }
         Api.patchClientProfile(readyToPatch, token, (err, res) => {
           if (err) {

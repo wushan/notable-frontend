@@ -136,5 +136,15 @@ export default {
       .catch(error => {
         cb(error)
       })
+  },
+  getClients (cb) {
+    axios
+    .get(Store.state.baseurl + 'clients/getPublicClients')
+    .then(res => {
+      cb(null, res.data)
+    })
+    .catch(error => {
+      cb(error)
+    })
   }
 }

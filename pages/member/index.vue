@@ -21,6 +21,13 @@ export default {
           this.$nuxt.$router.push('/login')
         } else {
           console.log(res)
+          if (!res.public) {
+            this.$store.commit('SET_NOTIFY', {
+              message: '您是否願意在首頁顯示您的店名，告訴大家您已加入 NOTABLE「嘸位la！」？',
+              linkText: '點此設定',
+              link: '/member/profile'
+            })
+          }
         }
       })
     } else {

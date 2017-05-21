@@ -1,8 +1,10 @@
 <template lang="pug">
 #wrapper
   transition(name="fade", mode="out-in")
-    #notify(v-if="notifyMessage")
-      .restrict.notify-box {{notifyMessage}}
+    #notify(v-if="notify")
+      .restrict.notify-box
+        | {{notify.message}}
+        nuxt-link(:to="notify.link") {{notify.linkText}}
   my-header
   main#main
     nuxt
@@ -26,6 +28,7 @@ export default {
         if (err) {
           console.log(err)
         } else {
+          // Return User
           console.log(res)
         }
       })
@@ -35,7 +38,7 @@ export default {
     }
   },
   computed: {
-    notifyMessage () {
+    notify () {
       return this.$store.state.notify
     }
   }
@@ -47,16 +50,18 @@ export default {
 @import '~assets/css/var';
 #main {}
 #notify {
-  position: fixed;
-  bottom: 0;
+  // position: fixed;
+  top: 0;
   left: 0;
   right: 0;
   padding: 1em;
   box-sizing: border-box;
-  background-color: $secondary;
+  background-color: darken($primary, 15%);
   text-align: center;
   color: $white;
-  box-shadow: 0 0 6px rgba($black, .33);
-  z-index: 99;
+  font-size: .85em;
+  a {
+    color: $white;
+  }
 }
 </style>

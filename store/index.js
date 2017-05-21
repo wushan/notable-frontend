@@ -9,8 +9,8 @@ const store = new Vuex.Store({
     searchResult: [],
     notify: null,
     count: 0,
-    baseurl: 'https://api.notable.wushan.io/'
-    // baseurl: 'http://localhost:3003/' // Production: https://api.notable.wushan.io/
+    // baseurl: 'https://api.notable.wushan.io/'
+    baseurl: 'http://localhost:3003/' // Production: https://api.notable.wushan.io/
   },
   mutations: {
     SET_USER: function (state, user) {
@@ -44,6 +44,9 @@ const store = new Vuex.Store({
     },
     SET_FB: (state, data) => {
       state.User.data.fanpage = data
+    },
+    SET_PUBLIC: (state, data) => {
+      state.User.data.public = data
     }
   },
   actions: {

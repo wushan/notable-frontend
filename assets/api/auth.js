@@ -51,6 +51,18 @@ export default {
       cb(error)
     })
   },
+  logout (token, cb) {
+    axios.defaults.headers.common['Authorization'] = token
+    axios.post(Store.state.baseurl + 'clients/logout', {
+      access_token: token
+    })
+    .then(function (response) {
+      cb(null, response)
+    })
+    .catch((error) => {
+      cb(error)
+    })
+  },
   requestResetPassword (email, cb) {
     axios.post(Store.state.baseurl + 'clients/reset', {
       email: email

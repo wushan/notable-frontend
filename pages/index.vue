@@ -22,50 +22,14 @@
       .restrict-small.container
         .controlgroup.centered
           searchNumb
-          p
-            | 近期舉報：
+          .recentlyReported
+            span 近期舉報：
             nuxt-link.recentNumber(v-bind:to="'/number/' + num.number", v-for="num in recents", :key="num") {{num.number}}
+  section
+    ul.clientlist
+      li(v-for="client in clientList") {{client.brand}}/{{client.vat}}
   section.service-intro
     .restrict.container
-      .hero-table
-        img(src="~assets/img/table.svg")
-      .intro-poem
-        p 
-          | 我是一位小老闆
-          br
-          | 我有一個小生意
-        p
-          | 平日馬馬又乎乎
-          br
-          | 只有假日還可以
-        p
-          | 有天你打來很豪氣
-          br
-          | 我有親友大小共二八
-          br
-          | 位子全部留給我
-
-        p
-          | 小老闆(他)很高興
-          br
-          | 假日臉色不再綠
-          br
-          | 人手趕緊添兩位
-          br
-          | 食材數量不能缺
-          br
-          | 桌子擦了一遍又一遍
-          br
-          | 就等大爺來消費
-
-        p
-          | 哪裡知道
-        p
-          | 最後你們沒出現
-          br
-          | 我讓你永遠訂沒位
-        p
-          | - Shit
       .call-action.centered
         nuxt-link.button.invert(to="/member") 奧客通報
 </template>
@@ -86,7 +50,8 @@ export default {
       error: null,
       windowAv: false,
       images: null,
-      recents: []
+      recents: [],
+      clientList: null
     }
   },
   components: {
@@ -106,6 +71,13 @@ export default {
           console.log(err)
         } else {
           this.recents = res.data
+        }
+      })
+      Api.getClients((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.clientList = res.data
         }
       })
     }
@@ -145,11 +117,17 @@ export default {
 .search-wrapper {
   position: relative;
   overflow: hidden;
-  .recentNumber {
-    margin: .5em;
-    color: $white;
-    &:hover {
-      text-decoration: none;
+  .recentlyReported {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    span, .recentNumber {
+      margin: .5em;
+      color: $white;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
   .background-color {
