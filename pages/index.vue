@@ -26,6 +26,9 @@
             span 近期舉報：
             nuxt-link.recentNumber(v-bind:to="'/number/' + num.number", v-for="num in recents", :key="num") {{num.number}}
   section
+    h3.title.centered
+      | 誰在使用 NOTABLE 平台
+      span 目前共有 {{clientCount}} 間店加入本平台
     ul.clientlist
       li(v-for="client in clientList") {{client.brand}}/{{client.vat}}
   section.service-intro
@@ -51,7 +54,8 @@ export default {
       windowAv: false,
       images: null,
       recents: [],
-      clientList: null
+      clientList: null,
+      clientCount: 0
     }
   },
   components: {
@@ -77,7 +81,8 @@ export default {
         if (err) {
           console.log(err)
         } else {
-          this.clientList = res.data
+          this.clientList = res.data.clients
+          this.clientCount = res.data.counts
         }
       })
     }
