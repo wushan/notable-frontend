@@ -25,17 +25,58 @@
           .recentlyReported
             span 近期舉報：
             nuxt-link.recentNumber(v-bind:to="'/number/' + num.number", v-for="num in recents", :key="num") {{num.number}}
-  section
-    h3.title.centered
-      | 誰在使用 NOTABLE 平台
-      span 目前共有 {{clientCount}} 間店加入本平台
+  section.clientlist-wrapper(v-if="clientList && clientList.length >= 4")
     .restrict.container
+      h3.title.centered
+        | 誰在使用 NOTABLE 平台
+        span 目前共有 {{clientCount}} 間店加入本平台
+      
       ul.clientlist
         li(v-for="client in clientList")
           a(v-if="client.fanpage", :href="client.fanpage", target="_blank") {{client.brand}}
           span(v-else) {{client.brand}}
-  section.service-intro
+  section.service-intro(v-else)
     .restrict.container
+      .hero-table
+        img(src="~assets/img/table.svg")
+      .intro-poem
+        p 
+          | 我是一位小老闆
+          br
+          | 我有一個小生意
+        p
+          | 平日馬馬又乎乎
+          br
+          | 只有假日還可以
+        p
+          | 有天你打來很豪氣
+          br
+          | 我有親友大小共二八
+          br
+          | 位子全部留給我
+
+        p
+          | 小老闆(他)很高興
+          br
+          | 假日臉色不再綠
+          br
+          | 人手趕緊添兩位
+          br
+          | 食材數量不能缺
+          br
+          | 桌子擦了一遍又一遍
+          br
+          | 就等大爺來消費
+
+        p
+          | 哪裡知道
+        p
+          | 最後你們沒出現
+          br
+          | 我讓你永遠訂沒位
+        p
+          | - Shit
+
       .call-action.centered
         nuxt-link.button.invert(to="/member") 奧客通報
 </template>
@@ -211,6 +252,9 @@ export default {
       flex: 1;
     }
   }
+}
+.clientlist-wrapper {
+  padding: 3em 0;
 }
 .clientlist {
   display: flex;
