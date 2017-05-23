@@ -50,7 +50,7 @@ export default {
 @import '~assets/css/var';
 #main {}
 #notify {
-  // position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -60,6 +60,7 @@ export default {
   text-align: center;
   color: $white;
   font-size: .85em;
+  z-index: 99;
   a {
     color: $white;
   }

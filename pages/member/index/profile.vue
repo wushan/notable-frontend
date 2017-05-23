@@ -47,11 +47,17 @@
               input.active(type="text", placeholder="顯示圖片", :value="User.photo", @keyup="updateUserPhoto")
               label 顯示圖片
               .tips 貼上您的圖片網址如：https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
+      p 您是否願意在首頁顯示您的店名，告訴大家您已加入 NOTABLE「嘸位la！」？
       .controlgroup
-        .controls
-          label
-            input(type="checkbox", v-model="isPublic", @change="updatePublic")
-            span 您是否願意在首頁顯示您的店名，告訴大家您已加入 NOTABLE「嘸位la！」？
+        .controls.check-group
+          .check-item
+            label
+              input(type="radio", v-model="isPublic", @change="updatePublic")
+              span 願意
+          .check-item
+            label
+              input(type="radio", v-model="isPublic", @change="updatePublic")
+              span 不願意
 
       .call-action.centered
         button.button.invert(type="submit") 更新店舖資料

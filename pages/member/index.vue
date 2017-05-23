@@ -23,7 +23,7 @@ export default {
           console.log(res)
           if (!res.public) {
             this.$store.commit('SET_NOTIFY', {
-              message: '您是否願意在首頁顯示您的店名，告訴大家您已加入 NOTABLE「嘸位la！」？',
+              message: '請更新您的店家資料。',
               linkText: '點此設定',
               link: '/member/profile'
             })

@@ -29,8 +29,11 @@
     h3.title.centered
       | 誰在使用 NOTABLE 平台
       span 目前共有 {{clientCount}} 間店加入本平台
-    ul.clientlist
-      li(v-for="client in clientList") {{client.brand}}/{{client.vat}}
+    .restrict.container
+      ul.clientlist
+        li(v-for="client in clientList")
+          a(v-if="client.fanpage", :href="client.fanpage", target="_blank") {{client.brand}}
+          span(v-else) {{client.brand}}
   section.service-intro
     .restrict.container
       .call-action.centered
@@ -96,7 +99,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~breakpoint-sass";
 @import '~assets/css/var';
 #intro {
@@ -206,6 +209,25 @@ export default {
     }
     .name {
       flex: 1;
+    }
+  }
+}
+.clientlist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  li {
+    margin: 0 1em 1em 1em;
+  }
+  a {
+    text-decoration: none;
+    color: $link;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }
