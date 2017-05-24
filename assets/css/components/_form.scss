@@ -178,8 +178,14 @@
       margin-top: .5em;
     }
     &.check-group {
+      display: block;
       .check-item {
-        flex: 1;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1em;
+        &:last-child {
+          margin: 0;
+        }
         label {
           input {
             width: auto;

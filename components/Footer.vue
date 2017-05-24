@@ -11,11 +11,11 @@ footer#footer
         nuxt-link(to="/contact", active-class="active") 聯絡我們
       .footer-menu
         navigation
-  .ads-wrapper.restrict.container(v-if="windowEl")
-    script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
-    ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-7684683541536230", data-ad-slot="3801712219", data-ad-format="auto")
-    script.
-      (adsbygoogle = window.adsbygoogle || []).push({});
+  //- .ads-wrapper.restrict.container(v-if="windowEl")
+  //-   script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+  //-   ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-7684683541536230", data-ad-slot="3801712219", data-ad-format="auto")
+  //-   script.
+  //-     (adsbygoogle = window.adsbygoogle || []).push({});
   .copyrights
     .container.restrict.text-right
       | POWERED BY  

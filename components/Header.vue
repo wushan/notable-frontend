@@ -9,10 +9,10 @@
         ul.menu
           li
             .user-menu
-              .button.invisible(@click="toggleSubmenu")
-                .avatar
-                  img(v-bind:src="avatar")
-                .brand {{user.data.brand}}
+              .button.invisible(@click="toggleSubmenu", :title="user.data.brand")
+                .avatar {{singleWord}}
+                  //- img(v-bind:src="avatar")
+                .brand 您好
                 .chevron-down
               .dropdown(v-if="submenu")
                 ul.submenu(@click="closeSubmenu")
@@ -39,6 +39,9 @@ export default {
   computed: {
     user () {
       return this.$store.state.User
+    },
+    singleWord () {
+      return this.user.data.brand.slice(0, 1)
     },
     avatar () {
       if (this.user) {
@@ -163,6 +166,14 @@ export default {
   .avatar {
     display: inline-block;
     vertical-align: middle;
+    background-color: #ff5252;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: $white;
+    text-align: center;
+    line-height: 32px;
+    font-weight: bold;
     img {
       width: 32px;
       height: 32px;

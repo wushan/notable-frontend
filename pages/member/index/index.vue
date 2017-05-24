@@ -34,16 +34,22 @@
             .controlgroup
               .controls
                 .select-wrapper
-                  select(@change="filldescription")
+                  select(v-model="blacklist.description", @change="filldescription")
                     option(value="0") 預約未到也沒通知
                     option(value="1") 預約時間很逼進才臨時取消
                     option(value="2") 貪小便宜，要求眾多，理直氣壯
                     option(value="3") 就是奧客
+                    option(value="4") 其他
                   label 快選
-            .controlgroup
-              .controls(v-bind:class="{error: $v.blacklist.description.$error}")
-                input(type="text", v-model.trim="blacklist.description", v-bind:class="{active:blacklist.description, required:!$v.blacklist.description.required}", placeholder="請填寫舉報原因或選擇上方預設值")
-                label 事蹟
+            transition(name="fade")
+              .controlgroup(v-if="isCustomDescription")
+                .controls
+                  input(type="text", v-model="customDescription", v-bind:class="{error: isEmpty}", @focus="cleanError", placeholder="請填寫舉報原因")
+                  label 事蹟
+            //- .controlgroup
+            //-   .controls(v-bind:class="{error: $v.blacklist.description.$error}")
+            //-     input(type="text", v-model.trim="blacklist.description", v-bind:class="{active:blacklist.description, required:!$v.blacklist.description.required}", placeholder="請填寫舉報原因或選擇上方預設值")
+            //-     label 事蹟
 
         .call-action.container.restrict-small.centered
           button.button.invert#submit(type="submit", @click="$v.blacklist.$touch") {{btnMsg}}
@@ -90,13 +96,16 @@ export default {
         number: null,
         voice: 'male',
         date: '',
-        description: ''
+        description: 0
       },
       records: {},
       successMsg: null,
       btnMsg: '希望你不要再出來害了～送出！',
       timer: null,
-      presets: ['預約未到也沒通知', '預約時間很逼進才臨時取消', '貪小便宜，要求眾多，理直氣壯', '就是奧客']
+      presets: ['預約未到也沒通知', '預約時間很逼進才臨時取消', '貪小便宜，要求眾多，理直氣壯', '就是奧客'],
+      isCustomDescription: false,
+      customDescription: '',
+      isEmpty: false
     }
   },
   validations: {
@@ -123,6 +132,9 @@ export default {
         }, 200)
       } else if (this.$v.$error || this.$v.$invalid) {
         btn.disabled = false
+      } else if (this.blacklist.description === '4' && this.customDescription === '') {
+        this.isEmpty = true
+        btn.disabled = false
       } else {
         this.submitRecord()
       }
@@ -132,10 +144,17 @@ export default {
       var token = localStorage.getItem('notable_token')
       var btn = document.getElementById('submit')
       var picker = $('.datepicker').pickadate('picker')
-      var data = {
+      var description
+      if (this.blacklist.description !== '4') {
+        description = this.presets[this.blacklist.description]
+      } else {
+        description = this.customDescription
+      }
+      var data
+      data = {
         voice: this.blacklist.voice,
         date: moment(picker.get('select', 'yyyy-mm-dd')).format('X'),
-        description: this.blacklist.description,
+        description: description,
         providerId: userId,
         numberId: this.cleanNumber
       }
@@ -148,6 +167,8 @@ export default {
           this.showSuccessMsg()
           // 清除
           this.blacklist.number = null
+          this.blacklist.description = '0'
+          this.isCustomDescription = false
         }
       })
     },
@@ -179,6 +200,9 @@ export default {
         }, 200)
       }
     },
+    cleanError () {
+      this.isEmpty = false
+    },
     getHistory () {
       var userId = localStorage.getItem('notable_user')
       var token = localStorage.getItem('notable_token')
@@ -191,7 +215,11 @@ export default {
       })
     },
     filldescription (e) {
-      this.blacklist.description = this.presets[e.target.value]
+      if (e.target.value === '4') {
+        this.isCustomDescription = true
+      } else {
+        this.isCustomDescription = false
+      }
     }
   },
   components: {

@@ -47,18 +47,25 @@
               input.active(type="text", placeholder="顯示圖片", :value="User.photo", @keyup="updateUserPhoto")
               label 顯示圖片
               .tips 貼上您的圖片網址如：https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
-      p 您是否願意在首頁顯示您的店名，告訴大家您已加入 NOTABLE「嘸位la！」？
-      .controlgroup
-        .controls.check-group
-          .check-item
-            label
-              input(type="radio", v-model="isPublic", @change="updatePublic", :value="true", name="isPublic")
-              span 願意
-          .check-item
-            label
-              input(type="radio", v-model="isPublic", @change="updatePublic", :value="false", name="isPublic")
-              span 不願意
-
+      .gray-box.centered
+        .container.restrict-small
+          h3 您是否願意在首頁公開顯示您的店名及 Facebook 連結等資料，告訴大家您已加入 NOTABLE「嘸位la！」？
+          .controlgroup
+            .controls.check-group
+              .check-item
+                label
+                  input(type="radio", v-model="isPublic", @change="updatePublic", :value="true", name="isPublic")
+                  span 願意
+              .check-item
+                label
+                  input(type="radio", v-model="isPublic", @change="updatePublic", :value="false", name="isPublic")
+                  span 不願意
+          p
+            | 本站使用資料僅限於您主動提供之店家資料，包含營業登記名稱 / 統一編號 / 登記地址 / Facebook 粉絲專頁 等公開資料，如有相關疑慮，請先參閱
+            nuxt-link(to="/legal/privacy", active-class="active") 隱私權
+            | 及
+            nuxt-link(to="/legal/tou", active-class="active") 使用條款
+            | 說明。
       .call-action.centered
         button.button.invert(type="submit") 更新店舖資料
       transition(name="fade", mode="out-in")
