@@ -52,11 +52,11 @@
         .controls.check-group
           .check-item
             label
-              input(type="radio", v-model="isPublic", @change="updatePublic")
+              input(type="radio", v-model="isPublic", @change="updatePublic", :value="true", name="isPublic")
               span 願意
           .check-item
             label
-              input(type="radio", v-model="isPublic", @change="updatePublic")
+              input(type="radio", v-model="isPublic", @change="updatePublic", :value="false", name="isPublic")
               span 不願意
 
       .call-action.centered
@@ -84,7 +84,11 @@ export default {
     }
   },
   mounted () {
-    this.isPublic = this.$store.state.User.data.public
+    if (this.$store.state.User.data.public !== false) {
+      this.isPublic = true
+    } else {
+      this.isPublic = this.$store.state.User.data.public
+    }
   },
   methods: {
     updateUserPhoto (e) {
@@ -103,6 +107,7 @@ export default {
       this.$store.commit('SET_FB', e.target.value)
     },
     updatePublic () {
+      console.log('event')
       this.$store.commit('SET_PUBLIC', this.isPublic)
     },
     saveProfile () {
@@ -116,13 +121,16 @@ export default {
           photo: this.$store.state.User.data.photo,
           email: this.$store.state.User.data.email,
           id: this.$store.state.User.data.id,
-          public: this.$store.state.User.data.public
+          public: this.isPublic
         }
         Api.patchClientProfile(readyToPatch, token, (err, res) => {
           if (err) {
             console.log(err)
           } else {
             console.log(res)
+            if (res.data.public) {
+              this.$store.commit('SET_NOTIFY', null)
+            }
             this.showSuccessMsg()
           }
         })

@@ -21,7 +21,7 @@ export default {
           this.$nuxt.$router.push('/login')
         } else {
           console.log(res)
-          if (!res.public) {
+          if (!res.data.public) {
             this.$store.commit('SET_NOTIFY', {
               message: '請更新您的店家資料。',
               linkText: '點此設定',
