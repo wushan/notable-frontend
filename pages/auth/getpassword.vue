@@ -46,7 +46,7 @@ export default {
   head: {
     title: '忘記密碼'
   },
-  data ({req}) {
+  data () {
     return {
       email: null,
       error: false,

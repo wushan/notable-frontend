@@ -50,7 +50,7 @@ export default {
   head: {
     title: '重置密碼'
   },
-  data ({req}) {
+  data () {
     return {
       password: null,
       confirm: null,
