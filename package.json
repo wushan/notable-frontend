@@ -22,9 +22,7 @@
     "nuxt": "~0.10.6",
     "source-map-support": "^0.4.14",
     "pug": "^2.0.0-beta6",
-    "eslint-loader": "^1.7.1"
-  },
-  "devDependencies": {
+    "eslint-loader": "^1.7.1",
     "breakpoint-sass": "^2.7.1",
     "bulma": "^0.3.2",
     "cleave.js": "^0.7.14",
@@ -46,5 +44,7 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1"
+  },
+  "devDependencies": {
   }
 }
