@@ -10,7 +10,7 @@ const nuxt = new Nuxt(config)
 const promise = (isProd ? Promise.resolve() : nuxt.build())
 promise.then(() => {
   app.use(nuxt.render)
-  app.listen(9487)
+  app.listen(5000)
   console.log('Server is listening on http://localhost:9487')  // eslint-disable-line no-console
 })
 .catch((error) => {
