@@ -4,10 +4,13 @@
   "description": "Nuxt.js project",
   "author": "wushan <chiangloveslynn@gmail.com>",
   "private": true,
+  "engines": {
+    "node": "7.x"
+  },
   "scripts": {
     "dev": "backpack dev",
     "build": "nuxt build && backpack build",
-    "start": "cross-env NODE_ENV=production node build/main.js",
+    "start": "nuxt build && cross-env NODE_ENV=production node server.js",
     "generate": "nuxt generate",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
@@ -17,9 +20,7 @@
     "cross-env": "^4.0.0",
     "express": "^4.14.0",
     "nuxt": "~0.10.6",
-    "source-map-support": "^0.4.14"
-  },
-  "devDependencies": {
+    "source-map-support": "^0.4.14",
     "breakpoint-sass": "^2.7.1",
     "bulma": "^0.3.2",
     "cleave.js": "^0.7.14",
@@ -43,5 +44,7 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1"
+  },
+  "devDependencies": {
   }
 }
