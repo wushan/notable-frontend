@@ -7,7 +7,7 @@ const store = new Vuex.Store({
     searchResult: [],
     notify: null,
     count: 0,
-    baseurl: 'https://api.notable.wushan.io/'
+    baseurl: 'https://notable-api.wushan.io/'
     // baseurl: 'http://localhost:3003/' // Production: https://api.notable.wushan.io/
   },
   mutations: {
