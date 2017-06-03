@@ -23,7 +23,7 @@
           .call-action
             button.button.invert.full(type="submit", @click="$v.login.$touch") 登入
           .gray-box
-            .columns
+            .columns.is-mobile
               .column
                 span 還不是會員？
                 nuxt-link(to="/signup") 點此加入

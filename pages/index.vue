@@ -1,9 +1,11 @@
 <template lang="pug">
 #intro
   section.hero-container.search-wrapper
-    .background-color
-    .background-img(v-if="randomImages", v-bind:style="'background-image: url(' + randomImages.urls.full + ');'")
-    .background-img(v-else)
+    //- .background-color
+    //- .background-img(v-if="randomImages", v-bind:style="'background-image: url(' + randomImages.urls.full + ');'")
+    .background-img
+      video(autoplay, loop)
+        source(src="/notable-background-video.mp4" type="video/mp4")
     .image-credit(v-if="randomImages")
       .author
         span Photo by 
@@ -199,13 +201,27 @@ export default {
     bottom: 0;
     right: 0;
     left: 0;
-    background-image: url('~assets/img/random/1.jpg');
-    background-size: cover;
+    background-image: url('/notable-background.jpg');
     background-repeat: no-repeat;
-    border-radius: 0 0 100% 100%;
-    transform-origin: center bottom;
-    transform: scale(4);
-    opacity: .65;
+    background-size: cover;
+    background-position: center center;
+    video {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: auto;
+      height: auto;
+      min-width: 100%;
+      min-height: 100%;
+      -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      @include breakpoint(1024px) {
+        display: block;
+      }
+    }
   }
   .hero-content {
     margin-bottom: 10vh;

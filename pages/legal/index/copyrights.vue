@@ -4,47 +4,46 @@
       .container.restrict
         p 本網站的完成借助眾多網路資源及廣大免費服務提供商，特標注本站各類圖像、UI 元件等素材來源以及採用的各式開放原始碼模組，以供參考。
         h4 圖像
-        .columns
-          .column
+        .columns.is-mobile.is-multiline.is-centered
+          .column.is-one-quarter-tablet.is-half-mobile
             .project
               a(href="http://www.flaticon.com/", target="_blank")
                 img(src="~assets/img/brands/flaticon.png")
               span FLATICON
-          .column
+          .column.is-one-quarter-tablet.is-half-mobile
             .project
               a(href="http://zavoloklom.github.io/material-design-iconic-font/", target="_blank")
                 img(src="~assets/img/brands/mdif.png")
               span Material Design Iconic-font
-          .column
+          .column.is-one-quarter-tablet.is-half-mobile
             .project
               a(href="https://unsplash.com", target="_blank")
                 img(src="~assets/img/brands/unsplash.png")
               span Unsplash by Crew
         h4 技術
-        .columns
-          .column
+        .columns.is-mobile.is-multiline
+          .column.is-one-quarter-tablet.is-half-mobile
             .project
               a(href="https://nodejs.org/", target="_blank")
                 img(src="~assets/img/brands/nodejs.png")
               span Node.js
-          .column
+          .column.is-one-quarter-tablet.is-half-mobile
             .project
               a(href="http://loopback.io/", target="_blank")
                 //- img(src="http://loopback.io/images/overview/loopback.svg")
                 img(src="~assets/img/brands/loopback.png")
               span Loopback
-          .column
+          .column.is-one-quarter-tablet.is-half-mobile
             .project
               a(href="https://vuejs.org/", target="_blank")
                 img(src="~assets/img/brands/vuejs.png")
               span Vue.js
-          .column
+          .column.is-one-quarter-tablet.is-half-mobile
             .project
               a(href="https://nuxtjs.org", target="_blank")
                 img(src="~assets/img/brands/nuxtjs.png")
               span Nuxt.js
-        .columns  
-          .column
+          .column.is-one-quarter-tablet.is-half-mobile
             .project
               a(href="https://monterail.github.io/vuelidate/", target="_blank")
                 img(src="~assets/img/brands/vuelidate.png")
@@ -98,14 +97,14 @@ export default {
       }
     }
   }
-  .columns {
-    -webkit-align-content: flex-start;
-            align-content: flex-start;
-    .column {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
+  // .columns {
+  //   -webkit-align-content: flex-start;
+  //           align-content: flex-start;
+  //   .column {
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: center;
+  //   }
+  // }
 }
 </style>

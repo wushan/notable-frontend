@@ -20,46 +20,46 @@
   margin: auto;
 }
 // Columns
-.columns {
-  & + .columns {
-    margin-top: 2em;
-    margin-bottom: 2em;
-  }
-  .column {
-    margin-bottom: 2em;
-    @include breakpoint(1024px) {
-      margin-bottom: 0;
-    }
-  }
-  &.is-mobile {
-    display: flex;
-    .column {
-      flex: 1;
-      margin-right: 1em;
-      margin-bottom: 0;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-  &.reverse {
-    .column {
-      &:first-child {
-        order: 2;
-      }
-    }
-  }
-  @include breakpoint(1024px) {
-    display: flex;
-    .column {
-      flex: 1;
-      margin-right: 1em;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-}
+// .columns {
+//   & + .columns {
+//     margin-top: 2em;
+//     margin-bottom: 2em;
+//   }
+//   .column {
+//     margin-bottom: 2em;
+//     @include breakpoint(1024px) {
+//       margin-bottom: 0;
+//     }
+//   }
+//   &.is-mobile {
+//     display: flex;
+//     .column {
+//       flex: 1;
+//       margin-right: 1em;
+//       margin-bottom: 0;
+//       &:last-child {
+//         margin-right: 0;
+//       }
+//     }
+//   }
+//   &.reverse {
+//     .column {
+//       &:first-child {
+//         order: 2;
+//       }
+//     }
+//   }
+//   @include breakpoint(1024px) {
+//     display: flex;
+//     .column {
+//       flex: 1;
+//       margin-right: 1em;
+//       &:last-child {
+//         margin-right: 0;
+//       }
+//     }
+//   }
+// }
 
 // Hero
 .hero-container {
