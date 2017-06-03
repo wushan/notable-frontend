@@ -73,7 +73,7 @@ export default {
         return console.log('There is still Errors')
       } else {
         console.log(this.login)
-        axios.post('https://api.notable.wushan.io/clients/login', qs.stringify({
+        axios.post(this.baseUrl + 'clients/login', qs.stringify({
           email: this.login.email,
           password: this.login.password
         }))
@@ -84,7 +84,7 @@ export default {
           var token = localStorage.getItem('notable_token')
           var user = localStorage.getItem('notable_user')
           if (token && user) {
-            axios.get('https://api.notable.wushan.io/clients/' + user, {
+            axios.get(this.baseUrl + 'clients/' + user, {
               params: {
                 access_token: token
               }
@@ -111,6 +111,11 @@ export default {
     }
   },
   components: {
+  },
+  computed: {
+    baseUrl () {
+      return this.$store.state.baseurl
+    }
   }
 }
 </script>

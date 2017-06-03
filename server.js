@@ -1,12 +1,8 @@
 const Nuxt = require('nuxt')
 const app = require('express')()
-const host = process.env.HOST || '0.0.0.0'
 const port = process.env.PORT || 3000
 
 app.set('port', port)
-// Import API Routes
-// app.use('/api', require('./api/index'))
-
 // Import and Set Nuxt.js options
 let config = require('./nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
@@ -25,5 +21,8 @@ if (config.dev) {
 }
 
 // Listen the server
-app.listen(port, host)
-console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
+const server = app.listen(port, function () {
+  const host = server.address().address
+  const port = server.address().port
+  console.log('Server listening on http://%s:%s', host, port)
+})
