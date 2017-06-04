@@ -2,9 +2,7 @@ const Nuxt = require('nuxt')
 const app = require('express')()
 const port = process.env.PORT || 3000
 
-// Import API Routes
-// app.use('/api', require('./api/index'))
-
+app.set('port', port)
 // Import and Set Nuxt.js options
 let config = require('./nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
