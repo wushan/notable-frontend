@@ -1,7 +1,7 @@
 <template lang="pug">
-  .news-wrapper.container.frame.restrict
+  .news-wrapper.container
     .news-list(v-if="newsList.length >= 1")
-      newsItem(v-for="news in newsList", :news="news", :key="news.id")
+      newsItem.frame(v-for="news in newsList", :news="news", :key="news.id")
 
 </template>
 <script>

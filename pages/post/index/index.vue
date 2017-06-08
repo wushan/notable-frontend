@@ -1,6 +1,6 @@
 <template lang="pug">
   .news-post-wrapper
-    nuxt-child
+    p PPP
 </template>
 <script>
 export default {
