@@ -5,10 +5,11 @@ article.news-post
       a(:href="news.url", target="_blank")
         .source
           img(:src="sourceicon")
-        .title {{news.title}}
+        .title {{news.id}} {{news.title}}
   footer
-    time {{date}}
-    nuxt-link(:to="'/post/' + news.id") comments (number)
+    time {{fromNow}}
+    nuxt-link(:to="'/post/' + news.id", v-if="news.commentsCount > 0") {{news.commentsCount}} 則評論
+    nuxt-link(:to="'/post/' + news.id", v-else) 發表評論
 </template>
 
 <script>
@@ -20,8 +21,8 @@ export default {
     }
   },
   computed: {
-    date () {
-      return moment(this.news.date).format('YYYY/MM/DD')
+    fromNow () {
+      return moment(this.news.date).from(moment())
     },
     sourceicon () {
       var iconlink
@@ -78,11 +79,17 @@ export default {
     }
   }
   footer {
-    font-size: 12px;
+    font-size: 14px;
     color: $darkgray;
     padding: .5em 0 0 0;
     a {
+      color: $darkgray;
       margin-left: .5em;
+      border-left: 1px solid $gray;
+      padding-left: .5em;
+      &:hover {
+        color: $pureblack;
+      }
     }
   }
 }

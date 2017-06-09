@@ -9,7 +9,7 @@ import axios from 'axios'
 import newsItem from '~components/newsItem'
 export default {
   async asyncData ({ params }) {
-    let {data} = await axios.get('http://notable-spider.wushan.io/api/news')
+    let {data} = await axios.get('http://localhost:3002/api/news?filter[include]=comments')
     return { newsList: data }
   },
   head () {

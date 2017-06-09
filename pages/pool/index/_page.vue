@@ -15,7 +15,7 @@ export default {
   },
   async asyncData ({ params }) {
     console.log(params)
-    let {data} = await axios.get('http://notable-spider.wushan.io/api/news?filter[skip]=' + params.page * perPage)
+    let {data} = await axios.get('http://localhost:3002/api/news?filter[include]=comments&filter[skip]=' + (params.page - 1) * perPage)
     return { newsList: data }
   },
   head () {
