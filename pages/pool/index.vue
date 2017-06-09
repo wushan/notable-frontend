@@ -34,6 +34,11 @@
 <script>
 import axios from 'axios'
 export default {
+  fetch ({ params, redirect }) {
+    if (!params.page) {
+      redirect('/pool/1')
+    }
+  },
   async asyncData ({ params }) {
     let {data} = await axios.get('http://notable-spider.wushan.io/api/news/count')
     return { count: data.count }
