@@ -13,9 +13,9 @@ export default {
     // Must be a number
     return /^\d+$/.test(params.page)
   },
-  async asyncData ({ params }) {
+  async asyncData ({ store, params }) {
     console.log(params)
-    let {data} = await axios.get('http://localhost:3002/api/news?filter[include]=comments&filter[skip]=' + (params.page - 1) * perPage)
+    let {data} = await axios.get(store.state.baseurl + 'news?filter[include]=comments&filter[skip]=' + (params.page - 1) * perPage)
     return { newsList: data }
   },
   head () {

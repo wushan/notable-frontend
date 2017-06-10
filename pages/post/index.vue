@@ -25,6 +25,11 @@ export default {
 <style lang="scss">
 @import "~breakpoint-sass";
 @import '~assets/css/var';
+#post {
+  min-height: calc( 100vh - 391px);
+  padding: 2em 0;
+  box-sizing: border-box;
+}
 #post-container {
   width: 100%;
 }

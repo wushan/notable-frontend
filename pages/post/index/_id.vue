@@ -13,8 +13,8 @@ export default {
     // Must be a number
     return /^\d+$/.test(params.id)
   },
-  async asyncData ({ params }) {
-    let {data} = await axios.get('http://localhost:3002/api/news/getNewsWithComments?id=' + params.id)
+  async asyncData ({ store, params }) {
+    let {data} = await axios.get(store.state.baseurl + 'news/getNewsWithComments?id=' + params.id)
     return { post: data }
   },
   head () {

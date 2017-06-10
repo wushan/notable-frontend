@@ -5,7 +5,7 @@ article.news-post
       a(:href="news.url", target="_blank")
         .source
           img(:src="sourceicon")
-        .title {{news.id}} {{news.title}}
+        .title {{news.title}}
   footer
     time {{fromNow}}
     nuxt-link(:to="'/post/' + news.id", v-if="news.commentsCount > 0") {{news.commentsCount}} 則評論

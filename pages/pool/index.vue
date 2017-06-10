@@ -39,8 +39,8 @@ export default {
       redirect('/pool/1')
     }
   },
-  async asyncData ({ params }) {
-    let {data} = await axios.get('http://notable-spider.wushan.io/api/news/count')
+  async asyncData ({ store, params }) {
+    let {data} = await axios.get(store.state.baseurl + 'news/count')
     return { count: data.count }
   },
   data () {

@@ -145,6 +145,7 @@ export default {
     },
     showSuccessMsg () {
       this.successMsg = true
+      this.$store.commit('SET_NOTIFY', null)
       this.timer = setTimeout(() => {
         this.successMsg = false
       }, 3000)

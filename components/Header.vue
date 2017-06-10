@@ -4,6 +4,13 @@
     .column
       nuxt-link(to="/")
         img.logo(src="~assets/img/notable-logo.svg")
+    .column.centered
+      nav.navigation
+        li
+          nuxt-link(to="/pool") 新聞
+        li
+          nuxt-link(to="/complain") 抱怨
+        li
     .column.text-right(v-if="user")
       nav#menu
         ul.menu
@@ -65,6 +72,12 @@ export default {
 </script>
 <style lang="scss">
 @import "~assets/css/var";
+ul.menu {
+  li {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
 #navigation {
   // background-color: $brown;
   padding: .5em;
@@ -142,61 +155,60 @@ export default {
     }
   }
 }
-#menu {
-  ul.menu {
-    margin: 0;
-    padding: 0;
-    display: block;
-    & > li {
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 1em;
-      &:last-child {
-        margin-right: 0;
-      }
-      a {
-        color: $darkgray;
-        text-decoration: none;
-        &:hover, &.active {
-          color: $pureblack;
-        }
+
+ul.menu {
+  margin: 0;
+  padding: 0;
+  display: block;
+  & > li {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1em;
+    &:last-child {
+      margin-right: 0;
+    }
+    a {
+      color: $darkgray;
+      text-decoration: none;
+      &:hover, &.active {
+        color: $pureblack;
       }
     }
   }
-  .avatar {
-    display: inline-block;
-    vertical-align: middle;
-    background-color: #ff5252;
-    border-radius: 50%;
+}
+.avatar {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #ff5252;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  color: $white;
+  text-align: center;
+  line-height: 32px;
+  font-weight: bold;
+  img {
     width: 32px;
     height: 32px;
-    color: $white;
-    text-align: center;
-    line-height: 32px;
-    font-weight: bold;
-    img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      overflow: hidden;
-      display: inline-block;
-      vertical-align: middle;
-    }
-  }
-  .brand {
+    border-radius: 50%;
+    overflow: hidden;
     display: inline-block;
     vertical-align: middle;
-    margin: 0 .5em;
   }
-  .chevron-down {
+}
+.brand {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 .5em;
+}
+.chevron-down {
+  display: inline-block;
+  vertical-align: middle;
+  &:after {
     display: inline-block;
     vertical-align: middle;
-    &:after {
-      display: inline-block;
-      vertical-align: middle;
-      content: '\f2f9';
-      font-family: 'Material-Design-Iconic-Font';
-    }
+    content: '\f2f9';
+    font-family: 'Material-Design-Iconic-Font';
   }
 }
 </style>

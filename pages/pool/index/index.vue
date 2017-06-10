@@ -8,8 +8,8 @@
 import axios from 'axios'
 import newsItem from '~components/newsItem'
 export default {
-  async asyncData ({ params }) {
-    let {data} = await axios.get('http://localhost:3002/api/news?filter[include]=comments')
+  async asyncData ({ store, params }) {
+    let {data} = await axios.get(store.state.baseurl + 'news?filter[include]=comments')
     return { newsList: data }
   },
   head () {
