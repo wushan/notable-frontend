@@ -1,19 +1,16 @@
 <template lang="pug">
 #navigation
-  .columns.is-mobile
+  .columns.is-gapless.is-mobile
     .column
       nuxt-link(to="/")
         img.logo(src="~assets/img/notable-logo.svg")
-    .column.centered
-      nav.navigation
-        li
-          nuxt-link(to="/pool") 新聞
-        li
-          nuxt-link(to="/complain") 抱怨
-        li
     .column.text-right(v-if="user")
       nav#menu
         ul.menu
+          li
+            nuxt-link(to="/pool") 新聞
+          li
+            nuxt-link(to="/complain") 抱怨
           li
             .user-menu
               .button.invisible(@click="toggleSubmenu", :title="user.data.brand")
@@ -30,8 +27,16 @@
                   li
                     nuxt-link#logout(to="/logout") 登出
     .column.text-right(v-else)
-      nuxt-link.button.primary(to="/signup") 申請加入
-      nuxt-link.button(to="/login") 登入
+      nav#menu
+        ul.menu
+          li
+            nuxt-link(to="/pool") 新聞
+          li
+            nuxt-link(to="/complain") 抱怨
+          li
+            nuxt-link.primary(to="/signup") 申請加入
+          li
+            nuxt-link(to="/login") 登入
 </template>
 <script>
 export default {
@@ -72,22 +77,43 @@ export default {
 </script>
 <style lang="scss">
 @import "~assets/css/var";
-ul.menu {
-  li {
-    display: inline-block;
-    vertical-align: middle;
-  }
-}
+// .navigation {
+//   display: flex;
+//   justify-content: center;
+//   align-content: center;
+//   ul {
+//     align-self: stretch;
+//     display: flex;
+//     align-items: center;
+//     li {
+//       align-self: stretch;
+//       display: flex;
+//       align-items: center;
+//       position: relative;
+//       a {
+//         padding: 0 1em;
+//         color: $darkgray;
+//         &:hover, &.nuxt-link-active {
+//           &:after {
+//             content: '';
+//             display: block;
+//             position: absolute;
+//             left: 0;
+//             right: 0;
+//             bottom: 0;
+//             height: 4px;
+//             background-color: $black;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 #navigation {
-  // background-color: $brown;
-  padding: .5em;
   color: $black;
   border-bottom: 1px solid $lightgray;
-  a {
-    display: inline-block;
-    vertical-align: middle;
-  }
   .logo {
+    padding: .5em 0;
     margin: 0 0 0 .5em;
   }
   .user-menu {
@@ -155,23 +181,44 @@ ul.menu {
     }
   }
 }
-
+#menu {
+  height: 100%;
+  padding: 0 1em 0 0;
+}
 ul.menu {
+  height: 100%;
   margin: 0;
   padding: 0;
-  display: block;
+  display: flex;
+  align-content: center;
+  justify-content: flex-end;
   & > li {
-    display: inline-block;
-    vertical-align: middle;
+    display: flex;
+    height: 100%;
     margin-right: 1em;
+    position: relative;
     &:last-child {
       margin-right: 0;
     }
     a {
       color: $darkgray;
+      align-self: stretch;
       text-decoration: none;
-      &:hover, &.active {
+      display: flex;
+      padding: 0 1em;
+      align-items: center;
+      &:hover, &.nuxt-link-active {
         color: $pureblack;
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 4px;
+          background-color: $secondary;
+        }
       }
     }
   }

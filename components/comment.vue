@@ -5,10 +5,20 @@
       a.comment-user() {{comment.username}}
       .comment-date {{fromNow}}
     .comment-contents {{comment.comment}}
+    .comment-meta
+      a(v-if="!commentForm", @click="openCommentForm") 回覆
+  form.comment-form(v-if="commentForm", @submit.prevent.stop="submitComment")
+    .controlgroup
+      .controls
+        textarea(v-model="form.content")
+    .call-action
+      button.button(type="button", @click="closeCommentForm") 取消
+      button.button.primary(type="submit") 送出
   comment(v-for="childcomment in comment.comments", :key="childcomment.id", :comment="childcomment")
 </template>
 
 <script>
+import axios from 'axios'
 import moment from 'moment'
 export default {
   name: 'comment',
@@ -16,6 +26,35 @@ export default {
   computed: {
     fromNow () {
       return moment(this.comment.postdate).from(moment())
+    }
+  },
+  data () {
+    return {
+      commentForm: false,
+      form: {
+        content: ''
+      }
+    }
+  },
+  methods: {
+    submitComment () {
+      axios.post(this.$store.state.baseurl + 'news/' + this.$route.params.id + '/comments', {
+        username: 'string22',
+        comment: this.form.content,
+        postdate: new Date()
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    openCommentForm () {
+      this.commentForm = true
+    },
+    closeCommentForm () {
+      this.commentForm = false
     }
   }
 }
@@ -25,6 +64,12 @@ export default {
 @import "~breakpoint-sass";
 @import '~assets/css/var';
 .comments-wrapper {
+  .comment-form {
+    margin-bottom: 1em;
+    .controlgroup {
+      margin-bottom: 1em;
+    }
+  }
   .comment-block {
     font-size: .9em;
     .title {
