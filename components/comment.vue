@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import bus from '~components/bus'
 import axios from 'axios'
 import moment from 'moment'
 export default {
@@ -39,12 +40,14 @@ export default {
   methods: {
     submitComment () {
       axios.post(this.$store.state.baseurl + 'news/' + this.$route.params.id + '/comments', {
+        parent_id: this.comment.id,
         username: 'string22',
         comment: this.form.content,
         postdate: new Date()
       })
       .then((res) => {
-        console.log(res)
+        bus.$emit('recentReply', res.data)
+        this.closeCommentForm()
       })
       .catch((err) => {
         console.log(err)

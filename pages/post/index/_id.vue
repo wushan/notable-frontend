@@ -1,11 +1,12 @@
-<template lang="pug">
+<template lang='pug'>
   .news-post.container.restrict.frame
-    newsItem(:news="post")
+    newsItem(:news='post')
     .comments-wrapper
-      comment(:comment="comment", v-for="comment in post.comments", :key="comment.id")
+      comment(:comment='comment', v-for='comment in this.post.comments', :key='comment.id')
 </template>
 <script>
 import axios from 'axios'
+import bus from '~components/bus'
 import newsItem from '~components/newsItem'
 import comment from '~components/comment'
 export default {
@@ -22,6 +23,11 @@ export default {
       title: 'Pool'
     }
   },
+  created () {
+    bus.$on('recentReply', (data) => {
+      this.post.comments.push(data)
+    })
+  },
   mounted () {
   },
   data () {
@@ -33,11 +39,12 @@ export default {
     newsItem,
     comment
   },
-  methods: {}
+  methods: {},
+  computed: {}
 }
 </script>
-<style lang="scss">
-@import "~breakpoint-sass";
+<style lang='scss'>
+@import '~breakpoint-sass';
 @import '~assets/css/var';
 #pool {}
 .comments-wrapper {
