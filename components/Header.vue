@@ -192,6 +192,10 @@ ul.menu {
   display: flex;
   align-content: center;
   justify-content: flex-end;
+  .user-menu {
+    display: flex;
+    align-items: center;
+  }
   & > li {
     display: flex;
     height: 100%;
@@ -200,7 +204,7 @@ ul.menu {
     &:last-child {
       margin-right: 0;
     }
-    a {
+    & > a {
       color: $darkgray;
       align-self: stretch;
       text-decoration: none;

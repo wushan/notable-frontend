@@ -2,19 +2,26 @@
 .comment-block(v-if="comment")
   .comment-block-inner
     h3.title
-      a.comment-user() {{comment.username}}
+      .comment-user {{comment.username}}
       .comment-date {{fromNow}}
     .comment-contents {{comment.comment}}
-    .comment-meta
+    .comment-meta(v-if="user")
       a(v-if="!commentForm", @click="openCommentForm") 回覆
-  form.comment-form(v-if="commentForm", @submit.prevent.stop="submitComment")
-    .controlgroup
-      .controls
-        textarea(v-model="form.content")
-    .call-action
-      button.button(type="button", @click="closeCommentForm") 取消
-      button.button.primary(type="submit") 送出
-  comment(v-for="childcomment in comment.comments", :key="childcomment.id", :comment="childcomment")
+    .comments-toggle(v-if="comment.comments")
+      a(v-if="!collapse", @click="doCollapse")
+        i.zmdi.zmdi-minus-circle-outline
+      a(v-else, @click="expand")
+        i.zmdi.zmdi-plus-circle-o
+  transition(name="fade", mode="out-in")
+    form.comment-form(v-if="commentForm", @submit.prevent.stop="submitComment")
+      .controlgroup
+        .controls
+          textarea(v-model="form.content")
+      .call-action
+        button.button(type="button", @click="closeCommentForm") 取消
+        button.button.primary(type="submit") 送出
+  transition-group(name="fade", mode="out-in")
+    comment(v-show="!collapse", v-for="childcomment in comment.comments", :key="childcomment.id", :comment="childcomment")
 </template>
 
 <script>
@@ -27,21 +34,36 @@ export default {
   computed: {
     fromNow () {
       return moment(this.comment.postdate).from(moment())
+    },
+    user () {
+      return this.$store.state.User
     }
+  },
+  created () {
+    bus.$on('disableCommentForm', () => {
+      this.commentForm = false
+    })
   },
   data () {
     return {
       commentForm: false,
+      collapse: false,
       form: {
         content: ''
       }
     }
   },
   methods: {
+    doCollapse () {
+      this.collapse = true
+    },
+    expand () {
+      this.collapse = false
+    },
     submitComment () {
       axios.post(this.$store.state.baseurl + 'news/' + this.$route.params.id + '/comments', {
         parent_id: this.comment.id,
-        username: 'string22',
+        username: this.$store.state.User.data.id,
         comment: this.form.content,
         postdate: new Date()
       })
@@ -54,6 +76,7 @@ export default {
       })
     },
     openCommentForm () {
+      bus.$emit('disableCommentForm')
       this.commentForm = true
     },
     closeCommentForm () {
@@ -104,6 +127,12 @@ export default {
     .comment-block-inner {
       padding: 1em 0;
       border-top: 1px solid $lightgray;
+      position: relative;
+      .comments-toggle {
+        position: absolute;
+        left: -1.3em;
+        top: 1.1em;
+      }
     }
     .comment-block {
       margin-left: 2em;

@@ -6,23 +6,73 @@ article.news-post
         .source
           img(:src="sourceicon")
         .title {{news.title}}
-  footer
+  footer(v-if="available")
     time {{fromNow}}
-    nuxt-link(:to="'/post/' + news.id", v-if="news.commentsCount > 0") {{news.commentsCount}} 則評論
+    span(v-if="user")
+      a(@click="toggleCommentForm") 發表評論 ({{news.comments.length}})
+    span(v-else)
+      nuxt-link(to="/login") 請先登入
+  footer(v-else)
+    time {{fromNow}}
+    nuxt-link(:to="'/post/' + news.id", v-if="news.comments.length > 0") {{news.comments.length}} 則評論
     nuxt-link(:to="'/post/' + news.id", v-else) 發表評論
+  form.comment-form(v-if="available && commentForm", @submit.prevent.stop="submitComment")
+    .controlgroup
+      .controls
+        textarea(v-model="form.content")
+    .call-action
+      button.button(type="button", @click="closeCommentForm") 取消
+      button.button.primary(type="submit") 送出
 </template>
 
 <script>
+import axios from 'axios'
+import bus from '~components/bus'
 import moment from 'moment'
 export default {
-  props: ['news'],
+  props: ['news', 'available'],
   data () {
     return {
+      commentForm: false,
+      form: {
+        content: ''
+      }
+    }
+  },
+  methods: {
+    submitComment () {
+      axios.post(this.$store.state.baseurl + 'news/' + this.$route.params.id + '/comments', {
+        parent_id: '',
+        username: this.$store.state.User.data.id,
+        comment: this.form.content,
+        postdate: new Date()
+      })
+      .then((res) => {
+        bus.$emit('recentReply', res.data)
+        this.closeCommentForm()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    toggleCommentForm () {
+      bus.$emit('disableCommentForm')
+      this.commentForm = !this.commentForm
+    },
+    openCommentForm () {
+      bus.$emit('disableCommentForm')
+      this.commentForm = true
+    },
+    closeCommentForm () {
+      this.commentForm = false
     }
   },
   computed: {
     fromNow () {
       return moment(this.news.date).from(moment())
+    },
+    user () {
+      return this.$store.state.User
     },
     sourceicon () {
       var iconlink
@@ -59,6 +109,9 @@ export default {
 @import "~breakpoint-sass";
 @import '~assets/css/var';
 .news-post {
+  .comment-form {
+    margin-top: 1em;
+  }
   h3 {
     a {
       color: $pureblack;

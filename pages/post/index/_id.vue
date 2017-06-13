@@ -1,8 +1,8 @@
 <template lang='pug'>
   .news-post.container.restrict.frame
-    newsItem(:news='post')
+    newsItem(:news='post', :available="true")
     .comments-wrapper
-      comment(:comment='comment', v-for='comment in this.post.comments', :key='comment.id')
+      comment(:comment='comment', v-for='comment in this.structuredComments', :key='comment.id')
 </template>
 <script>
 import axios from 'axios'
@@ -25,22 +25,55 @@ export default {
   },
   created () {
     bus.$on('recentReply', (data) => {
-      this.post.comments.push(data)
+      data.username = Array.from(this.$store.state.User.data.email.split('@')[0])[0] + 'x'.repeat(Array.from(this.$store.state.User.data.email.split('@')[0]).length - 2) + Array.from(this.$store.state.User.data.email.split('@')[0])[Array.from(this.$store.state.User.data.email.split('@')[0]).length - 1]
+      this.post.comments.unshift(data)
+      this.structureComments()
     })
   },
   mounted () {
+    this.structureComments()
   },
   data () {
     return {
-      post: null
+      post: null,
+      structuredComments: null
     }
   },
   components: {
     newsItem,
     comment
   },
-  methods: {},
-  computed: {}
+  methods: {
+    structureComments () {
+      if (this.post.comments) {
+        var tree = (function (data, root) {
+          var r = []
+          var o = {}
+          data.forEach(function (a) {
+            var comments = o[a.id] && o[a.id].comments
+            if (comments) {
+              a.comments = comments
+            }
+            o[a.id] = a
+            if (a.parent_id === root) {
+              r.push(a)
+            } else {
+              o[a.parent_id] = o[a.parent_id] || {}
+              o[a.parent_id].comments = o[a.parent_id].comments || []
+              o[a.parent_id].comments.push(a)
+            }
+          })
+          return r
+        }(this.post.comments, ''))
+        this.structuredComments = tree
+      }
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.User
+    }
+  }
 }
 </script>
 <style lang='scss'>
@@ -49,5 +82,6 @@ export default {
 #pool {}
 .comments-wrapper {
   margin-top: 1em;
+  padding-left: 1em;
 }
 </style>
