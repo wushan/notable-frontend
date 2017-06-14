@@ -98,6 +98,7 @@
       display: inline-block;
       vertical-align: middle;
       transition: .3s all ease;
+      line-height: 1.6;
       & + label {
         color: $gray;
         position: absolute;

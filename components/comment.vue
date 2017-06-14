@@ -4,7 +4,7 @@
     h3.title
       .comment-user {{comment.username}}
       .comment-date {{fromNow}}
-    .comment-contents {{comment.comment}}
+    .comment-contents(v-html="content")
     .comment-meta(v-if="user")
       a(v-if="!commentForm", @click="openCommentForm") 回覆
     .comments-toggle(v-if="comment.comments")
@@ -37,6 +37,9 @@ export default {
     },
     user () {
       return this.$store.state.User
+    },
+    content () {
+      return this.comment.comment.replace(/(?:\r\n|\r|\n)/g, '<br />')
     }
   },
   created () {
@@ -97,7 +100,6 @@ export default {
     }
   }
   .comment-block {
-    font-size: .9em;
     .title {
       display: flex;
       // justify-content: center;
