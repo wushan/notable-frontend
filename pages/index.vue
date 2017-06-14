@@ -40,7 +40,7 @@
 
     #press-container
       .container.restrict-large.centered
-        .columns.is-gapless.press-list
+        .columns.is-gapless.is-multiline.press-list
           .column.is-4-tablet.press(v-for="article in press")
             .frame
               .multimedia(v-if="article.video")

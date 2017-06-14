@@ -53,8 +53,7 @@ img {
     padding: 0;
     list-style-type: none;
     .press {
-      margin: .5em;
-      flex: 1;
+      padding: 0 .5em 1em .5em;
       .video-container {
         position: relative;
         padding-bottom: 56.25%; /* 16:9 */

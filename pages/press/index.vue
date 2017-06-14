@@ -3,7 +3,7 @@
     section#press-container
       .container.restrict-large.centered
         h1.title 媒體報導
-        .columns.is-gapless.press-list
+        .columns.is-gapless.is-multiline.press-list
           .column.is-4-tablet.press(v-for="article in press")
             .frame
               .multimedia(v-if="article.video")
