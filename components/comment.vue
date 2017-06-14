@@ -20,7 +20,7 @@
       .call-action
         button.button(type="button", @click="closeCommentForm") 取消
         button.button.primary(type="submit") 送出
-  transition-group(name="fade", mode="out-in")
+  transition-group(name="fade", mode="out-in", tag="div")
     comment(v-show="!collapse", v-for="childcomment in comment.comments", :key="childcomment.id", :comment="childcomment")
 </template>
 

@@ -1,8 +1,17 @@
 <template lang='pug'>
-  .news-post.container.restrict.frame
-    newsItem(:news='post', :available="true")
-    .comments-wrapper
-      comment(:comment='comment', v-for='comment in this.structuredComments', :key='comment.id')
+  .news-post
+    .page-nav.frame.text-right
+      a.icon-button(@click="goBack")
+        i.zmdi.zmdi-chevron-left
+        span 返回
+    .container.restrict.frame
+      newsItem(:news='post', :available="true")
+      .comments-wrapper
+        comment(:comment='comment', v-for='comment in this.structuredComments', :key='comment.id')
+    .page-nav.frame.text-right
+      a.icon-button(@click="goBack")
+        i.zmdi.zmdi-chevron-left
+        span 返回
 </template>
 <script>
 import axios from 'axios'
@@ -20,7 +29,7 @@ export default {
   },
   head () {
     return {
-      title: 'Pool'
+      title: this.post.title
     }
   },
   created () {
@@ -44,6 +53,9 @@ export default {
     comment
   },
   methods: {
+    goBack () {
+      this.$router.go('-1')
+    },
     structureComments () {
       if (this.post.comments) {
         var tree = (function (data, root) {

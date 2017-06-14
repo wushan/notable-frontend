@@ -71,5 +71,5 @@ module.exports = {
       }
     }
   },
-  plugins: ['plugins/vue-typer.js', 'plugins/vuelidate.js', 'plugins/ga.js']
+  plugins: ['~plugins/clickoutside.js', 'plugins/vue-typer.js', 'plugins/vuelidate.js', 'plugins/ga.js']
 }

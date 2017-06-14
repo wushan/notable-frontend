@@ -1,38 +1,49 @@
 <template lang="pug">
 #navigation
   .columns.is-gapless.is-mobile
-    .column
+    .column.is-6-mobile.is-4-tablet
       nuxt-link(to="/")
         img.logo(src="~assets/img/notable-logo.svg")
-    .column.text-right(v-if="user")
-      nav#menu
+    .column.is-6-mobile.is-8-tablet.text-right(v-if="user")
+      nav#menu(v-click-outside="closeMenu")
+        a.menu-trigger(@click="toggleMenu", :class="{isOpen: menu}")
+          i.zmdi.zmdi-close(v-if="menu")
+          i.zmdi.zmdi-menu(v-else)
         ul.menu
           li
-            nuxt-link(to="/pool") 新聞
+            nuxt-link(to="/news") 新聞
+          //- li
+          //-   nuxt-link(to="/complain") 抱怨
           li
-            nuxt-link(to="/complain") 抱怨
+            nuxt-link(to="/member", active-class="active") 通報奧客
           li
-            .user-menu
-              .button.invisible(@click="toggleSubmenu", :title="user.data.brand")
-                .avatar {{singleWord}}
-                  //- img(v-bind:src="avatar")
-                .brand 您好
-                .chevron-down
-              .dropdown(v-if="submenu")
-                ul.submenu(@click="closeSubmenu")
-                  li
-                    nuxt-link(to="/member/profile", active-class="active") 店舖檔案
-                  li
-                    nuxt-link(to="/member", active-class="active") 通報奧客
-                  li
-                    nuxt-link#logout(to="/logout") 登出
+            nuxt-link(to="/member/profile", active-class="active") 店舖檔案
+          li
+            nuxt-link#logout(to="/logout") 登出
+            //- .user-menu
+            //-   a.invisible(@click="toggleSubmenu", :title="user.data.brand")
+            //-     .avatar {{singleWord}}
+            //-       //- img(v-bind:src="avatar")
+            //-     .brand 您好
+            //-     .chevron-down
+            //-   .dropdown(v-if="submenu")
+            //-     ul.submenu(@click="closeSubmenu")
+            //-       li
+            //-         nuxt-link(to="/member/profile", active-class="active") 店舖檔案
+            //-       li
+            //-         nuxt-link(to="/member", active-class="active") 通報奧客
+            //-       li
+            //-         nuxt-link#logout(to="/logout") 登出
     .column.text-right(v-else)
       nav#menu
+        a.menu-trigger(@click="toggleMenu", :class="{isOpen: menu}")
+          i.zmdi.zmdi-close(v-if="menu")
+          i.zmdi.zmdi-menu(v-else)
         ul.menu
           li
-            nuxt-link(to="/pool") 新聞
-          li
-            nuxt-link(to="/complain") 抱怨
+            nuxt-link(to="/news") 新聞
+          //- li
+          //-   nuxt-link(to="/complain") 抱怨
           li
             nuxt-link.primary(to="/signup") 申請加入
           li
@@ -43,7 +54,8 @@ export default {
   name: 'Header',
   data () {
     return {
-      submenu: false
+      submenu: false,
+      menu: false
     }
   },
   mounted () {
@@ -66,6 +78,12 @@ export default {
     }
   },
   methods: {
+    closeMenu () {
+      this.menu = false
+    },
+    toggleMenu () {
+      this.menu = !this.menu
+    },
     toggleSubmenu () {
       this.submenu = !this.submenu
     },
@@ -76,6 +94,7 @@ export default {
 }
 </script>
 <style lang="scss">
+@import "~breakpoint-sass";
 @import "~assets/css/var";
 // .navigation {
 //   display: flex;
@@ -184,44 +203,79 @@ export default {
 #menu {
   height: 100%;
   padding: 0 1em 0 0;
+  display: flex;
+  align-content: flex-end;
+  justify-content: flex-end;
+  position: relative;
+  .menu-trigger {
+    align-self: center;
+    color: $primary;
+    font-size: 1.7em;
+    @include breakpoint(768px) {
+      display: none;
+    }
+    &.isOpen {
+      & + ul.menu {
+        display: block;
+        @include breakpoint(768px) {
+          display: flex;
+        }
+      }
+    }
+  }
 }
 ul.menu {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-content: center;
-  justify-content: flex-end;
-  .user-menu {
-    display: flex;
-    align-items: center;
+  display: none;
+  position: absolute;
+  background-color: $white;
+  top: 100%;
+  right: 0;
+  box-shadow: 0 6px 12px -6px rgba($black, .13);
+  text-align: center;
+  z-index: 999;
+  &:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 9px 12px 9px;
+    border-color: transparent transparent $white transparent;
+    position: absolute;
+    top: -12px;
+    right: .7em;
   }
-  & > li {
-    display: flex;
-    height: 100%;
-    margin-right: 1em;
-    position: relative;
-    &:last-child {
-      margin-right: 0;
+  li {
+    display: block;
+    border-bottom: 1px solid $lightgray;
+    a {
+      display: block;
+      padding: .6em 2em;
+      color: $black;
+      &:hover, &.router-link-exact-active {
+         background-color: $primary;
+         color: $white;
+      }
     }
-    & > a {
-      color: $darkgray;
-      align-self: stretch;
-      text-decoration: none;
+  }
+  @include breakpoint(768px) {
+    display: flex;
+    position: static;
+    background-color: transparent;
+    li {
       display: flex;
-      padding: 0 1em;
-      align-items: center;
-      &:hover, &.nuxt-link-active {
-        color: $pureblack;
-        &:after {
-          content: '';
-          display: block;
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          height: 4px;
-          background-color: $secondary;
+      border-bottom: 0;
+      justify-content: center;
+      align-content: center;
+      a {
+        padding: 0 1em;
+        display: flex;
+        align-items: center;
+        border-bottom: 4px solid transparent;
+        &:hover, &.router-link-exact-active {
+          background-color: transparent;
+          color: $black;
+          border-bottom: 4px solid $secondary;
         }
       }
     }

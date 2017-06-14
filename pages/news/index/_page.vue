@@ -20,7 +20,7 @@ export default {
   },
   head () {
     return {
-      title: 'Pool'
+      title: '新聞'
     }
   },
   mounted () {

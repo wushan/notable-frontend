@@ -36,7 +36,12 @@ import axios from 'axios'
 export default {
   fetch ({ params, redirect }) {
     if (!params.page) {
-      redirect('/pool/1')
+      redirect('/news/1')
+    }
+  },
+  head () {
+    return {
+      title: '新聞'
     }
   },
   async asyncData ({ store, params }) {

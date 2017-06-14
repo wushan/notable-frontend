@@ -1,5 +1,5 @@
 <template lang="pug">
-article.news-post
+article.news-post(:class="{isDetail: available}")
   header
     h3
       a(:href="news.url", target="_blank")
@@ -109,6 +109,11 @@ export default {
 @import "~breakpoint-sass";
 @import '~assets/css/var';
 .news-post {
+  &.isDetail {
+    h3 {
+      font-size: 1.4em;
+    }
+  }
   .comment-form {
     margin-top: 1em;
   }
