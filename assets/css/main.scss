@@ -28,8 +28,79 @@ img {
 .page-enter, .page-leave-active {
   opacity: 0
 }
-
 @import './components';
 @import './plugins/classic.scss';
 @import './plugins/classic.date.scss';
 @import './iconic/material-design-iconic-font';
+
+// Press
+#press {
+  min-height: calc( 100vh - 391px);
+  padding: 2em 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#press-container {
+  width: 100%;
+  margin-bottom: 1em;
+  .title {
+    color: $pureblack;
+  }
+  .press-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    .press {
+      margin: .5em;
+      flex: 1;
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+        iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .title {
+        min-height: 3em;
+        a {
+          color: $pureblack;
+          text-decoration: none;
+        }
+        
+      }
+      .multimedia {
+        margin-bottom: .5em;
+        & > a {
+          display: block;
+          position: relative;
+          padding-bottom: 56.25%; /* 16:9 */
+          padding-top: 25px;
+          height: 0;
+          overflow: hidden;
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            max-width: inherit;
+          }
+        }
+      }
+      .source {
+        font-size: 12px;
+        a {
+          color: $link;
+        }
+      }
+    }
+  }
+}

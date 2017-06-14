@@ -27,60 +27,32 @@
           .recentlyReported
             span 近期舉報：
             nuxt-link.recentNumber(v-bind:to="'/number/' + num.number", v-for="num in recents", :key="num") {{num.number}}
-  section.clientlist-wrapper(v-if="clientList && clientList.length >= 4")
+  section.clientlist-wrapper
     .restrict.container
       h3.title.centered
         | 誰在使用 NOTABLE 平台
         span 目前共有 {{clientCount}} 間店加入本平台
       
-      ul.clientlist
+      ul.clientlist(v-if="clientList && clientList.length >= 4")
         li(v-for="client in clientList")
           a(v-if="client.fanpage", :href="client.fanpage", target="_blank") {{client.brand}}
           span(v-else) {{client.brand}}
-  section.service-intro(v-else)
-    .restrict.container
-      .hero-table
-        img(src="~assets/img/table.svg")
-      .intro-poem
-        p 
-          | 我是一位小老闆
-          br
-          | 我有一個小生意
-        p
-          | 平日馬馬又乎乎
-          br
-          | 只有假日還可以
-        p
-          | 有天你打來很豪氣
-          br
-          | 我有親友大小共二八
-          br
-          | 位子全部留給我
 
-        p
-          | 小老闆(他)很高興
-          br
-          | 假日臉色不再綠
-          br
-          | 人手趕緊添兩位
-          br
-          | 食材數量不能缺
-          br
-          | 桌子擦了一遍又一遍
-          br
-          | 就等大爺來消費
-
-        p
-          | 哪裡知道
-        p
-          | 最後你們沒出現
-          br
-          | 我讓你永遠訂沒位
-        p
-          | - Shit
-
-      .call-action.centered
-        nuxt-link.button.invert(to="/member") 奧客通報
+    #press-container
+      .container.restrict-large.centered
+        .columns.is-gapless.press-list
+          .column.is-4-tablet.press(v-for="article in press")
+            .frame
+              .multimedia(v-if="article.video")
+                .video-container
+                  iframe(width="560", height="315", v-bind:src="article.video" frameborder="0" allowfullscreen)
+              .multimedia(v-else)
+                a(v-bind:href="article.url", target="_blank")
+                  img(v-bind:src="article.image")
+              .title.text-left
+                a(v-bind:href="article.url", target="_blank") {{article.title}}
+              .source.text-right
+                a(v-bind:href="article.url", target="_blank") {{article.source}}
 </template>
 <script>
 import Api from '~assets/api/api'
@@ -101,7 +73,8 @@ export default {
       images: null,
       recents: [],
       clientList: null,
-      clientCount: 0
+      clientCount: 0,
+      press: null
     }
   },
   components: {
@@ -129,6 +102,13 @@ export default {
         } else {
           this.clientList = res.data.clients
           this.clientCount = res.data.counts
+        }
+      })
+      Api.getMediaReports((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.press = res.data
         }
       })
     }

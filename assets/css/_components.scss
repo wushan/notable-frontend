@@ -5,6 +5,11 @@
   padding: 1em;
 }
 // Restrictons
+.restrict-large {
+  max-width: 1170px;
+  margin: auto;
+}
+
 .restrict {
   max-width: 960px;
   margin: auto;

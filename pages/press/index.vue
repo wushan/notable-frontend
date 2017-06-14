@@ -1,11 +1,11 @@
 <template lang="pug">
   #press
     section#press-container
-      .container.restrict
-        .centered
-          h1.title 媒體報導
-          ul.press-list
-            li.article.frame(v-for="article in press")
+      .container.restrict-large.centered
+        h1.title 媒體報導
+        .columns.is-gapless.press-list
+          .column.is-4-tablet.press(v-for="article in press")
+            .frame
               .multimedia(v-if="article.video")
                 .video-container
                   iframe(width="560", height="315", v-bind:src="article.video" frameborder="0" allowfullscreen)
@@ -22,59 +22,6 @@
 <style lang="scss">
 @import "~breakpoint-sass";
 @import '~assets/css/var';
-#press {
-  min-height: calc( 100vh - 391px);
-  padding: 2em 0;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#press-container {
-  width: 100%;
-  .title {
-    color: $pureblack;
-  }
-  .press-list {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    list-style-type: none;
-    li {
-      margin: 1em;
-      flex: 1;
-      .video-container {
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 */
-        padding-top: 25px;
-        height: 0;
-        iframe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-      }
-      .title {
-        a {
-          color: $pureblack;
-          text-decoration: none;
-        }
-        
-      }
-      .multimedia {
-        margin-bottom: .5em;
-      }
-      .source {
-        font-size: 12px;
-        a {
-          color: $link;
-        }
-      }
-    }
-  }
-}
 </style>
 <script>
 import Api from '~assets/api/api'
