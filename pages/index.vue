@@ -204,7 +204,7 @@ export default {
     }
   }
   .hero-content {
-    margin-bottom: 10vh;
+    // margin-bottom: 10vh;
   }
   .title {
     @include breakpoint(768px) {

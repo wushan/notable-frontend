@@ -8,10 +8,10 @@ article.news-post(:class="{isDetail: available}")
         .title {{news.title}}
   footer(v-if="available")
     time {{fromNow}}
-    span(v-if="user")
-      a(@click="toggleCommentForm") 發表評論 ({{news.comments.length}})
-    span(v-else)
-      nuxt-link(to="/login") 請先登入
+    a(@click="toggleCommentForm", v-if="user") 發表評論 ({{news.comments.length}})
+    nuxt-link.icon-button(to="/login", v-else)
+      i.zmdi.zmdi-comment-alt-text
+      span 請先登入
   footer(v-else)
     time {{fromNow}}
     nuxt-link(:to="'/post/' + news.id", v-if="news.comments.length > 0") {{news.comments.length}} 則評論

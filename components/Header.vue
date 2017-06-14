@@ -11,29 +11,27 @@
           i.zmdi.zmdi-menu(v-else)
         ul.menu
           li
-            nuxt-link(to="/news") 新聞
-          //- li
-          //-   nuxt-link(to="/complain") 抱怨
+            nuxt-link(to="/news", active-class="active") 奧客新聞
+          li
+            nuxt-link(to="/complain", active-class="active") 抱怨一下
           li
             nuxt-link(to="/member", active-class="active") 通報奧客
-          li
-            nuxt-link(to="/member/profile", active-class="active") 店舖檔案
-          li
-            nuxt-link#logout(to="/logout") 登出
-            //- .user-menu
-            //-   a.invisible(@click="toggleSubmenu", :title="user.data.brand")
-            //-     .avatar {{singleWord}}
-            //-       //- img(v-bind:src="avatar")
-            //-     .brand 您好
-            //-     .chevron-down
-            //-   .dropdown(v-if="submenu")
-            //-     ul.submenu(@click="closeSubmenu")
-            //-       li
-            //-         nuxt-link(to="/member/profile", active-class="active") 店舖檔案
-            //-       li
-            //-         nuxt-link(to="/member", active-class="active") 通報奧客
-            //-       li
-            //-         nuxt-link#logout(to="/logout") 登出
+          //- li
+          //-   nuxt-link(to="/member/profile", active-class="active") 店舖檔案
+          //- li
+          //-   nuxt-link#logout(to="/logout") 登出
+        .user-menu(v-click-outside="closeSubmenu")
+          a.invisible(@click="toggleSubmenu", :title="user.data.brand")
+            .avatar {{singleWord}}
+              //- img(v-bind:src="avatar")
+            .brand 您好
+            .chevron-down
+          .dropdown(v-if="submenu")
+            ul.submenu(@click="closeSubmenu")
+              li
+                nuxt-link(to="/member/profile", active-class="active") 店舖檔案
+              li
+                nuxt-link#logout(to="/logout") 帳號登出
     .column.text-right(v-else)
       nav#menu
         a.menu-trigger(@click="toggleMenu", :class="{isOpen: menu}")
@@ -41,13 +39,13 @@
           i.zmdi.zmdi-menu(v-else)
         ul.menu
           li
-            nuxt-link(to="/news") 新聞
-          //- li
-          //-   nuxt-link(to="/complain") 抱怨
+            nuxt-link(to="/news", active-class="active") 奧客新聞
           li
-            nuxt-link.primary(to="/signup") 申請加入
+            nuxt-link(to="/complain", active-class="active") 抱怨一下
           li
-            nuxt-link(to="/login") 登入
+            nuxt-link.primary(to="/signup", active-class="active") 申請加入
+          li
+            nuxt-link(to="/login", active-class="active") 登入
 </template>
 <script>
 export default {
@@ -130,13 +128,21 @@ export default {
 // }
 #navigation {
   color: $black;
-  border-bottom: 1px solid $lightgray;
+  // border-bottom: 1px solid $lightgray;
+  box-shadow: 0 6px 12px -6px rgba($black, .13);
+  background-color: $white;
   .logo {
     padding: .5em 0;
     margin: 0 0 0 .5em;
   }
   .user-menu {
     position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 100px;
+    @include breakpoint(768px) {
+      margin-left: 1em;
+    }
   }
   .dropdown {
     z-index: 2;
@@ -204,13 +210,19 @@ export default {
   height: 100%;
   padding: 0 1em 0 0;
   display: flex;
-  align-content: flex-end;
-  justify-content: flex-end;
+  flex-direction: row-reverse;
   position: relative;
+  @include breakpoint(768px) {
+    flex-direction: row;
+    align-content: flex-end;
+    justify-content: flex-end;
+  }
   .menu-trigger {
     align-self: center;
     color: $primary;
     font-size: 1.7em;
+    display: block;
+    padding: 0 .5em;
     @include breakpoint(768px) {
       display: none;
     }
@@ -229,8 +241,8 @@ ul.menu {
   position: absolute;
   background-color: $white;
   top: 100%;
-  right: 0;
-  box-shadow: 0 6px 12px -6px rgba($black, .13);
+  right: .5em;
+  box-shadow: 0 0px 12px 0px rgba($black, .33);
   text-align: center;
   z-index: 999;
   &:before {
@@ -243,7 +255,7 @@ ul.menu {
     border-color: transparent transparent $white transparent;
     position: absolute;
     top: -12px;
-    right: .7em;
+    right: .3em;
   }
   li {
     display: block;
@@ -252,7 +264,8 @@ ul.menu {
       display: block;
       padding: .6em 2em;
       color: $black;
-      &:hover, &.router-link-exact-active {
+      transition: .3s all ease;
+      &:hover, &.active, &.router-link-exact-active {
          background-color: $primary;
          color: $white;
       }
@@ -262,6 +275,7 @@ ul.menu {
     display: flex;
     position: static;
     background-color: transparent;
+    box-shadow: none;
     li {
       display: flex;
       border-bottom: 0;
@@ -272,10 +286,10 @@ ul.menu {
         display: flex;
         align-items: center;
         border-bottom: 4px solid transparent;
-        &:hover, &.router-link-exact-active {
+        &:hover, &.active, &.router-link-exact-active {
           background-color: transparent;
           color: $black;
-          border-bottom: 4px solid $secondary;
+          border-bottom: 4px solid $primary;
         }
       }
     }
