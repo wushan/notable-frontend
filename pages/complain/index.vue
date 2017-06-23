@@ -2,11 +2,13 @@
   #complain
     section#complain-container
       .container.restrict
+        
         p {{complains}}
 </template>
 
 <script>
 import axios from 'axios'
+import newsItem from '~components/newsItem'
 export default {
   fetch ({ params, redirect }) {
     // if (!params.page) {
@@ -21,6 +23,9 @@ export default {
   async asyncData ({ store, params }) {
     let {data} = await axios.get(store.state.baseurl + 'complains?filter[include]=author&access_token=DJ0oAonHX4IzJsf8ElhyaKC6lAWGRUBN7s9h2szfuH1EIJ9QFGPE47XiY34JeKqc')
     return { complains: data }
+  },
+  components: {
+    newsItem
   },
   data () {
     return {

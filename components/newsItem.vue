@@ -1,5 +1,5 @@
 <template lang="pug">
-article.news-post(:class="{isDetail: available}")
+article.news-post(:class="{isDetail: available}", @click="goPost('/post/' + news.id)")
   header
     h3
       a(:href="news.url", target="_blank")
@@ -40,6 +40,11 @@ export default {
     }
   },
   methods: {
+    goPost (url) {
+      if (!this.available) {
+        this.$router.push(url)
+      }
+    },
     submitComment () {
       axios.post(this.$store.state.baseurl + 'news/' + this.$route.params.id + '/comments', {
         parent_id: '',
@@ -109,6 +114,15 @@ export default {
 @import "~breakpoint-sass";
 @import '~assets/css/var';
 .news-post {
+  transition: .3s all ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  &:hover {
+    // box-shadow: 0 0 12px rgba($black, .33);
+    border: 1px solid $lightgray;
+    background-color: $smokygray;
+    // z-index: 99;
+  }
   &.isDetail {
     h3 {
       font-size: 1.4em;
@@ -118,6 +132,8 @@ export default {
     margin-top: 1em;
   }
   h3 {
+    display: inline-block;
+    vertical-align: middle;
     a {
       color: $pureblack;
       display: flex;
