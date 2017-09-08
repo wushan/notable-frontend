@@ -12,8 +12,8 @@
         ul.menu
           li
             nuxt-link(to="/news", active-class="active") 奧客新聞
-          li
-            nuxt-link(to="/complain", active-class="active") 抱怨一下
+          //- li
+          //-   nuxt-link(to="/complain", active-class="active") 抱怨一下
           li
             nuxt-link(to="/member", active-class="active") 通報奧客
           //- li
