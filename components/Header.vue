@@ -40,8 +40,8 @@
         ul.menu
           li
             nuxt-link(to="/news", active-class="active") 奧客新聞
-          li
-            nuxt-link(to="/complain", active-class="active") 抱怨一下
+          //- li
+          //-   nuxt-link(to="/complain", active-class="active") 抱怨一下
           li
             nuxt-link.primary(to="/signup", active-class="active") 申請加入
           li
