@@ -8,7 +8,7 @@ const store = new Vuex.Store({
     notify: null,
     count: 0,
     // baseurl: 'https://notable-api.wushan.io/'
-    baseurl: 'https://api.notable.wushan.io/'
+    baseurl: 'http://api.notable.wushan.io/'
   },
   mutations: {
     SET_USER: function (state, user) {
