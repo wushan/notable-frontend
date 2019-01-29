@@ -1,0 +1,9 @@
+apps:
+  - script   : './server/index.js'
+    name     : 'notable-web'
+    exec_mode: 'fork'
+    instances: 1
+    env:
+      NODE_ENV: development
+    env_production:
+      NODE_ENV: production
